@@ -1,11 +1,17 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
 body {
-  background: #fff3e0;
+
+  background: #ffe0b2;
   font-family: 'Roboto';
 }
 nav {
   height: 75px;
+}
+table{
+  font-family: 'Roboto';
+  color: #424242;
+  background: #fff3e0;
 }
 
   /*
