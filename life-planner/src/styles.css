@@ -1,10 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
 body {
-  background:#fff3e0;
+  background: #fff3e0;
+  font-family: 'Roboto';
+}
+nav {
+  height: 75px;
+}
+
+  /*
   padding: 3em;
-  /*font-family: 'Raleway', 'Arial';*/
-  color:#ff8a65;
+  font-family: 'Roboto';
+  color:#ff7043;
+  font-size: 1.5em;
 }
 
 ul {
@@ -23,3 +31,4 @@ a {
   color:#fff;
   text-decoration:none;
 }
+*/
