@@ -9,14 +9,14 @@ import * as $ from 'jquery';
 export class AppComponent implements OnInit {
 
   title = 'Q2';
-
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
     // Initialize collapse button
     (<any>$('.button-collapse')).sideNav({
-      menuWidth: 300, // Default is 300
-      closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+        menuWidth: 300, // Default is 300
+        closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
     });
     // Initialize collapsible (uncomment the line below if you use the dropdown variation)
     // $('.collapsible').collapsible();
