@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectsComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+
+  }
 
   ngOnInit() {
   }
@@ -15,16 +17,17 @@ export class ProjectsComponent implements OnInit {
   newProject() {
     console.log('hello clarice');
     const projList = document.getElementById('project_list');
-    const projName = (<HTMLInputElement>document.getElementById('project_new_name')).value;
+    var projName = (<HTMLInputElement>document.getElementById('project_new_name'));
     const projNewCard = '<div class=\"col s12 m6 l4\">\n' +
                         '    <div class=\"card blue darken-1\">\n' +
                         '      <div class=\"card-content white-text\">\n' +
-                        '        <span class=\"card-title\">' + projName + '</span>\n' +
+                        '        <span class=\"card-title\">' + projName.value + '</span>\n' +
                         '      </div>\n' +
                         '    </div>\n' +
                         ' </div>';
-    const projCardNode = document.createTextNode(projNewCard);
-    projList.appendChild(projCardNode);
+    projList.innerHTML = projList.innerHTML + projNewCard;
+    projName.innerText = "";
+    return false;
   }
 
 }
