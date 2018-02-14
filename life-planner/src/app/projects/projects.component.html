@@ -5,14 +5,11 @@
   </a>
 </div>
 
-<div id="project_list" class="container row">
-</div>
-
 <!-- Modal Structure -->
 <div id="project_create_modal" class="modal">
   <div class="modal-content">
     <h4>Create new project</h4>
-    <form class="grey lighten-4" onsubmit="return newProject()">
+    <form class="grey lighten-4" onsubmit="return newProjectFromForm()">
       <div class="row"></div>
       <div class="input-field ">
         <input type="text" id="project_new_name">
@@ -22,6 +19,42 @@
   </div>
   <div class="modal-footer">
     <button class="modal-action modal-close waves-effect btn-flat">Cancel</button>
-    <button (click)="newProject()" class="modal-action modal-close waves-effect btn orange darken-2" >Submit</button>
+    <button (click)="newProjectFromForm()" class="modal-action modal-close waves-effect btn orange darken-2" >Submit</button>
   </div>
+</div>
+
+<!-- Project List -->
+<div id="project_list" class="container row">
+
+  <!-- Mock data -->
+  <div class="col s12 m6 l4">
+      <div class="card blue darken-1">
+        <div class="card-content white-text">
+          <span class="card-title">Test Project 1</span>
+        </div>
+      </div>
+  </div>
+  <div class="col s12 m6 l4">
+    <div class="card blue darken-1">
+      <div class="card-content white-text">
+        <span class="card-title">Test Project 2</span>
+      </div>
+    </div>
+  </div>
+  <div class="col s12 m6 l4">
+    <div class="card blue darken-1">
+      <div class="card-content white-text">
+        <span class="card-title">Test Project 3</span>
+      </div>
+    </div>
+  </div>
+  <div class="col s12 m6 l4">
+    <div class="card blue darken-1">
+      <div class="card-content white-text">
+        <span class="card-title">Test Project 4</span>
+      </div>
+    </div>
+  </div>
+  <!-- End of Mock Data -->
+
 </div>
