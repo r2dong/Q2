@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { JsonConvert } from "json2typescript";
+import { Project } from "../jsonTemplates/project";
 
 @Component({
   selector: 'app-projects',
@@ -6,36 +8,39 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./projects.component.css']
 })
 export class ProjectsComponent implements OnInit {
+  title = "Q2:Projects";
+  projs: Project[];
+  projName: String;
+  projDescription: String;
 
   constructor() {
-
   }
 
   ngOnInit() {
+    this.projs = this.projectsFromDatabase();
   }
 
-  static projectsFromDatabase(){
-    ProjectsComponent.newProjectCard("From Database");
+  projectsFromDatabase(){
+    let tempJson: object = [
+        {
+          "name":"Test One",
+          "description":"This is the description for test one!"
+        },
+        {
+          "name":"Test Two",
+          "description":"This is the description for test two!"
+        }
+      ];
+    let jconvert: JsonConvert = new JsonConvert();
+    return jconvert.deserialize(tempJson,Project);
+
   }
 
-  static newProjectFromForm(){
-    const projName = (<HTMLInputElement>document.getElementById('project_new_name')).value;
-    const form = (<HTMLFormElement>document.getElementById('project_create_form'));
-    ProjectsComponent.newProjectCard(projName);
-    form.reset();
-    return false;
-  }
-
-  static newProjectCard(projName) {
-    const projList = document.getElementById('project_list');
-    const projNewCard = '<div class=\"col s12 m6 l4\">\n' +
-                        '    <div class=\"card blue darken-1\">\n' +
-                        '      <div class=\"card-content white-text\">\n' +
-                        '        <span class=\"card-title\">' + projName + '</span>\n' +
-                        '      </div>\n' +
-                        '    </div>\n' +
-                        ' </div>';
-    projList.innerHTML = projList.innerHTML + projNewCard;
+  // Would need to connect to db to store info in db instead.
+  createProject(name: String, description: String){
+    let jconvert: JsonConvert = new JsonConvert();
+    this.projs[this.projs.length] = jconvert.deserialize({"name":name,"description":description},Project);
+    // Save to database too
   }
 
 }

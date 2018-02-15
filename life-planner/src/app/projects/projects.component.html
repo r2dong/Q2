@@ -9,52 +9,34 @@
 <div id="project_create_modal" class="modal">
   <div class="modal-content">
     <h4>Create new project</h4>
-    <form class="grey lighten-4" onsubmit="return newProjectFromForm()">
+    <form id="project_create_form" class="grey lighten-4" onsubmit="createProject(projName,projRole);return false">
       <div class="row"></div>
       <div class="input-field ">
-        <input type="text" id="project_new_name">
+        <input type="text" id="project_new_name" name="project_new_name" [(ngModel)]="projName">
         <label for="project_new_name">Project Name</label>
+      </div>
+      <div class="input-field ">
+        <input type="text" id="project_new_role" name="project_new_role" [(ngModel)]="projDescription">
+        <label for="project_new_role">Project Description</label>
       </div>
     </form>
   </div>
   <div class="modal-footer">
     <button class="modal-action modal-close waves-effect btn-flat">Cancel</button>
-    <button (click)="newProjectFromForm()" class="modal-action modal-close waves-effect btn orange darken-2" >Submit</button>
+    <button (click)="createProject(projName,projDescription)" class="modal-action modal-close waves-effect btn orange darken-2" >Submit</button>
   </div>
 </div>
 
 <!-- Project List -->
-<div id="project_list" class="container row">
-
-  <!-- Mock data -->
-  <div class="col s12 m6 l4">
-      <div class="card blue darken-1">
-        <div class="card-content white-text">
-          <span class="card-title">Test Project 1</span>
-        </div>
-      </div>
-  </div>
-  <div class="col s12 m6 l4">
-    <div class="card blue darken-1">
-      <div class="card-content white-text">
-        <span class="card-title">Test Project 2</span>
-      </div>
-    </div>
-  </div>
-  <div class="col s12 m6 l4">
-    <div class="card blue darken-1">
-      <div class="card-content white-text">
-        <span class="card-title">Test Project 3</span>
-      </div>
-    </div>
-  </div>
-  <div class="col s12 m6 l4">
-    <div class="card blue darken-1">
-      <div class="card-content white-text">
-        <span class="card-title">Test Project 4</span>
-      </div>
-    </div>
-  </div>
-  <!-- End of Mock Data -->
+<div class="container row">
+  <h4>Projects</h4>
+  <hr>
+  <br>
+  <ul id="project_list"  class="collapsible" data-collapsible="expandable">
+    <li *ngFor="let proj of projs">
+      <div class="collapsible-header "><i class="material-icons">whatshot</i>{{proj.name}}</div>
+      <div class="collapsible-body grey lighten-4"><span>{{proj.description}}</span></div>
+    </li>
+  </ul>
 
 </div>
