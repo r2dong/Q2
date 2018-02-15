@@ -42,5 +42,4 @@ export class ProjectsComponent implements OnInit {
     this.projs[this.projs.length] = jconvert.deserialize({"name":name,"description":description},Project);
     // Save to database too
   }
-
 }
