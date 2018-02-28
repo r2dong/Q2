@@ -1,6 +1,8 @@
 {
   main:{
     branches: master,
+    email: q2onfire@gmail.com
+    pass: SepGroup3
     firebase: {
         apiKey: 'AIzaSyDCIIxl4l5BHfetfPzT4C9ThnlIGIkqY6k',
         authDomain: 'q2-test-7a344.firebaseapp.com',
@@ -13,6 +15,8 @@
 
   "johnny":{
     branches:
+    email:
+    pass:
     firebase: {
 
     }
