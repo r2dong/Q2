@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 
 // Authentication Module
 import { CoreModule } from './core/core.module';
+import { LoginComponent } from './login/login.component';
+
 
 // Firebase imports
 import { environment } from '../environments/environment';
@@ -16,15 +18,12 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireStorageModule } from 'angularfire2/storage';
-import { UserProfileComponent } from './user-profile/user-profile.component';
-import { ProjectsComponent } from './projects/projects.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserProfileComponent,
-    ProjectsComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,

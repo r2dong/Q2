@@ -1,16 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {UserProfileComponent} from './user-profile/user-profile.component';
-import {ProjectsComponent} from './projects/projects.component';
+import {LoginComponent} from "./login/login.component";
 
 const routes: Routes = [
   {
-    path: 'user-profile',
-    component: UserProfileComponent
-  },
-  {
-    path: 'projects',
-    component: ProjectsComponent
+    path: 'login',
+    component: LoginComponent
   }
 ];
 
