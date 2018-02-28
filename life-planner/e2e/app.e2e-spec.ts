@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('life-planner App', () => {
+describe('q2-on-firestore App', () => {
   let page: AppPage;
 
   beforeEach(() => {

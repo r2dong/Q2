@@ -1,0 +1,131 @@
+Design Choices
+  1. Firebase
+    Advantages
+      1. Cloud server which is easily integrated
+      2. Authentication provide (bcrypt too!)
+      3. Online GUI for everyone to access
+      4. No setting up a local database req to start
+      5. Can use both Firedatabase and Firestore in addition to Firestorage
+    Disadvantages
+      1. Everyone shares same database which could lead to dev issues
+          a. Can either set up mock or make own account with same params
+              i. use own account in personal branch
+              ii. use main account for master
+      2. Free account has a limit to free operations ( won't reach it though )
+      3. When someone messes with account security on page, it affects Everyone
+      4. NoSQL model
+          a. Schema-less, which some of us are not well versed in
+          b. Need to be conscious of updating multiple paths
+          c. No inherent join tables
+  2. Firestore over Firedatabase
+    Advantages
+      1. Better querying
+      2. Better model/layout
+          a. When querying database it will not return contents of children
+          b. Because children's content not returned, allows  structured flow
+          c. Better scaling
+          d. model
+              i.    Data is attributes
+              ii.   Documents have Data
+                        1. Can also have Collections
+              iii.  Collections hold Documents
+          e. has a nice "then,catch" system for success,fail routes
+    Disadvantages
+      1. Firestore is in BETA
+          a. Documentation may not be the best, though its pretty good
+          b. Finding resources tends to lead to Firedatabase. Be aware.
+      2. Due to the model/layout it doesn't work as straight JSON like
+          Firedatabase does
+      3. Must delete inner collections prior to deleting document
+          a. Really only a case for Projects and maybe schedule?
+      4. Data manipulation requires workaround for obtaining arrays and such
+          because of the model/layout
+    Other Notes
+      1. Can implement Firedatabase WITH Firestore
+      2. Firedatabase acts more like straight JSON - which is meh
+      3. All ID's are hashed strings - which is interesting.
+      4. Can set up multiple different authentication routes including
+          a. Google
+          b. Facebook
+          c. Twitter
+          d. Github
+          e. normal email and more
+      5. Has a built in way of sending verification emails/texts
+
+
+We really need to discus the schema going down this route so that we are all
+on the same page. Otherwise can lead to some writing issues.
+
+FireStore Basics:
+
+0. Authentication
+
+    For now implement the following. Some security rules need to be hashed out
+    to take advantage of the AuthService AuthGuard feature I've set up. Which
+    basically will disable users from accessing pages until logged in and can
+    be just tagged onto the route info in the app-routing.module.ts file.
+
+    if(AuthService.isLoggedIn()){ } else {}
+
+1. Reading: Reference paths vs Observables:
+
+Reference paths are just the route to get there and is comprised of Collections
+and Documents. It does not return any information. It is JUST the path.
+
+ex) private projectRef =
+    db.collections('users').doc('USERID').collection('projects');
+ex) private specificProjectName = projectRef.doc('PROJECTID/name');
+
+Observables connect to the database using the reference path. It is what obtains
+the information to display.
+
+ex) projects: Observable<Project[]> =
+    this.projectRef.valueChanges();
+
+Can then reference the Observable in the html and with ngFor its a breeze.
+
+<ul>
+  <li *ngFor="let proj of (projects | async)">
+      {{ proj.name }}
+  </li>
+</ul>
+
+2. Adding to collections/documents:
+
+Can add by just calling .add( { object } ) on collection reference. Since ID's
+are created separately, theres two options. Create an ID first, which is like
+db.createID() or something. OR do what i did below which takes advantage of the
+.then and .catch with an update. Below example shows adding to both.
+
+ex)
+    this.projectRef.add({'name': billy })
+      .then( ref => this.projectRef.doc(ref.id).update({'pid': ref.id }) )
+      .catch( error => console.log(error));
+
+3. Updating Documents:
+
+Updating is quite simple. You just saw it happen above! Since updating will
+usually only happen on documents you just have to invoke the .update call and
+now that you have set the project id. its wise to attach the id to the button
+to start the update process.
+
+ex) <button (click)="updateProject(specificPID, 'johnny')">Update Name</button>
+
+    updateProject(pid: string, name: string){
+      this.projectRef.doc(pid).update( { 'name': name } )
+        .then( ref => console.log('Yay!')) // prob better to do a toast here.
+        .catch( error => console.log('Sorry!'));
+    }
+
+4. Deleting Documents:
+
+Deleting documents is easy. Deleting documents with subcollections, not so much.
+It's doable but its not as inherently easy as you'd hope. Luckily, I think only
+Projects and maybe the schedule builder will utilize this IF that. For all Other
+applications deleting is a breeze.
+
+ex) Using same principle as above with a button and PID attached.
+
+    this.projectRef.doc(pid).delete()
+      .then( function() { console.log('item deleted') })
+      .catch( function() { console.log('item not deleted') });

@@ -1,3 +1,7 @@
+<p>
+  projects works!
+</p>
+
 
 <div class="fixed-action-btn modal-trigger" data-target="project_create_modal">
   <a class="btn-floating btn-large red waves-effect">
@@ -23,7 +27,7 @@
   </div>
   <div class="modal-footer">
     <button class="modal-action modal-close waves-effect btn-flat">Cancel</button>
-    <button (click)="createProject(projName,projDescription)" class="modal-action modal-close waves-effect btn orange darken-2" >Submit</button>
+    <button (click)="createProjectDocument(projName,projDescription)" class="modal-action modal-close waves-effect btn orange darken-2" >Submit</button>
   </div>
 </div>
 
@@ -32,10 +36,12 @@
   <h4>Projects</h4>
   <hr>
   <br>
+
   <ul id="project_list"  class="collapsible" data-collapsible="expandable">
-    <li *ngFor="let proj of projs">
-      <div class="collapsible-header "><i class="material-icons">whatshot</i>{{proj.name}}</div>
-      <div class="collapsible-body grey lighten-4"><span>{{proj.description}}</span></div>
+    <li *ngFor="let proj of ( projects | async )" class="blue">
+      {{ proj.name }}, {{ proj.description }}
+      <button (click)="deleteProjectDocument(proj.pid)">Delete me</button>
+      <button (click)="updateProject(proj.pid,'new name','new description')">Update me</button>
     </li>
   </ul>
 
