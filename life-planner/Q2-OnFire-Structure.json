@@ -1,0 +1,60 @@
+{
+    "users":[
+        {
+            "uid":"string from firebase",
+            "name":"string",
+            "email":"string",
+            "roles":[{
+                "rid":"string from firebase",
+                "name":"string",
+                "color":"string"
+            }],
+            "tasks":[{
+                "tid":"string from firebase",
+                "rid":"string from roles",
+                "name":"string",
+                "urgent":"boolean",
+                "important":"boolean",
+                "due-datetime":"yyyy-mm-dd hh:mm",
+                "status":"boolean",
+                "weight":"easy, medium, hard, super hard",
+                "tag-ids":[{"tgid":"string from tags"}]
+            }],
+            "events":[{
+                "eid":"string from firebase",
+                "rid":"string from roles",
+                "name":"string",
+                "important":"boolean",
+                "sdatetime":"yyyy-mm-dd hh:mm",
+                "edatetime":"yyyy-mm-dd hh:mm",
+                "status": "boolean",
+                "tag-ids":[{"tgid":"string from tags"}]
+            }],
+            "projects":[{
+                "pid":"string from firebase",
+                "rid":"string from roles",
+                "name":"string",
+                "description":"string",
+                "due-datetime":"yyyy-mm-dd hh:mm",
+                "task-ids":[{"tid":"string from tasks"}],
+                "event-ids":[{"eid":"string from events"}],
+                "tags-ids":[{"tgid":"string from tags"}]
+            }],
+            "goals":[{
+                "gid":"string from firebase",
+                "rid":"string from roles",
+                "name":"string",
+                "end-date":"yyyy-mm-dd",
+                "tags-ids":[{"tgid":"string from tags"}]
+            }],
+            "tags":[{
+                "tgid":"string from firebase",
+                "name":"string",
+                "tasks-with-tag":[{"tid":"string from tasks"}],
+                "events-with-tag":[{"eid":"string from events"}],
+                "projects-with-tag":[{"pid":"string from projects"}],
+                "goals-with-tag":[{"gid":"string from goals"}]
+            }]
+        }
+    ]
+}
