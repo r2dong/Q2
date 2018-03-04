@@ -7,18 +7,12 @@ import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firesto
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
-
-interface User {
-  uid: string;
-  email: string;
-  photoURL?: string;
-  displayName?: string;
-  favoriteColor?: string;
-}
+import { User } from './user.model';
 
 @Injectable()
 export class AuthService {
   user: Observable<User>;
+  private isAuthenticated = false;
 
   static isLoggedIn() {
     return AuthService.currentUserId() != null;
@@ -37,9 +31,11 @@ export class AuthService {
       .switchMap(user => {
         if (user) {
           sessionStorage.setItem('userID', user.uid);
+          this.isAuthenticated = true;
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
           sessionStorage.setItem('userID', null);
+          this.isAuthenticated = false;
           return Observable.of(null);
         }
       });
@@ -74,6 +70,9 @@ export class AuthService {
 
   }
 
+  isAuth() {
+    return this.isAuthenticated;
+  }
   signOut() {
     this.afAuth.auth.signOut().then(() => {
       sessionStorage.setItem('userID', null);
