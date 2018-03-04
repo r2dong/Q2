@@ -10,10 +10,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 
 // Modules
-import { MaterialModule } from './material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
-import { TasksService } from './tasks/tasks.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -40,10 +38,9 @@ import { TasksComponent } from './tasks/tasks.component';
     AngularFireAuthModule,
     AngularFireStorageModule,
     FormsModule,
-    CoreModule,
-    MaterialModule
+    CoreModule
   ],
-  providers: [TasksService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

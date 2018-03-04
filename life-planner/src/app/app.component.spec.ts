@@ -9,13 +9,10 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { environment } from '../environments/environment';
-import { MatTableModule, MatInputModule, MatButtonModule, MatSortModule, MatSort, MatSelectModule} from '@angular/material';
 
-import { TasksService } from './tasks/tasks.service';
 
 
 // Modules
-import { MaterialModule } from './material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 
@@ -45,20 +42,12 @@ describe('AppComponent', () => {
         AngularFirestoreModule,
         AngularFireAuthModule,
         AngularFireStorageModule,
-        MatButtonModule,
-        MatTableModule,
-        MatInputModule,
         FormsModule,
-        MatSortModule,
-        MatSelectModule,
         ReactiveFormsModule,
         CoreModule,
-        MaterialModule,
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue : '/' },
-        TasksService,
-        MatSort,
         AngularFirestoreModule
       ]
     }).compileComponents();

@@ -1,40 +1,98 @@
-<div class="fixed-action-btn modal-trigger" data-target="task_create_modal">
-  <a class="btn-floating btn-large red waves-effect">
-    <i class="large material-icons">add</i>
-  </a>
+<!-- Task List -->
+<div class="container row">
+  <div class="col s12 m6 l4">
+    <h4>Tasks</h4>
+    <hr>
+    <br>
+    <ul id="task_list"  class="collapsible" data-collapsible="accordion">
+      <li *ngFor="let task of (tasks | async)">
+        <div (click)="currentTask=task" class="collapsible-header"><span>{{ task.name }}</span></div>
+        <div class="collapsible-body hide-on-med-and-up">
+          <div class="input-field ">
+            <input type="text" id="task_update_name_s" [(ngModel)]="task.name" disabled class="black-text">
+            <label for="task_update_name_s"></label>
+          </div>
+          <div class="input-field ">
+            <input type="text" id="task_update_duedate_s" [(ngModel)]="task.dueDateTime" disabled class="black-text">
+          </div>
+          <div class="center">
+            <button (click)="toggleTaskUpdate(false)" class="waves-effect btn blue darken-2" style="width:100%">Edit</button>
+            <hr>
+            <button (click)="updateTask(task.tid, task.name, task.rid, task.dueDateTime);toggleTaskUpdate(true)"
+                    class="waves-effect btn orange darken-2" style="width:100%">Update</button>
+            <hr>
+            <button (click)="deleteTask(task.tid)" class="waves-effect btn red waves-effect " style="width:100%">Delete</button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="col m6 l8 hide-on-small-only">
+    <div *ngIf="currentTask">
+      <ng-container *ngIf="currentTask; then taskExists"></ng-container>
+      <div class="left">
+        <button (click)="toggleTaskUpdate(false)" class="waves-effect btn blue darken-2 left">Edit</button>
+        <button (click)="updateTask(currentTask.tid, currentTask.name, currentTask.rid,
+                         currentTask.dueDateTime); toggleTaskUpdate(true);"
+                class="waves-effect btn orange darken-2 center">Update</button>
+      </div>
+      <div class="right">
+        <button (click)="deleteTask(currentTask.tid); currentTask=null" class="waves-effect btn red right waves-effect">Delete</button>
+      </div>
+    </div>
+  </div>
 </div>
+
+<ng-template #taskExists>
+  <div *ngIf="currentTask">
+    <h4>{{currentTask.name}}</h4>
+    <table>
+      <tbody>
+      <tr>
+        <td>Name:</td>
+        <td>
+          <div class="input-field ">
+            <input type="text" id="task_update_name" [(ngModel)]="currentTask.name" disabled class="black-text">
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>Due Date</td>
+        <td>
+          <div class="input-field ">
+            <input type="text" id="task_update_duedate" [(ngModel)]="currentTask.dueDateTime" disabled class="black-text">
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-template>
 
 <!-- Modal Structure -->
 <div id="task_create_modal" class="modal">
   <div class="modal-content">
     <h4>Create new task</h4>
-    <form id="task_create_form" class="grey lighten-4" onsubmit="createTask(tskName,tskDescription);return false">
+    <form id="task_create_form" class="grey lighten-4" onsubmit="return false">
       <div class="row"></div>
       <div class="input-field ">
-        <input type="text" id="task_new_name" name="task_new_name" [(ngModel)]="name">
-        <label for="task_new_name">Task Name</label>
+        <input type="text" id="task_new_name" name="task_new_name" [(ngModel)]="taskName">
+        <label for="task_new_name">Name</label>
       </div>
-
+      <div class="input-field ">
+        <input type="text" id="task_new_dueDatetime" name="task_new_dueDatetime" [(ngModel)]="taskDueDatetime">
+        <label for="task_new_dueDatetime">Due DateTime (optional)</label>
+      </div>
     </form>
   </div>
   <div class="modal-footer">
     <button class="modal-action modal-close waves-effect btn-flat">Cancel</button>
-    <button (click)="createTaskDocument(tskName)" class="modal-action modal-close waves-effect btn orange darken-2" >Submit</button>
+    <button (click)="createTask(taskName,'None', taskDueDatetime)" class="modal-action modal-close waves-effect btn orange darken-2" >Submit</button>
   </div>
 </div>
 
-<!-- Task List -->
-<div class="container row">
-  <h4>Tasks</h4>
-  <hr>
-  <br>
-
-  <ul id="task_list"  class="collapsible" data-collapsible="expandable">
-    <li *ngFor="let tsk of ( tasks )" class="blue">
-      {{ tsk.name }}
-      <button (click)="deleteTaskDocument(tsk.tid)">Delete me</button>
-      <button (click)="updateTask(tsk.tid,'new name','new description')">Update me</button>
-    </li>
-  </ul>
-
+<div class="fixed-action-btn modal-trigger" data-target="task_create_modal">
+  <a class="btn-floating btn-large red waves-effect">
+    <i class="large material-icons">add</i>
+  </a>
 </div>

@@ -5,11 +5,11 @@
 
 export interface TaskModel {
   tid?: string;
-//  rid?: Role.id;
+  rid?: string; //Role.id;
   name: string;
 //  urgent: boolean;
 //  important: boolean;
-//  dueDateTime?: Date;
+  dueDateTime?: string; //Date;
 //  isComplete: boolean;
 //  weight: TaskWeight;
 //  tagIDs?: string[];
