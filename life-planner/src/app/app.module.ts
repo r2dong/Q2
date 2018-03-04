@@ -13,12 +13,14 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import { MaterialModule } from './material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
+import { TasksService } from './tasks/tasks.service';
 
 // Components
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { TasksComponent } from './tasks/tasks.component';
 
 
 
@@ -27,7 +29,8 @@ import { WelcomeComponent } from './welcome/welcome.component';
     AppComponent,
     LoginComponent,
     HomeComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    TasksComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
     CoreModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [TasksService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

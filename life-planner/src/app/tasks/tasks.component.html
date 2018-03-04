@@ -1,0 +1,40 @@
+<div class="fixed-action-btn modal-trigger" data-target="task_create_modal">
+  <a class="btn-floating btn-large red waves-effect">
+    <i class="large material-icons">add</i>
+  </a>
+</div>
+
+<!-- Modal Structure -->
+<div id="task_create_modal" class="modal">
+  <div class="modal-content">
+    <h4>Create new task</h4>
+    <form id="task_create_form" class="grey lighten-4" onsubmit="createTask(tskName,tskDescription);return false">
+      <div class="row"></div>
+      <div class="input-field ">
+        <input type="text" id="task_new_name" name="task_new_name" [(ngModel)]="name">
+        <label for="task_new_name">Task Name</label>
+      </div>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="modal-action modal-close waves-effect btn-flat">Cancel</button>
+    <button (click)="createTaskDocument(tskName)" class="modal-action modal-close waves-effect btn orange darken-2" >Submit</button>
+  </div>
+</div>
+
+<!-- Task List -->
+<div class="container row">
+  <h4>Tasks</h4>
+  <hr>
+  <br>
+
+  <ul id="task_list"  class="collapsible" data-collapsible="expandable">
+    <li *ngFor="let tsk of ( tasks )" class="blue">
+      {{ tsk.name }}
+      <button (click)="deleteTaskDocument(tsk.tid)">Delete me</button>
+      <button (click)="updateTask(tsk.tid,'new name','new description')">Update me</button>
+    </li>
+  </ul>
+
+</div>
