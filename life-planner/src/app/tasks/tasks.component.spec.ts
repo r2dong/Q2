@@ -1,4 +1,5 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { DebugElement } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -20,11 +21,14 @@ import { TasksComponent } from './tasks.component';
 import { WelcomeComponent } from '../welcome/welcome.component';
 
 
+
 describe('TasksComponent', () => {
   let component: TasksComponent;
   let fixture: ComponentFixture<TasksComponent>;
+  let de: DebugElement;
+  let spy: jasmine.Spy;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         AppRoutingModule,
@@ -40,15 +44,16 @@ describe('TasksComponent', () => {
         HomeComponent,
         LoginComponent,
         TasksComponent ],
-      providers: [ { provide: APP_BASE_HREF, useValue: '/tasks'} ]
+      providers: [ { provide: APP_BASE_HREF, useValue: '/'} ]
     })
       .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
-    spyOn(AuthService, 'currentUserId').and.returnValue('TestAccount');
+    spy = spyOn(AuthService, 'currentUserId').and.returnValue('TestAccount');
     fixture = TestBed.createComponent(TasksComponent);
     component = fixture.componentInstance;
+    de = fixture.debugElement;
     fixture.detectChanges();
   });
 
@@ -60,14 +65,19 @@ describe('TasksComponent', () => {
     expect(AuthService.currentUserId()).toBe('TestAccount');
   });
 
+
   it('should fail reading non-task', async() => {
     component.readTask('not an actual id')
       .then( ref => expect(ref).toBeNull())
       .catch(function() {expect(true).toBeFalsy(); });
   });
 
+
   it('should create a task', async() => {
-    component.createTask('creating task', 'None', 'Awesome task')
+    expect(spy).toHaveBeenCalled();
+    expect( spy.calls.all().length ).toEqual(1);
+
+    component.createTask('creating task', '', '12-31-2019')
       .then(ref => expect(ref.valueOf()).toBeTruthy())
       .catch(function() {expect(true).toBeFalsy(); });
   });
@@ -95,7 +105,7 @@ describe('TasksComponent', () => {
       .catch(function() {expect(true).toBeFalsy(); });
   });
 
-  it('should delete a task', async() => {
+  it('should delete a task', () => {
     component.deleteTask('DYNDlzsp9KDYMMiCtLCT')
       .then(ref => {
         if ( ref.valueOf()) {
