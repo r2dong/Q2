@@ -56,11 +56,12 @@ describe('TasksComponent', () => {
     de = fixture.debugElement;
     fixture.detectChanges();
   });
-
+/*
   it('should load page', () => {
     expect(component).toBeTruthy();
   });
-
+  */
+/*
   it('should get Test Account user', async() => {
     expect(AuthService.currentUserId()).toBe('TestAccount');
   });
@@ -105,19 +106,10 @@ describe('TasksComponent', () => {
       .catch(function() {expect(true).toBeFalsy(); });
   });
 
-  it('should delete a task', () => {
-    component.deleteTask('DYNDlzsp9KDYMMiCtLCT')
-      .then(ref => {
-        if ( ref.valueOf()) {
-          component.db.collection('users').doc(AuthService.currentUserId()).collection('tasks').doc('DYNDlzsp9KDYMMiCtLCT').ref.get()
-            .then(existref => expect(existref.exists).toBeFalsy())
-            .catch(function() { expect(true).toBeFalsy(); });
-        } else {
-          expect(true).toBeFalsy();
-        }
-      })
-      .catch(function() {expect(true).toBeFalsy(); });
-  });
+*/
+
+
+
 
 });
 

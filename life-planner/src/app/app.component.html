@@ -1,24 +1,5 @@
-<nav>
-  <div class=" nav-wrapper deep-orange lighten-1">
-    <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons"> <span class="white-text">menu</span></i></a>
-    <a id="logo-container" href="#" class="center brand-logo"><i class="material-icons">widgets</i>Q2</a>
-
-    <ul id="slide-out" class="side-nav orange lighten-5">
-      <li>
-        <div class="user-view deep-orange lighten-1" *ngIf="auth.user | async">
-          <div *ngIf="auth.user | async as user">
-            <a href="#"><img class="circle white-text" [src]="user.photoURL"></a>
-            <a href="#"><span class="name white-text">{{user.displayName}}</span></a>
-            <a href="#"><span class="email white-text">{{user.email}}</span></a>
-          </div>
-        </div>
-      </li>
-      <li><a class="waves-effect" routerLink=welcome><i class="material-icons">home</i>Welcome</a></li>
-      <li><a class="waves-effect" routerLink=home><i class="material-icons">web_asset</i>Dashboard</a></li>
-      <li><a class="waves-effect" routerLink=login><i class="material-icons">wc</i>Login</a></li>
-      <li><a class="waves-effect" routerLink=tasks><i class="material-icons">assignment</i>Tasks</a></li>
-    </ul>
-  </div>
-</nav>
-
-<router-outlet></router-outlet>
+<app-navbar></app-navbar>
+<div class="container">
+  <flash-messages></flash-messages>
+  <router-outlet></router-outlet>
+</div>

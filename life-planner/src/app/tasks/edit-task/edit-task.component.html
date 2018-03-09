@@ -1,0 +1,67 @@
+<div class="row">
+  <div class="col-md-6">
+    <h4 class="col s12 center-align">Edit Task</h4>
+    <a routerLink="/task/{{ tid }}" class="btn btn-link">
+      <i class="fa fa-arrow-circle-o-left"></i> Back to Task
+    </a>
+  </div>
+  <div *ngIf="task" class="card">
+    <div class="card-body">
+      <form #taskForm="ngForm" (ngSubmit)="onSubmit(taskForm)">
+        <div class="form-group">
+          <label class="form-control-label" for="name">Task Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            #taskName="ngModel"
+            [ngClass]="{'is-invalid':taskName.errors && taskName.touched}"
+            [(ngModel)]="task.name"
+            name="name"
+            minlength="2"
+            required
+          >
+          <div *ngIf="taskName.errors && (taskName.dirty || taskName.touched)">
+            <div [hidden]="!taskName.errors?.required" class="invalid-feedback red-text darken-4">
+              Task name required
+            </div>
+
+            <div [hidden]="!taskName.errors?.minlength" class="invalid-feedback red-text darken-4">
+              Must be at least 2 characters
+            </div>
+          </div>
+
+
+        </div>
+        <div class="form-group">
+          <label class="form-control-label" for="name">Task Due Date</label>
+          <input
+            type="text"
+            class="form-control"
+            id="dueDateTime"
+            #taskDueDateTime="ngModel"
+            [ngClass]="{'is-invalid':taskDueDateTime.errors && taskDueDateTime.touched}"
+            [(ngModel)]="task.dueDateTime"
+            name="dueDateTime"
+            required
+          >
+          <div *ngIf="taskDueDateTime.errors && (taskDueDateTime.dirty || taskDueDateTime.touched)">
+            <div [hidden]="!taskDueDateTime.errors?.required" class="invalid-feedback red-text darken-4">
+              Task due date required
+            </div>
+          </div>
+
+
+        </div>
+        <div class="form-group">
+
+          <div class="card-action card-content grey lighten-4">
+            <input type="submit" value="Submit" class="btn btn-primary btn-block">
+          </div>
+
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

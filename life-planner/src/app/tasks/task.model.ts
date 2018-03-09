@@ -5,15 +5,16 @@
 
 export interface TaskModel {
   tid?: string;
-  rid?: string; //Role.id;
+  rid?: string; // Role.id;
   name: string;
 //  urgent: boolean;
 //  important: boolean;
-  dueDateTime?: string; //Date;
+  dueDateTime?: string; // Date;
 //  isComplete: boolean;
 //  weight: TaskWeight;
 //  tagIDs?: string[];
-  createdOn?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export enum TaskWeight {
