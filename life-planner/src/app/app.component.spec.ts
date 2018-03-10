@@ -1,18 +1,26 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { componentFactoryName } from '@angular/compiler';
+import { environment } from '../environments/environment';
+import { AuthService } from './core/auth.service';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
-        AngularFirestore
+        AngularFirestore,
+        AuthService,
+        AngularFireAuth,
+        Router
       ],
       imports: [
         AngularFirestoreModule,
+        AngularFireModule.initializeApp(environment.firebase),
         RouterModule,
       ],
       declarations: [
