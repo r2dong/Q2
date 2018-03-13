@@ -1,39 +1,16 @@
-<html>
-
 <body>
-  <div class="container1">
-    <div *ngIf="auth.user | async; then authenticated else guest">
-      <!-- template will replace this div -->
-    </div>
+  <div *ngIf="auth.user | async; then authenticated else guest">
+    <!-- template will replace this div -->
   </div>
 </body>
 
-</html>
-
 <!-- User NOT logged in -->
 <ng-template #guest>
-  <div class="row">
-    <div class="col s6">
-      <img src="assets/images/t1.jpg">
-    </div>
-    <div class="col s6">
-      <img src="assets/images/e1.jpg">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s6">
-      <img src="assets/images/t2.jpg">
-    </div>
-    <div class="col s6">
-      <img src="assets/images/t3.jpg">
-    </div>
-  </div>
-  <!--
+  <!-- <img src="../../assets/images/Q2-Icon.jpg" alt="Icon">
   <button (click)="auth.googleLogin()">
     <i class="fa fa-google"></i> Connect Google
   </button>
-  -->
-
+-->
 </ng-template>
 
 
