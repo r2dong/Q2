@@ -12,18 +12,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { TaskService } from './tasks/task.service';
+import { TasksModule } from './tasks/tasks.module';
 
 // Components
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { WelcomeComponent } from './welcome/welcome.component';
-import { TasksComponent } from './tasks/tasks.component';
-import { AddTaskComponent } from './tasks/add-task/add-task.component';
-import { TaskDetailsComponent } from './tasks/task-details/task-details.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { EditTaskComponent } from './tasks/edit-task/edit-task.component';
 
 
 describe('AppComponent', () => {
@@ -34,12 +31,8 @@ describe('AppComponent', () => {
         LoginComponent,
         HomeComponent,
         WelcomeComponent,
-        TasksComponent,
-        AddTaskComponent,
-        TaskDetailsComponent,
         NotFoundComponent,
         NavbarComponent,
-        EditTaskComponent
       ],
       imports: [
         BrowserModule,
@@ -48,7 +41,8 @@ describe('AppComponent', () => {
         FlashMessagesModule.forRoot(),
         FormsModule,
         CoreModule,
-        SharedModule
+        SharedModule,
+        TasksModule
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue : '/' },

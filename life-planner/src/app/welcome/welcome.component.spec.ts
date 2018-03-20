@@ -19,7 +19,7 @@ describe('WelcomeComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the welcome component', () => {
     expect(component).toBeTruthy();
 
   });

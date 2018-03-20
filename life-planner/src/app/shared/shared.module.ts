@@ -34,6 +34,6 @@ import {environment} from '../../environments/environment';
     AngularFireModule.initializeApp(environment.firebase),
   ],
   declarations: [],
-  exports: [ AngularFireModule, AngularFireStorageModule, AngularFireAuthModule, AngularFirestoreModule, FormsModule ]
+  exports: [ CommonModule, AngularFireModule, AngularFireStorageModule, AngularFireAuthModule, AngularFirestoreModule, FormsModule ]
 })
 export class SharedModule { }

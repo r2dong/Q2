@@ -15,7 +15,7 @@ export class TaskService {
 
   constructor(private db: AngularFirestore) {
     if (AuthService.isLoggedIn()) {
-      console.log(AuthService.currentUserId());
+      console.log('User ID: ' + AuthService.currentUserId());
       this.tasksRef = this.db.collection('users').doc(AuthService.currentUserId()).collection('tasks');
       this.tasks = this.tasksRef.valueChanges();
     } else {

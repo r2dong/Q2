@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../task.service';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { TaskModel } from '../task.model';
 
 @Component({
-  selector: 'app-task-details',
-  templateUrl: './task-details.component.html',
-  styleUrls: ['./task-details.component.css']
+  selector: 'app-task-detail',
+  templateUrl: './task-detail.component.html',
+  styleUrls: ['./task-detail.component.css']
 })
-export class TaskDetailsComponent implements OnInit {
+export class TaskDetailComponent implements OnInit {
   tid: string;
   task: TaskModel;
 
@@ -43,5 +43,10 @@ export class TaskDetailsComponent implements OnInit {
       this.router.navigate(['/home']);
     }
   }
+/*
+  goBack(): void {
+    this.location.back();
+  }
+  */
 
 }

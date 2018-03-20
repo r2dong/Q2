@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TaskService } from '../task.service';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { TaskModel } from '../task.model';
 

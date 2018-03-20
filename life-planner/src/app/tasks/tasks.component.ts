@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {TaskService} from './task.service';
 import {TaskModel, TaskWeight} from './task.model';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-tasks',
@@ -11,7 +13,7 @@ import {TaskModel, TaskWeight} from './task.model';
 export class TasksComponent implements OnInit {
   tasks: TaskModel[];
 
-  constructor(private ts: TaskService) { }
+  constructor(private ts: TaskService, private router: Router) { }
 
 
   ngOnInit() {

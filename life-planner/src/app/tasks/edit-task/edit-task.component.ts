@@ -43,7 +43,7 @@ export class EditTaskComponent implements OnInit {
       this.flashMessage.show('Task updated', {
         cssClass: 'alert-success', timeout: 4000
       });
-      this.router.navigate(['/task/' + this.tid]);
+      this.router.navigate(['/tasks/' + this.tid]);
     }
   }
 

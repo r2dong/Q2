@@ -20,32 +20,38 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 
 import {TaskService} from '../task.service';
 import {TaskModel, TaskWeight} from '../task.model';
-
+import * as firebase from 'firebase';
 // Components
 import {AppComponent} from '../../app.component';
 import { LoginComponent } from '../../login/login.component';
 import { HomeComponent } from '../../home/home.component';
-import { AddTaskComponent } from './add-task.component';
+import { TaskDetailComponent } from './task-detail.component';
 import { WelcomeComponent } from '../../welcome/welcome.component';
 import { AuthService } from '../../core/auth.service';
 import { NotFoundComponent } from '../../not-found/not-found.component';
 import { NavbarComponent } from '../../navbar/navbar.component';
 
 
+import { ActivatedRoute, Router, Params } from '@angular/router';
+
+
 import { By } from '@angular/platform-browser';
 
 
-describe('AddTaskComponent', () => {
-  let component: AddTaskComponent;
+describe('TaskDetailComponent', () => {
+  let component: TaskDetailComponent;
   let service: TaskService;
-  let fixture: ComponentFixture<AddTaskComponent>;
+  let fixture: ComponentFixture<TaskDetailComponent>;
   let de: DebugElement;
   let spy: jasmine.Spy;
-  let spyService: jasmine.Spy;
+
+
+  // let spyService: jasmine.Spy;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
+
         AppRoutingModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
@@ -55,7 +61,7 @@ describe('AddTaskComponent', () => {
         SharedModule,
         TasksModule,
         CoreModule,
-        ],
+      ],
       declarations: [
         AppComponent,
         WelcomeComponent,
@@ -65,7 +71,7 @@ describe('AddTaskComponent', () => {
         NavbarComponent
       ],
       providers: [
-        { provide: APP_BASE_HREF, useValue: '/tasks'},
+        { provide: APP_BASE_HREF, useValue: '/task-detail'},
         TaskService,
         FlashMessagesService
       ]
@@ -76,35 +82,32 @@ describe('AddTaskComponent', () => {
   beforeEach(() => {
 
     spy = spyOn(AuthService, 'currentUserId').and.returnValue('TestAccount');
-    fixture = TestBed.createComponent(AddTaskComponent);
+    fixture = TestBed.createComponent(TaskDetailComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;
     service = de.injector.get(TaskService);
 
+
     fixture.detectChanges();
   });
 
-  it('should load page', () => {
+  xit('should load page', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should get Test Account user', () => {
+  xit('should get Test Account user', () => {
     expect(AuthService.currentUserId()).toBe('TestAccount');
   });
-
-  it('should create a task', () => {
-    const task: TaskModel = {
-      tid: '',
-      name: 'Sample Task For Testing Only',
-      dueDateTime: ''
-    };
-    spyService = spyOn(service, 'addTask').and.returnValue('TestAccount');
-    service.addTask(task);
+/*
+  xit('should show a task', () => {
+    const tid = '123';
+    spyService = spyOn(service, 'getTask').and.returnValue('TestAccount');
+    service.getTask(tid);
     // Check internal function
     expect(spyService).toHaveBeenCalled();
 
   });
-
+*/
 
 
 });
