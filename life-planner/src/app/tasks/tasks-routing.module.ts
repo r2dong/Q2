@@ -9,8 +9,9 @@ import { EditTaskComponent } from './edit-task/edit-task.component';
 
 export const routes: Routes = [
   { path: '', component: TasksComponent, canActivate: [AuthGuard] },
-  { path: ':tid', component: TaskDetailComponent, canActivate: [AuthGuard] },
   { path: 'add', component: AddTaskComponent, canActivate: [AuthGuard] },
+  { path: ':tid', component: TaskDetailComponent, canActivate: [AuthGuard] },
+
   { path: 'edit/:tid', component: EditTaskComponent, canActivate: [AuthGuard] },
 ];
 
