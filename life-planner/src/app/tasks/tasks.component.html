@@ -31,7 +31,22 @@
   </div>
 
 <ng-template #noTasks>
-  <hr>
-  <h5>There are no tasks in the system for this user.</h5>
+  <table class="bordered striped">
+  <thead class="thead-inverse">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Date Due</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td colspan="3">There are no tasks in the system for this user.</td>
+    <td><a routerLink="/tasks/add" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
+  </tr>
+
+  </tbody>
+  </table>
 </ng-template>
 </div>
