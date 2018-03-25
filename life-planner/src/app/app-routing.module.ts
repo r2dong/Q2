@@ -26,6 +26,11 @@ const routes: Routes = [
     path: 'tasks',
     loadChildren: 'app/tasks/tasks.module#TasksModule'
   },
+  {
+    path: 'projects',
+    loadChildren: 'app/projects/projects.module#ProjectsModule',
+    canActivate: [AuthGuard]
+  },
   {path: '**', component: NotFoundComponent},
 ];
 

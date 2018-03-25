@@ -1,12 +1,12 @@
 export const environment = {
   production: true,
   firebase: {
-    apiKey: 'AIzaSyDCIIxl4l5BHfetfPzT4C9ThnlIGIkqY6k',
-    authDomain: 'q2-test-7a344.firebaseapp.com',
-    databaseURL: 'https://q2-test-7a344.firebaseio.com',
-    projectId: 'q2-test-7a344',
-    storageBucket: 'q2-test-7a344.appspot.com',
-    messagingSenderId: '187350235334'
+    apiKey: 'AIzaSyDQhEI68nLH5mar1hlpGRKQ01RIBW8PJl8',
+    authDomain: 'johnny-q2-dev.firebaseapp.com',
+    databaseURL: 'https://johnny-q2-dev.firebaseio.com',
+    projectId: 'johnny-q2-dev',
+    storageBucket: 'johnny-q2-dev.appspot.com',
+    messagingSenderId: '405449279161'
   }
 
 };

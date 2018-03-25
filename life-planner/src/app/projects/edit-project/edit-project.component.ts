@@ -23,7 +23,7 @@ export class EditProjectComponent implements OnInit {
     // Get client
     this.projectService.getProject(this.pid).subscribe(project => {
       if (project != null) {
-        console.log('task found for tid: ' + this.pid);
+        console.log('project found for pid: ' + this.pid);
       }
       this.project = project;
     });

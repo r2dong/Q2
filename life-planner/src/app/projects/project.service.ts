@@ -16,7 +16,7 @@ export class ProjectService {
   constructor(private db: AngularFirestore) {
     if (AuthService.isLoggedIn()) {
       console.log('User ID: ' + AuthService.currentUserId());
-      this.projectsRef = this.db.collection('users').doc(AuthService.currentUserId()).collection('tasks');
+      this.projectsRef = this.db.collection('users').doc(AuthService.currentUserId()).collection('projects');
       this.projects = this.projectsRef.valueChanges();
     } else {
       // redirect to login screen please //
@@ -25,7 +25,7 @@ export class ProjectService {
   }
 
   addProject(project: ProjectModel) {
-    // this.db.collection('finishedExercises').add(task);
+    // this.db.collection('finishedExercises').add(project);
     project.createdAt = new Date();
     this.projectsRef.add(project);
   }
@@ -71,3 +71,4 @@ export class ProjectService {
     this.projectDoc.delete();
   }
 }
+

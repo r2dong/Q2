@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { TasksModule } from './tasks/tasks.module';
+import { ProjectsModule } from './projects/projects.module';
 
 // Components
 import { AppComponent } from './app.component';
@@ -38,7 +39,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     FormsModule,
     CoreModule,
     SharedModule,
-    TasksModule
+    TasksModule,
+    ProjectsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
