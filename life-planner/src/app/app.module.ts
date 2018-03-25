@@ -18,6 +18,9 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { EventsComponent } from './events/events.component';
+import { AddEventComponent } from './events/add-event/add-event.component';
+import { EditEventComponent } from './events/edit-event/edit-event.component';
+import { EventDetailComponent } from './events/event-detail/event-detail.component';
 
 
 
@@ -31,6 +34,9 @@ import { EventsComponent } from './events/events.component';
     NotFoundComponent,
     NavbarComponent,
     EventsComponent,
+    AddEventComponent,
+    EditEventComponent,
+    EventDetailComponent,
   ],
   imports: [
     BrowserModule,
