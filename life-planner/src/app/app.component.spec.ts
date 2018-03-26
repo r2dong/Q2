@@ -13,7 +13,8 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { TaskService } from './tasks/task.service';
 import { TasksModule } from './tasks/tasks.module';
-
+import{EventService} from "./events/event.service";
+import {EventsModule} from "./events/events.module";
 // Components
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -42,11 +43,13 @@ describe('AppComponent', () => {
         FormsModule,
         CoreModule,
         SharedModule,
-        TasksModule
+        TasksModule,
+        EventsModule
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue : '/' },
-        TaskService
+        TaskService,
+        EventService
       ]
     }).compileComponents();
   });

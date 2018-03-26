@@ -71,6 +71,4 @@ export class EventService {
     this.eventDoc.delete();
   }
 
-
-
 }
