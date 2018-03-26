@@ -12,8 +12,8 @@ import{EventModel} from "../../events/event.model";
 export class AddEventComponent implements OnInit {
   events: EventModel={
     eid: '',
-    name:''
-    //sdatetime:''
+    name:'',
+    sdatetime:'',
   };
   @ViewChild('eventForm') form: any;
 
