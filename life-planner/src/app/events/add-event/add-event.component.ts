@@ -10,10 +10,10 @@ import{EventModel} from "../../events/event.model";
   styleUrls: ['./add-event.component.css']
 })
 export class AddEventComponent implements OnInit {
-  events: EventModel={
+  event: EventModel={
     eid: '',
     name:'',
-    sdatetime:'',
+    sdatetime:''
   };
   @ViewChild('eventForm') form: any;
 

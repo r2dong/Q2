@@ -4,7 +4,7 @@ export interface EventModel {
   name: string; // event name
 //  important: boolean;
   sdatetime?: string; // Start Date Time;
-   edatetime?: string//  End Date Time
+  //edatetime?: string//  End Date Time
 //  status: boolean; // event status
 //  tagIDs?: string[]; // tag_ids
   createdAt?: Date;
