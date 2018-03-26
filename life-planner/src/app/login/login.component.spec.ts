@@ -22,12 +22,13 @@ describe('LoginComponent', () => {
         LoginComponent
       ],
       providers: [
+        // fixed 'unable to resolve all parameters to Router (?, ?, ?, ?, ?, ?, ?, ?)'
+        {provide: Router, useClass: class {navigate = jasmine.createSpy("navigate")}},
+        // Router,
         AuthGuard,
         AuthService,
         AngularFireAuth,
         AngularFirestore,
-        Router,
-        { provide: APP_BASE_HREF, useValue: '/login' }
       ],
       imports: [
         AppRoutingModule,
