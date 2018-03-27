@@ -11,6 +11,7 @@
         <th>ID</th>
         <th>Name</th>
         <th>Start Date</th>
+        <th>Start Time</th>
         <!--<th>End Date</th>-->
         <!--<th>Start Time</th>-->
         <!--<th>End Time</th>-->
@@ -20,12 +21,13 @@
       <tbody>
       <tr>
         <td colspan="3"></td>
-        <td><a routerLink="/events/add" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
+        <td colspan ="8"><a routerLink="/events/add" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
       </tr>
       <tr *ngFor="let event of events">
         <td>{{ event.eid }}</td>
         <td>{{ event.name }}</td>
-        <td>{{ event.sdatetime }}</td>
+        <td>{{ event.sdate }}</td>
+        <td>{{event.stime}}</td>
         <!--<td>{{ event.endDate }}</td>-->
         <!--<td>{{ event.startTime }}</td>-->
         <!--<td>{{ event.endTime }}</td>-->
@@ -41,6 +43,7 @@
         <th>ID</th>
         <th>Name</th>
         <th>Start Date</th>
+        <th>Start Time</th>
         <!--<th>End Date</th>-->
         <!--<th>Start Time</th>-->
         <!--<th>End Time</th>-->

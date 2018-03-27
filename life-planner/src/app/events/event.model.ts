@@ -3,7 +3,10 @@ export interface EventModel {
   rid?: string; // Role.id;
   name: string; // event name
 //  important: boolean;
-  sdatetime?: string; // Start Date Time;
+  sdate: string; // Start Date;
+  stime?: string; //Start Time;
+  edate?: string;// End Date;
+  etime?: string;// End Time;
   //edatetime?: string//  End Date Time
 //  status: boolean; // event status
 //  tagIDs?: string[]; // tag_ids

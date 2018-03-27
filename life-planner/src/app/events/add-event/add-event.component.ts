@@ -13,7 +13,8 @@ export class AddEventComponent implements OnInit {
   event: EventModel={
     eid: '',
     name:'',
-    sdatetime:''
+    sdate:'',
+    stime: ''
   };
   @ViewChild('eventForm') form: any;
 
@@ -37,7 +38,7 @@ export class AddEventComponent implements OnInit {
         cssClass: 'alert-success', timeout: 4000
       });
       // Redirect to dash
-      this.router.navigate(['/home']);
+      this.router.navigate(['/events']);
     }
   }
 }

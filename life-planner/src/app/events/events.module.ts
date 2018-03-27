@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
-//import { RouterModule, Routes } from '@angular/router';
 import { EventsRoutingModule } from './events-routing.module';
-import { EventsComponent } from '../events/events.component';
+import { EventsComponent } from './events.component';
 import { EventDetailComponent } from './event-detail/event-detail.component';
 import { AddEventComponent } from './add-event/add-event.component';
 import { EditEventComponent } from './edit-event/edit-event.component';

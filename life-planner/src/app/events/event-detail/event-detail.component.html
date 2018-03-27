@@ -11,7 +11,9 @@
       <ul class="list-group">
         <li class="list-group-item">Event {{ event.eid }}</li>
         <li class="list-group-item">Event Name: {{ event.name }}</li>
-        <!--<li class="list-group-item">Event Start Date: {{ event.startDate }}</li>-->
+        <li class="list-group-item">Event Start Date: {{ event.sdate }}</li>
+        <li class="list-group-item">Event Start Date: {{ event.stime }}</li>
+        <li class="list-group-item">Added On: {{ event.createdAt}}</li>
 
       </ul>
       <hr>
@@ -21,7 +23,7 @@
       </ul>
     </div>
     <div class="card-action card-content grey lighten-4">
-      <a routerLink="/event/edit/{{ eid }}" class="btn btn-dark">Edit</a>
+      <a routerLink="/events/edit/{{event.eid}}" class="btn btn-dark">Edit</a>
       <button (click)="onDeleteClick()" class="btn btn-danger">Delete</button>
     </div>
   </div>

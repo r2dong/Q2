@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { EventService } from '../../events/event.service';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { EventService } from '../event.service';
+import { Router, ActivatedRoute} from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
-import{EventModel} from "../../events/event.model";
+import{EventModel} from "../event.model";
 @Component({
   selector: 'app-edit-event',
   templateUrl: './edit-event.component.html',

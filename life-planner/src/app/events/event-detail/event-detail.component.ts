@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {EventService} from "../../events/event.service";
+import {EventService} from "../event.service";
 import{ActivatedRoute, Router, Params} from '@angular/router';
 import{FlashMessagesService} from 'angular2-flash-messages';
-import {EventModel} from "../../events/event.model";
+import {EventModel} from "../event.model";
 
 @Component({
   selector: 'app-event-detail',
@@ -12,7 +12,7 @@ import {EventModel} from "../../events/event.model";
 export class EventDetailComponent implements OnInit {
   eid: string;
   event: EventModel;
-
+  deletedEventName: string;
   constructor(private eventsService: EventService,
               private router: Router,
               private route: ActivatedRoute,
@@ -21,9 +21,9 @@ export class EventDetailComponent implements OnInit {
 
   ngOnInit() {
     // Get id from url
-    this.eid = this.route.snapshot.params['tid'];
+    this.eid = this.route.snapshot.params['eid'];
     // Get task
-    console.log('getting tid: ' + this.eid);
+    console.log('getting eid: ' + this.eid);
     this.eventsService.getEvent(this.eid).subscribe(event => {
       if (event != null) {
         console.log('event found for eid: ' + this.eid);
@@ -35,11 +35,12 @@ export class EventDetailComponent implements OnInit {
 
   onDeleteClick() {
     if (confirm('Are you sure?')) {
+      this.deletedEventName = this.event.name;
       this.eventsService.deleteEvent(this.event);
-      this.flashMessage.show('Task removed', {
+      this.flashMessage.show('Event: ' + this.deletedEventName +' removed', {
         cssClass: 'alert-success', timeout: 4000
       });
-      this.router.navigate(['/home']);
+      this.router.navigate(['/events']);
     }
   }
 }
