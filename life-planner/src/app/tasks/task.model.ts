@@ -11,15 +11,31 @@ export interface TaskModel {
 //  important: boolean;
   dueDateTime?: string; // Date;
 //  isComplete: boolean;
-//  weight: TaskWeight;
+  weight?: TaskWeight;
 //  tagIDs?: string[];
   createdAt?: Date;
   updatedAt?: Date;
 }
 
 export enum TaskWeight {
-  EASY,
-  MEDIUM,
-  HARD,
-  SUPERHARD
+  NONE = 0,
+  EASY = 1,
+  MEDIUM = 3,
+  HARD = 5,
+  SUPERHARD = 8
+}
+
+export namespace TaskWeight {
+/*
+  export function keys() {
+    return Object.keys(TaskWeight).filter(
+      (type) => isNaN(<any>type) && type !== 'keys'
+    );
+  }
+*/
+  export function values() {
+    return Object.keys(TaskWeight).filter(
+      (type) => isNaN(<any>type) && type !== 'values'
+    );
+  }
 }
