@@ -4,6 +4,9 @@
     <a routerLink="/home" class="btn btn-link">
       <i class="fa fa-arrow-circle-o-left"></i> Back to Dashboard
     </a>
+    <a routerLink="/events" class="btn btn-link">
+      <i class="fa fa-arrow-circle-o-left"></i> Back to Events
+    </a>
   </div>
   <div *ngIf="event" class="card">
     <h3 class="card-title">{{ event.name }}</h3>
@@ -13,6 +16,8 @@
         <li class="list-group-item">Event Name: {{ event.name }}</li>
         <li class="list-group-item">Event Start Date: {{ event.sdate }}</li>
         <li class="list-group-item">Event Start Date: {{ event.stime }}</li>
+        <li class="list-group-item">Event End Date:{{event.edate}}</li>
+        <li class="list-group-item">Event End Time:{{event.etime}}</li>
         <li class="list-group-item">Added On: {{ event.createdAt}}</li>
 
       </ul>

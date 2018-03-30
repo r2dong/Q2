@@ -2,12 +2,13 @@
   <div class="col-md-6">
     <h4 class="col s12 center-align">Edit Event</h4>
     <a routerLink="/events/{{ eid }}" class="btn btn-link">
-      <i class="fa fa-arrow-circle-o-left"></i> Back to Event
+      <i class="fa fa-arrow-circle-o-left"></i> Back to Event Detail
     </a>
   </div>
   <div *ngIf="event" class="card">
     <div class="card-body">
       <form #eventForm="ngForm" (ngSubmit)="onSubmit(eventForm)">
+        <!--Edit Name-->
         <div class="form-group">
           <label class="form-control-label" for="name">Event Name</label>
           <input
@@ -30,13 +31,12 @@
               Must be at least 2 characters
             </div>
           </div>
-
         </div>
-
+        <!--Edit Start Date-->
         <div class="form-group">
           <label class="form-control-label" for="name">Event Start Date</label>
           <input
-          type="text"
+          type="date"
           class="form-control"
           id="sdate"
           #eventStartDate="ngModel"
@@ -44,17 +44,18 @@
           [(ngModel)]="event.sdate"
           name="sdate"
           required
-          >
+          />
           <div *ngIf="eventStartDate.errors && (eventStartDate.dirty || eventStartDate.touched)">
             <div [hidden]="eventStartDate.errors?.required" class="invalid-feedback red-text darken-4">
             Event start date required
             </div>
           </div>
         </div>
+        <!--Edit Start Time-->
         <div class="form-group">
           <label class="form-control-label" for="name">Event Start Time</label>
           <input
-            type="text"
+            type="time"
             class="form-control"
             id="stime"
             #eventStartTime="ngModel"
@@ -69,13 +70,48 @@
             </div>
           </div>
         </div>
+        <!--Edit End Date-->
         <div class="form-group">
-
+          <label class="form-control-label" for="name">Event End Date</label>
+          <input
+            type="date"
+            class="form-control"
+            id="edate"
+            #eventEndDate="ngModel"
+            [ngClass]="{'is-invalid':eventEndDate.errors && eventEndDate.touched}"
+            [(ngModel)]="event.edate"
+            name="edate"
+            required
+          />
+          <div *ngIf="eventEndDate.errors && (eventEndDate.dirty || eventEndDate.touched)">
+            <div [hidden]="eventEndDate.errors?.required" class="invalid-feedback red-text darken-4">
+              Event end date required
+            </div>
+          </div>
+        </div>
+        <!--Edit End Time-->
+        <div class="form-group">
+          <label class="form-control-label" for="name">Event End Time</label>
+          <input
+            type="time"
+            class="form-control"
+            id="etime"
+            #eventEndTime="ngModel"
+            [ngClass]="{'is-invalid':eventEndTime.errors && eventEndTime.touched}"
+            [(ngModel)]="event.etime"
+            name="etime"
+            required
+          >
+          <div *ngIf="eventEndTime.errors && (eventEndTime.dirty || eventEndTime.touched)">
+            <div [hidden]="eventEndTime.errors?.required" class="invalid-feedback red-text darken-4">
+              Event end time required
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
           <div class="card-action card-content grey lighten-4">
             <input type="submit" value="Submit" class="btn btn-primary btn-block">
           </div>
-
-
         </div>
       </form>
     </div>

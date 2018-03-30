@@ -14,7 +14,9 @@ export class AddEventComponent implements OnInit {
     eid: '',
     name:'',
     sdate:'',
-    stime: ''
+    stime: '',
+    edate: '',
+    etime: ''
   };
   @ViewChild('eventForm') form: any;
 
