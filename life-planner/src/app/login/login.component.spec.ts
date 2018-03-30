@@ -46,7 +46,7 @@ describe('LoginComponent', () => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     //fixture.detectChanges();
-    el = fixture.debugElement.query(By.css('button'));
+    //el = fixture.debugElement.query(By.css('button'));
   });
 
   it('should create', () => {
@@ -54,6 +54,9 @@ describe('LoginComponent', () => {
   });
 
   it('template should adjust to login status', () => {
-    expect(el.nativeElement.textContent.trim()).toBe('');
+    fixture.detectChanges();
+    el = fixture.debugElement.query(By.css('button'));
+    expect(el.nativeElement.textContent.trim()).toBe('keyboard_arrow_rightLogin with Google');
+    spyOnProperty(auth, 'user', 'get');
   });
 });

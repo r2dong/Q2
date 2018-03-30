@@ -1,3 +1,4 @@
+/*
 @Directive({
     selector: '[routerLink]',
     host: { '(click)': 'onClick()' }
@@ -10,3 +11,4 @@
       this.navigatedTo = this.linkParams;
     }
   }
+*/
