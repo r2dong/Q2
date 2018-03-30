@@ -12,9 +12,13 @@ import { RouterModule, Router } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
 import { AppRoutingModule } from '../app-routing.module';
 
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
+
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
+  let el: DebugElement;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -41,10 +45,15 @@ describe('LoginComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    //fixture.detectChanges();
+    el = fixture.debugElement.query(By.css('button'));
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('template should adjust to login status', () => {
+    expect(el.nativeElement.textContent.trim()).toBe('');
   });
 });

@@ -7,6 +7,7 @@ import { AngularFireModule } from 'angularfire2';
 import { environment } from '../../environments/environment';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { RouterModule, Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AuthService', () => {
   beforeEach(() => {
@@ -15,16 +16,16 @@ describe('AuthService', () => {
         AuthGuard,
         AuthService,
         AngularFireAuth,
-        AngularFirestore,
-        Router
+        AngularFirestore
       ],
       imports: [
-        AngularFireModule.initializeApp(environment.firebase)
+        AngularFireModule.initializeApp(environment.firebase),
+        RouterTestingModule
       ]
     });
   });
 
-  xit('should be created', inject([AuthService], (service: AuthService) => {
+  it('should be created', inject([AuthService], (service: AuthService) => {
     expect(service).toBeTruthy();
   }));
 });

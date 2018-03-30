@@ -10,6 +10,9 @@ import { environment } from '../environments/environment';
 import { AuthService } from './core/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { LocationStrategy } from '@angular/common';
+import { Observable } from 'rxjs/Observable';
+
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -18,35 +21,29 @@ describe('AppComponent', () => {
         AngularFirestore,
         AuthService,
         AngularFireAuth,
-        {provide: ActivatedRoute, useClass: class {navigate = jasmine.createSpy("navigate")}},
-        {provide: Router, useClass: class {navigate = jasmine.createSpy("navigate")}},
+        //{provide: Router, useClass: class {navigate = jasmine.createSpy("navigate")}},
+        {provide: ActivatedRoute, useClass: jasmine.createSpy("ActivatedRoute")},
         LocationStrategy
-        // Router
       ],
       imports: [
         AngularFirestoreModule,
         AngularFireModule.initializeApp(environment.firebase),
         RouterModule,
+        RouterTestingModule
       ],
       declarations: [
         AppComponent,
       ]
     }).compileComponents();
   }));
-  it('should create the app', async(() => {
+  it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance; 
     expect(app).toBeTruthy();
-  }));
-  xit(`should have as title 'app'`, async(() => {
+  });
+  it(`should have as title 'app'`, async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('app');
-  }));
-  xit('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to app!');
   }));
 });

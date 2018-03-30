@@ -1,11 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
 
 // Routing and routes import
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
 
 // Authentication Module
 import { CoreModule } from './core/core.module';
