@@ -13,9 +13,12 @@ export class EventsComponent implements OnInit {
   constructor(private es: EventService, private router: Router ) { }
 
   ngOnInit() {
-    this.es.getEvents().subscribe(events => {
-      this.events = events;
-    })
+    if(this.router.url === '/events') {
+      this.es.getEvents().subscribe(events => {
+        this.events = events;
+
+      })
+    }
   }
 
 }
