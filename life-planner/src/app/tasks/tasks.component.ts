@@ -16,7 +16,7 @@ export class TasksComponent implements OnInit {
   constructor(private ts: TaskService, private router: Router) { }
 
   ngOnInit() {
-    if ( this.tasks === undefined) {
+    if ( this.router.url === '/tasks') {
       this.ts.getTasks().subscribe(tasks => {
         this.tasks = tasks;
       });

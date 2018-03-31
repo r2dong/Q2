@@ -9,8 +9,8 @@ export interface ProjectModel {
   description?: string;
   dueDateTime?: string; // Date
   tids?: string[];
-  // eids:[ {"eid":"string from events"} ];
-  // tgids:[ {"tgid":"string from tags"} ];
+  eids?: string[];
+  tgids?: string[];
   createdAt?: Date;
   updatedAt?: Date;
 }

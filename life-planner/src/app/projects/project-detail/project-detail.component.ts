@@ -3,8 +3,8 @@ import { ProjectService } from '../project.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { ProjectModel } from '../project.model';
-import {TaskService} from "../../tasks/task.service";
-import {TaskModel} from "../../tasks/task.model";
+import {TaskService} from '../../tasks/task.service';
+import {TaskModel} from '../../tasks/task.model';
 
 @Component({
   selector: 'app-project-detail',
@@ -15,6 +15,7 @@ export class ProjectDetailComponent implements OnInit {
   pid: string;
   project: ProjectModel;
   projectTasks: TaskModel[];
+  // projectEvents: EventModel[];
 
   constructor(
     private projectService: ProjectService,
@@ -22,6 +23,7 @@ export class ProjectDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private flashMessage: FlashMessagesService,
     private ts: TaskService,
+    // private es: EventService,
   ) { }
 
   ngOnInit() {
@@ -37,6 +39,11 @@ export class ProjectDetailComponent implements OnInit {
       this.ts.findTasks(project.tids).subscribe(tasks => {
         this.projectTasks = tasks;
       });
+      /*
+      this.es.findEvents(project.eids).subscribe(events => {
+        this.projectEvents = events;
+      });
+       */
     });
   }
 
