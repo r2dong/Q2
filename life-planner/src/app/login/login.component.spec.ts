@@ -24,7 +24,7 @@ interface User {
   favoriteColor?: string;
 }
 
-class AuthServiceStubFullClass {
+export class AuthServiceStubFullClass {
 
   _user: Observable<User>;
   get user(): Observable<User> {
@@ -43,9 +43,6 @@ class AuthServiceStubFullClass {
       favoriteColor: "pink",
     }) 
   }
-
-  
-
 }
 
 describe('LoginComponent', () => {
