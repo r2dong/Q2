@@ -36,9 +36,12 @@ export class ProjectDetailComponent implements OnInit {
         console.log('project found for pid: ' + this.pid);
       }
       this.project = project;
-      this.ts.findTasks(project.tids).subscribe(tasks => {
-        this.projectTasks = tasks;
-      });
+      if ( project !== null ) {
+        this.ts.findTasks(project.tids).subscribe(tasks => {
+          this.projectTasks = tasks;
+        });
+      }
+
       /*
       this.es.findEvents(project.eids).subscribe(events => {
         this.projectEvents = events;
@@ -56,12 +59,5 @@ export class ProjectDetailComponent implements OnInit {
       this.router.navigate(['/home']);
     }
   }
-  /*
-    goBack(): void {
-      this.location.back();
-    }
-    */
-
-
 
 }

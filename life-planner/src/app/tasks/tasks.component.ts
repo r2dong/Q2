@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 
 export class TasksComponent implements OnInit {
   @Input() tasks: TaskModel[];
+  @Input() pid: string;
 
   constructor(private ts: TaskService, private router: Router) { }
 
@@ -20,6 +21,7 @@ export class TasksComponent implements OnInit {
       this.ts.getTasks().subscribe(tasks => {
         this.tasks = tasks;
       });
+      this.pid = undefined;
     }
   }
 }

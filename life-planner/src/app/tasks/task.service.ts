@@ -3,6 +3,7 @@ import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} 
 import {AuthService} from '../core/auth.service';
 import {Observable} from 'rxjs/Observable';
 import {TaskModel, TaskWeight} from './task.model';
+import {ProjectService} from "../projects/project.service";
 
 
 @Injectable()
@@ -13,7 +14,7 @@ export class TaskService {
   tasks: Observable<TaskModel[]>;
   singleTask: Observable<TaskModel>;
 
-  constructor(private db: AngularFirestore) {
+  constructor(private db: AngularFirestore, private ps: ProjectService) {
     if (AuthService.isLoggedIn()) {
       console.log('User ID: ' + AuthService.currentUserId());
       this.tasksRef = this.db.collection('users').doc(AuthService.currentUserId()).collection('tasks');
@@ -24,10 +25,16 @@ export class TaskService {
     }
   }
 
-  addTask(task: TaskModel) {
+  addTask(task: TaskModel, pid?: string) {
     // this.db.collection('finishedExercises').add(task);
     task.createdAt = new Date();
-    this.tasksRef.add(task);
+    this.tasksRef.add(task)
+      .then( item => {
+        if(pid!==undefined){
+          this.ps.addTaskToProject(pid, item.id);
+        }
+      })
+      .catch(function(){console.log('Error adding'); } );
   }
 
   getTask(tid: string): Observable<TaskModel> {

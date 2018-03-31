@@ -3,6 +3,7 @@ import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} 
 import {AuthService} from '../core/auth.service';
 import {Observable} from 'rxjs/Observable';
 import {ProjectModel} from './Project.model';
+import 'rxjs/add/operator/takeUntil';
 
 
 @Injectable()
@@ -69,6 +70,30 @@ export class ProjectService {
   deleteProject(project: ProjectModel) {
     this.projectDoc = this.projectsRef.doc(project.pid);
     this.projectDoc.delete();
+  }
+
+  addTaskToProject(pid: string, tid: string){
+    this.getProject(pid).take(1).forEach(proj => {
+      if(proj.tids === undefined){
+        proj.tids = [];
+      }
+      if(!proj.tids.includes(tid)){
+        proj.tids.push(tid);
+        this.updateProject(proj);
+      }
+    });
+  }
+  removeTaskFromProject(pid: string, tid: string){
+    this.getProject(pid).take(1).forEach(proj => {
+      if(proj.tids === undefined){
+        proj.tids = [];
+      }
+      const index = proj.tids.indexOf(tid);
+      if(index !== -1){
+        proj.tids.splice(index,1);
+        this.updateProject(proj);
+      }
+    });
   }
 }
 
