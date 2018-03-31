@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {TaskService} from './task.service';
 import {TaskModel, TaskWeight} from './task.model';
 import { Router } from '@angular/router';
@@ -11,16 +11,15 @@ import { Router } from '@angular/router';
 })
 
 export class TasksComponent implements OnInit {
-  tasks: TaskModel[];
+  @Input() tasks: TaskModel[];
 
   constructor(private ts: TaskService, private router: Router) { }
 
-
   ngOnInit() {
-    this.ts.getTasks().subscribe(tasks => {
-      this.tasks = tasks;
-    });
+    if ( this.tasks === undefined) {
+      this.ts.getTasks().subscribe(tasks => {
+        this.tasks = tasks;
+      });
+    }
   }
-
-
 }

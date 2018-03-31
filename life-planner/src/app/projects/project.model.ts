@@ -8,7 +8,7 @@ export interface ProjectModel {
   name: string;
   description?: string;
   dueDateTime?: string; // Date
-  // tids:[ {"tid":"string from tasks"} ];
+  tids?: string[];
   // eids:[ {"eid":"string from events"} ];
   // tgids:[ {"tgid":"string from tags"} ];
   createdAt?: Date;

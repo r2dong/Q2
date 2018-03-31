@@ -3,6 +3,8 @@ import { ProjectService } from '../project.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { ProjectModel } from '../project.model';
+import {TaskService} from "../../tasks/task.service";
+import {TaskModel} from "../../tasks/task.model";
 
 @Component({
   selector: 'app-project-detail',
@@ -12,12 +14,14 @@ import { ProjectModel } from '../project.model';
 export class ProjectDetailComponent implements OnInit {
   pid: string;
   project: ProjectModel;
+  projectTasks: TaskModel[];
 
   constructor(
     private projectService: ProjectService,
     private router: Router,
     private route: ActivatedRoute,
-    private flashMessage: FlashMessagesService
+    private flashMessage: FlashMessagesService,
+    private ts: TaskService,
   ) { }
 
   ngOnInit() {
@@ -30,9 +34,11 @@ export class ProjectDetailComponent implements OnInit {
         console.log('project found for pid: ' + this.pid);
       }
       this.project = project;
+      this.ts.findTasks(project.tids).subscribe(tasks => {
+        this.projectTasks = tasks;
+      });
     });
   }
-
 
   onDeleteClick() {
     if (confirm('Are you sure?')) {

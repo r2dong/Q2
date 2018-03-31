@@ -48,6 +48,12 @@ export class TaskService {
 
     return this.singleTask;
   }
+
+  findTasks(list: string[] = []): Observable<TaskModel[]> {
+    this.tasks = this.getTasks().map(epics => epics.filter(epic => list.includes(epic.tid) ));
+    return this.tasks;
+  }
+
   getTasks(): Observable<TaskModel[]> {
     this.tasks = this.tasksRef.snapshotChanges().map(changes => {
       return changes.map(action => {
