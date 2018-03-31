@@ -1,8 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {EventService} from "../../events/event.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import{FlashMessagesService} from 'angular2-flash-messages';
 import{EventModel} from "../../events/event.model";
+import{Location} from "@angular/common";
 
 @Component({
   selector: 'app-add-event',
@@ -18,13 +19,17 @@ export class AddEventComponent implements OnInit {
     edate: '',
     etime: ''
   };
+  pid:string;
   @ViewChild('eventForm') form: any;
 
   constructor(private flashMessage: FlashMessagesService,
               private eventService: EventService,
-              private router: Router) { }
+              private router: Router,
+              private location:Location,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.pid = this.route.snapshot.params['pid'];
   }
   onSubmit({value, valid}: {value: EventModel, valid: boolean}) {
     if (!valid) {
@@ -34,13 +39,13 @@ export class AddEventComponent implements OnInit {
       });
     } else {
       // Add new client
-      this.eventService.addEvent(value);
+      this.eventService.addEvent(value, this.pid);
       // Show message
       this.flashMessage.show('New client added', {
         cssClass: 'alert-success', timeout: 4000
       });
-      // Redirect to dash
-      this.router.navigate(['/events']);
+      // Redirect to previous page
+      this.location.back();
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {EventService} from './event.service';
 import {EventModel} from './event.model';
 import { Router } from '@angular/router';
@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./events.component.css']
 })
 export class EventsComponent implements OnInit {
-  events: EventModel[];
+  @Input() events: EventModel[];
+  @Input() pid: string;
   constructor(private es: EventService, private router: Router ) { }
 
   ngOnInit() {
@@ -17,7 +18,8 @@ export class EventsComponent implements OnInit {
       this.es.getEvents().subscribe(events => {
         this.events = events;
 
-      })
+      });
+      this.pid = undefined;
     }
   }
 
