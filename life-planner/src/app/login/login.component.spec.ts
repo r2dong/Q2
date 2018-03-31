@@ -112,7 +112,7 @@ describe('LoginComponent', () => {
 
   it('template should adjust to login status', () => {
     let authSpy: jasmine.Spy = spyOnProperty(auth, 'user', 'get');
-    authSpy.and.returnValue(false);
+    authSpy.and.returnValue(null);
     fixture.detectChanges();
     el = fixture.debugElement.query(By.css('button'));
     expect(el.nativeElement.textContent.trim()).toBe('keyboard_arrow_rightLogin with Google');
