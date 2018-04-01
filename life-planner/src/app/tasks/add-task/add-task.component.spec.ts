@@ -96,6 +96,7 @@ describe('AddTaskComponent', () => {
     const task: TaskModel = {
       tid: '',
       name: 'Sample Task For Testing Only',
+      weight: TaskWeight.HARD,
       dueDateTime: ''
     };
     spyService = spyOn(service, 'addTask').and.returnValue('TestAccount');

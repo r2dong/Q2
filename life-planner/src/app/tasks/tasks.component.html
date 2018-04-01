@@ -10,6 +10,7 @@
       <tr>
         <th>ID</th>
         <th>Name</th>
+        <th>Weight</th>
         <th>Date Due</th>
         <th></th>
       </tr>
@@ -22,6 +23,7 @@
       <tr *ngFor="let task of tasks">
         <td>{{ task.tid }}</td>
         <td>{{ task.name }}</td>
+        <td>{{ task.weight }}</td>
         <td>{{ task.dueDateTime }}</td>
         <td><a routerLink="/tasks/{{ task.tid }}" class="btn btn-secondary btn-sm"><i class="material-icons">edit</i></a></td>
       </tr>

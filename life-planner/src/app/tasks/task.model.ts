@@ -18,11 +18,11 @@ export interface TaskModel {
 }
 
 export enum TaskWeight {
-  NONE = 0,
-  EASY = 1,
-  MEDIUM = 3,
-  HARD = 5,
-  SUPERHARD = 8
+  NONE = <any>'NONE',
+  EASY = <any>'EASY',
+  MEDIUM = <any>'MEDIUM',
+  HARD = <any>'HARD',
+  SUPERHARD = <any>'SUPERHARD'
 }
 
 export namespace TaskWeight {
@@ -35,7 +35,7 @@ export namespace TaskWeight {
 */
   export function values() {
     return Object.keys(TaskWeight).filter(
-      (type) => isNaN(<any>type) && type !== 'values'
+      (type) => isNaN(<any>type) && type !== 'values' && type !== 'defaultVal'
     );
   }
 }

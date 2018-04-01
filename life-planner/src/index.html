@@ -21,6 +21,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 <script>
   $(document).ready(function(){
+    $('select').material_select();
+
+
     $('.button-collapse').sideNav({
       menuWidth: 300, // Default is 300
       closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
@@ -36,7 +39,7 @@
       today: 'Today',
       clear: 'Clear',
       close: 'Ok',
-      closeOnSelect: true // Close upon selecting a date,
+      closeOnSelect: false // Close upon selecting a date,
     });
 
 
