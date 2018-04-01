@@ -5,7 +5,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 import { ProjectModel } from '../project.model';
 import {TaskService} from '../../tasks/task.service';
 import {TaskModel} from '../../tasks/task.model';
-
+import {Location} from '@angular/common';
 @Component({
   selector: 'app-project-detail',
   templateUrl: './project-detail.component.html',
@@ -22,6 +22,7 @@ export class ProjectDetailComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private flashMessage: FlashMessagesService,
+    private location: Location,
     private ts: TaskService,
     // private es: EventService,
   ) { }
@@ -56,8 +57,11 @@ export class ProjectDetailComponent implements OnInit {
       this.flashMessage.show('Project removed', {
         cssClass: 'alert-success', timeout: 4000
       });
-      this.router.navigate(['/home']);
+      this.goBack();
     }
   }
 
+  goBack(){
+    this.location.back();
+  }
 }

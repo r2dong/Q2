@@ -3,6 +3,7 @@ import { TaskService } from '../task.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { TaskModel } from '../task.model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-task',
@@ -13,10 +14,13 @@ export class EditTaskComponent implements OnInit {
   tid: string;
   task: TaskModel;
 
-  constructor(private taskService: TaskService,
-              private router: Router,
-              private route: ActivatedRoute,
-              private flashMessage: FlashMessagesService) { }
+  constructor(
+    private taskService: TaskService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private flashMessage: FlashMessagesService,
+    private location: Location,
+  ) { }
 
   ngOnInit() {
     this.tid = this.route.snapshot.params['tid'];
@@ -43,8 +47,12 @@ export class EditTaskComponent implements OnInit {
       this.flashMessage.show('Task updated', {
         cssClass: 'alert-success', timeout: 4000
       });
-      this.router.navigate(['/tasks/' + this.tid]);
+      this.goBack();
     }
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 }

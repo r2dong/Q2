@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import {Location} from '@angular/common';
 
 // Modules and Services
 import { AppRoutingModule } from './app-routing.module';
@@ -45,4 +46,9 @@ import { NavbarComponent } from './navbar/navbar.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor( public location: Location){}
+  goBack(){
+    this.location.back();
+  }
+}

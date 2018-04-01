@@ -3,6 +3,7 @@ import { TaskService } from '../task.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { TaskModel } from '../task.model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-task-detail',
@@ -17,7 +18,8 @@ export class TaskDetailComponent implements OnInit {
     private taskService: TaskService,
     private router: Router,
     private route: ActivatedRoute,
-    private flashMessage: FlashMessagesService
+    private flashMessage: FlashMessagesService,
+    private location: Location,
   ) { }
 
   ngOnInit() {
@@ -40,13 +42,12 @@ export class TaskDetailComponent implements OnInit {
       this.flashMessage.show('Task removed', {
         cssClass: 'alert-success', timeout: 4000
       });
-      this.router.navigate(['/home']);
+      this.goBack();
     }
   }
-/*
-  goBack(): void {
+
+  goBack() {
     this.location.back();
   }
-  */
 
 }

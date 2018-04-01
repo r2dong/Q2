@@ -43,8 +43,12 @@ export class AddProjectComponent implements OnInit {
         cssClass: 'alert-success', timeout: 4000
       });
       // Redirect to dash
-      this.location.back();
+      this.goBack();
     }
+  }
+
+  goBack() {
+    this.location.back();
   }
 
 }

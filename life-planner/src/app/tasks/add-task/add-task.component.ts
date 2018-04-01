@@ -51,4 +51,8 @@ export class AddTaskComponent implements OnInit {
     }
   }
 
+  goBack(){
+    this.location.back();
+  }
+
 }

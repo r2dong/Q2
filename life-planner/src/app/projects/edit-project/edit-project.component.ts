@@ -3,6 +3,7 @@ import { ProjectService } from '../project.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { ProjectModel } from '../project.model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-project',
@@ -13,10 +14,13 @@ export class EditProjectComponent implements OnInit {
   pid: string;
   project: ProjectModel;
 
-  constructor(private projectService: ProjectService,
-              private router: Router,
-              private route: ActivatedRoute,
-              private flashMessage: FlashMessagesService) { }
+  constructor(
+    private projectService: ProjectService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private flashMessage: FlashMessagesService,
+    private location: Location,
+  ) { }
 
   ngOnInit() {
     this.pid = this.route.snapshot.params['pid'];
@@ -43,8 +47,12 @@ export class EditProjectComponent implements OnInit {
       this.flashMessage.show('Project updated', {
         cssClass: 'alert-success', timeout: 4000
       });
-      this.router.navigate(['/projects/' + this.pid]);
+      this.goBack();
     }
+  }
+
+  goBack() {
+    this.location.back();
   }
 
 }

@@ -79,7 +79,7 @@ export class TaskService {
 
   deleteTask(task: TaskModel) {
     this.taskDoc = this.tasksRef.doc(task.tid);
-    if(task.pid !== undefined){ this.ps.removeTaskFromProject(task.pid, task.tid); }
+    if ( task.pid !== undefined ) { this.ps.removeTaskFromProject(task.pid, task.tid); }
     this.taskDoc.delete();
   }
 
