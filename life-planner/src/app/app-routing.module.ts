@@ -31,6 +31,11 @@ const routes: Routes = [
     loadChildren: 'app/projects/projects.module#ProjectsModule',
     canActivate: [AuthGuard]
   },
+  {
+    path: 'events',
+    loadChildren: 'app/events/events.module#EventsModule',
+    canActivate: [AuthGuard]
+  },
   {path: '**', component: NotFoundComponent},
 ];
 
@@ -39,4 +44,4 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [AuthGuard]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule{}

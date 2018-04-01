@@ -2,7 +2,6 @@ import { TestBed } from '@angular/core/testing';
 import { APP_BASE_HREF } from '@angular/common';
 // system imports
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FlashMessagesModule } from 'angular2-flash-messages';
@@ -13,7 +12,8 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { TaskService } from './tasks/task.service';
 import { TasksModule } from './tasks/tasks.module';
-
+import{EventService} from "./events/event.service";
+import {EventsModule} from "./events/events.module";
 // Components
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -45,10 +45,12 @@ describe('AppComponent', () => {
         SharedModule,
         TasksModule,
         ProjectsModule,
+        EventsModule
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue : '/' },
-        TaskService
+        TaskService,
+        EventService
       ]
     }).compileComponents();
   });
