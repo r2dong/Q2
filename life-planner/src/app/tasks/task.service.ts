@@ -3,7 +3,7 @@ import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} 
 import {AuthService} from '../core/auth.service';
 import {Observable} from 'rxjs/Observable';
 import {TaskModel, TaskWeight} from './task.model';
-import {ProjectService} from "../projects/project.service";
+import {ProjectService} from '../projects/project.service';
 
 
 @Injectable()
@@ -28,13 +28,12 @@ export class TaskService {
   addTask(task: TaskModel, pid?: string) {
     // this.db.collection('finishedExercises').add(task);
     task.createdAt = new Date();
+    if ( pid !== undefined ) { task.pid = pid; }
     this.tasksRef.add(task)
       .then( item => {
-        if(pid!==undefined){
-          this.ps.addTaskToProject(pid, item.id);
-        }
+        if ( pid !== undefined ) { this.ps.addTaskToProject(pid, item.id); }
       })
-      .catch(function(){console.log('Error adding'); } );
+      .catch(function() { console.log('Error adding'); } );
   }
 
   getTask(tid: string): Observable<TaskModel> {
@@ -74,13 +73,13 @@ export class TaskService {
 
   updateTask(task: TaskModel) {
     task.updatedAt = new Date();
-
     this.taskDoc = this.tasksRef.doc(task.tid);
     this.taskDoc.update(task);
   }
 
   deleteTask(task: TaskModel) {
     this.taskDoc = this.tasksRef.doc(task.tid);
+    if(task.pid !== undefined){ this.ps.removeTaskFromProject(task.pid, task.tid); }
     this.taskDoc.delete();
   }
 

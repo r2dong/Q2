@@ -7,6 +7,7 @@ export interface TaskModel {
   tid?: string;
   rid?: string; // Role.id;
   name: string;
+  pid?: string;
 //  urgent: boolean;
 //  important: boolean;
   dueDateTime?: string; // Date;
