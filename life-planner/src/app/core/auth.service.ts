@@ -30,7 +30,7 @@ export class AuthService {
 
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
-              public router: Router) {
+              private router: Router) {
 
     //// Get auth data, then get firestore user document || null
     this.user = this.afAuth.authState
