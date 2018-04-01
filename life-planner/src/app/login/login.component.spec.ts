@@ -1,8 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { NotFoundComponent } from '../not-found/not-found.component';
+import { WelcomeComponent } from '../welcome/welcome.component';
+import { HomeComponent } from '../home/home.component';
 import { LoginComponent } from './login.component';
-import {SharedModule} from '../shared/shared.module';
-import {CoreModule} from '../core/core.module';
+import { SharedModule } from '../shared/shared.module';
+import { CoreModule } from '../core/core.module';
+
+import { TasksComponent } from '../tasks/tasks.component';
 
 import { AuthGuard } from '../core/auth.guard';
 import { AuthService } from '../core/auth.service';
@@ -57,7 +62,11 @@ describe('LoginComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
-        LoginComponent
+        LoginComponent,
+        WelcomeComponent,
+        HomeComponent,
+        NotFoundComponent,
+        TasksComponent,
       ],
       providers: [
         // fixed 'unable to resolve all parameters to Router (?, ?, ?, ?, ?, ?, ?, ?)'

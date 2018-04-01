@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { TestBed, async, inject } from '@angular/core/testing';
 
 import { AuthGuard } from './auth.guard';
@@ -12,28 +11,19 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from '../app.component';
 import { Observable } from 'rxjs';
 
+import { NavbarComponent } from '../navbar/navbar.component';
+import { FlashMessagesModule } from 'angular2-flash-messages';
+
 let authService: AuthService;
 const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
-=======
-import { TestBed, inject } from '@angular/core/testing';
-import { HttpClientModule } from '@angular/common/http';
-import { MockBackend } from '@angular/http/testing';
-import { MockConnection } from '@angular/http/testing';
-import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
-import 'rxjs/add/operator/switchMap';
-import { User } from './user.model';
-import {AuthService} from './auth.service';
-import {AngularFireModule} from 'angularfire2';
-import {environment} from '../../environments/environment';
->>>>>>> 4aafee696df6d35df0fdd2dea70405ac7d58d815
 
 describe('AuthService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-<<<<<<< HEAD
       declarations: [
-        AppComponent
+        AppComponent,
+        NavbarComponent
       ],
       providers: [
         AuthGuard,
@@ -47,6 +37,7 @@ describe('AuthService', () => {
         AngularFireModule.initializeApp(environment.firebase),
         RouterModule,
         RouterTestingModule,
+        FlashMessagesModule
         /*
         RouterTestingModule.withRoutes(
           [{path: '', component: AppComponent}]
@@ -121,18 +112,3 @@ describe('AuthService', () => {
     console.log(navArgs[0]);
   });
 })
-=======
-      imports: [
-        HttpClientModule,
-        AngularFireModule.initializeApp(environment.firebase),
-      ],
-      providers: [AuthService, AngularFireAuth]
-    });
-  });
-/*
-  it('should be created', inject([AuthService], (service: AuthService) => {
-    expect(service).toBeTruthy();
-  }));
-*/
-});
->>>>>>> 4aafee696df6d35df0fdd2dea70405ac7d58d815
