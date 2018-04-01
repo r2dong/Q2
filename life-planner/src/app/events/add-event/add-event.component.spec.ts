@@ -33,7 +33,7 @@ import { NavbarComponent } from '../../navbar/navbar.component';
 
 
 import { By } from '@angular/platform-browser';
-import {async} from "q";
+
 
 describe('AddEventComponent', () => {
   let component: AddEventComponent;
@@ -43,7 +43,7 @@ describe('AddEventComponent', () => {
   let spy: jasmine.Spy;
   let spyService: jasmine.Spy;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         AppRoutingModule,
@@ -70,7 +70,7 @@ describe('AddEventComponent', () => {
       ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     spy = spyOn(AuthService, 'currentUserId').and.returnValue('TestAccount');
@@ -85,11 +85,11 @@ describe('AddEventComponent', () => {
   it('should load page', () => {
     expect(component).toBeTruthy();
   });
-  xit('should get Test Account user',() =>{
+  it('should get Test Account user',() =>{
     expect(AuthService.currentUserId()).toBe('TestAccount');
   });
 
-  xit('should create an event', () =>{
+  it('should create an event', () =>{
     const event: EventModel ={
       eid: '',
       name: 'Sample Event for Testing Only',
