@@ -1,6 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
+import {SharedModule} from '../shared/shared.module';
+import {CoreModule} from '../core/core.module';
 
 import { AuthGuard } from '../core/auth.guard';
 import { AuthService } from '../core/auth.service';
@@ -50,27 +52,7 @@ describe('LoginComponent', () => {
   let fixture: ComponentFixture<LoginComponent>;
   let el: DebugElement;
   let auth: AuthService;
-  let authServiceStub : Partial<AuthService> = {
-    user: Observable.of({
-      uid: "stubbedUid",
-      email: "stubbedEmail",
-      photoURL: "stubbedPhotoURL",
-      displayName: "aGiantStubUserName",
-      favoriteColor: "pink",
-    }) 
-  }
-  let authServiceStub2 : Partial<AuthService> = {
-    get user() {
-      return Observable.of({
-        uid: "stubbedUid",
-        email: "stubbedEmail",
-        photoURL: "stubbedPhotoURL",
-        displayName: "aGiantStubUserName",
-        favoriteColor: "pink",
-      })
-    }
-  }
-
+  let spy: jasmine.Spy;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -95,6 +77,7 @@ describe('LoginComponent', () => {
   });
 
   beforeEach(() => {
+    spy = spyOn(AuthService, 'currentUserId').and.returnValue('TestAccount');
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     auth = fixture.debugElement.injector.get(AuthService);

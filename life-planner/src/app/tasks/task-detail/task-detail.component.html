@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-md-6">
+    <h4 class="col s12 center-align">Task Detail</h4>
+    <a routerLink="/home" class="btn btn-link">
+      <i class="fa fa-arrow-circle-o-left"></i> Back to Dashboard
+    </a>
+  </div>
+  <div *ngIf="task" class="card">
+    <h3 class="card-title">{{ task.name }}</h3>
+    <div class="card-body">
+      <ul class="list-group">
+        <li class="list-group-item">Task ID: {{ task.tid }}</li>
+        <li class="list-group-item">Task Name: {{ task.name }}</li>
+        <li class="list-group-item">Task Due Date: {{ task.dueDateTime }}</li>
+        <li class="list-group-item">Task Added On: {{ task.createdAt }}</li>
+        <li class="list-group-item">Task Last Updated On: {{ task.updatedAt }}</li>
+      </ul>
+      <hr>
+      <ul class="list-group">
+        <li class="list-group-item">IsComplete: </li>
+        <li class="list-group-item">IsUrgent: </li>
+      </ul>
+    </div>
+    <div class="card-action card-content grey lighten-4">
+      <a routerLink="/tasks/edit/{{ tid }}" class="btn btn-dark">Edit</a>
+      <button (click)="onDeleteClick()" class="btn btn-danger">Delete</button>
+    </div>
+  </div>
+</div>

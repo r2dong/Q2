@@ -11,6 +11,9 @@ exports.config = {
   capabilities: {
     'browserName': 'chrome'
   },
+  plugins: [{
+    package: 'protractor-testability-plugin'
+  }],
   directConnect: true,
   baseUrl: 'http://localhost:4200/',
   framework: 'jasmine',
