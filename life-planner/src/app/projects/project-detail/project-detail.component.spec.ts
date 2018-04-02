@@ -37,6 +37,7 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 
 import { By } from '@angular/platform-browser';
 import {TaskService} from '../../tasks/task.service';
+import {EventService} from "../../events/event.service";
 
 
 describe('ProjectDetailComponent', () => {
@@ -75,6 +76,7 @@ describe('ProjectDetailComponent', () => {
         { provide: APP_BASE_HREF, useValue: '/project-detail'},
         ProjectService,
         TaskService,
+        EventService,
         FlashMessagesService
       ]
     })

@@ -1,8 +1,8 @@
 <div class="row">
   <div class="col-md-6">
     <h4 class="col s12 center-align">Edit Event</h4>
-    <a routerLink="/events/{{ eid }}" class="btn btn-link">
-      <i class="fa fa-arrow-circle-o-left"></i> Back to Event Detail
+    <a (click)="goBack()" class="btn btn-link">
+      <i class="fa fa-arrow-circle-o-left"></i> Back
     </a>
   </div>
   <div *ngIf="event" class="card">

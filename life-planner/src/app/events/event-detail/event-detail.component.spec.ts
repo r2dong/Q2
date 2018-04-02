@@ -35,6 +35,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import {async} from "q";
 import {FlashMessage} from "angular2-flash-messages/module/flash-message";
+import {ProjectService} from "../../projects/project.service";
 
 describe('EventDetailComponent', () => {
   let component: EventDetailComponent;
@@ -45,8 +46,8 @@ describe('EventDetailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AppComponent,WelcomeComponent,HomeComponent,LoginComponent, NotFoundComponent,NavbarComponent],
-      imports:[
+      declarations: [ AppComponent, WelcomeComponent, HomeComponent, LoginComponent, NotFoundComponent, NavbarComponent],
+      imports: [
         AppRoutingModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
@@ -57,9 +58,10 @@ describe('EventDetailComponent', () => {
         EventsModule,
         CoreModule
       ],
-      providers:[
-        {provide: APP_BASE_HREF,useValue:'/event-detail'},
+      providers: [
+        {provide: APP_BASE_HREF, useValue: '/event-detail'},
         EventService,
+        ProjectService,
         FlashMessagesService
       ]
     })

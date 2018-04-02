@@ -12,12 +12,10 @@ export class EventsComponent implements OnInit {
   @Input() events: EventModel[];
   @Input() pid: string;
   constructor(private es: EventService, private router: Router ) { }
-
   ngOnInit() {
-    if(this.router.url === '/events') {
+    if ( this.router.url === '/events' ) {
       this.es.getEvents().subscribe(events => {
         this.events = events;
-
       });
       this.pid = undefined;
     }

@@ -2,6 +2,7 @@ export interface EventModel {
   eid?: string; //event id
   rid?: string; // Role.id;
   name: string; // event name
+  pid?: string;
   //important: boolean;
   sdate: string; // Start Date;
   stime?: string; //Start Time;

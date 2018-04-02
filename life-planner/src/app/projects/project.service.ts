@@ -83,14 +83,41 @@ export class ProjectService {
       }
     });
   }
-  removeTaskFromProject(pid: string, tid: string){
+
+  addEventToProject(pid: string, eid: string){
     this.getProject(pid).take(1).forEach(proj => {
-      if(proj.tids === undefined){
+      if(proj.eids === undefined){
+        proj.eids = [];
+      }
+      if(!proj.eids.includes(eid)){
+        proj.eids.push(eid);
+        this.updateProject(proj);
+      }
+    });
+  }
+
+
+  removeTaskFromProject(pid: string, tid: string) {
+    this.getProject(pid).take(1).forEach(proj => {
+      if ( proj.tids === undefined ) {
         proj.tids = [];
       }
       const index = proj.tids.indexOf(tid);
-      if(index !== -1){
-        proj.tids.splice(index,1);
+      if ( index !== -1) {
+        proj.tids.splice(index, 1 );
+        this.updateProject(proj);
+      }
+    });
+  }
+
+  removeEventFromProject(pid: string, eid: string) {
+    this.getProject(pid).take(1).forEach(proj => {
+      if ( proj.eids === undefined ) {
+        proj.eids = [];
+      }
+      const index = proj.eids.indexOf(eid);
+      if (index !== -1) {
+        proj.eids.splice(index, 1);
         this.updateProject(proj);
       }
     });

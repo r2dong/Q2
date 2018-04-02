@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { EventService } from '../event.service';
 import { Router, ActivatedRoute} from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
-import{EventModel} from "../event.model";
+import {EventModel} from '../event.model';
+import {Location} from '@angular/common';
 @Component({
   selector: 'app-edit-event',
   templateUrl: './edit-event.component.html',
@@ -11,14 +12,17 @@ import{EventModel} from "../event.model";
 export class EditEventComponent implements OnInit {
   eid: string;
   event: EventModel;
-  constructor(private eventService: EventService,
-              private router:Router,
-              private route: ActivatedRoute,
-              private flashMessage:FlashMessagesService) { }
+  constructor(
+    private eventService: EventService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private flashMessage: FlashMessagesService,
+    private location: Location,
+  ) { }
 
   ngOnInit() {
     this.eid = this.route.snapshot.params['eid'];
-    //get client
+    // get client
     this.eventService.getEvent(this.eid).subscribe(event =>{
       if(event != null){
         console.log('event found for eid: ' + this.eid);
@@ -40,8 +44,12 @@ export class EditEventComponent implements OnInit {
       this.flashMessage.show('Event updated', {
         cssClass: 'alert-success', timeout: 4000
       });
-      this.router.navigate(['/events/' + this.eid]);
+      this.goBack();
     }
+  }
+
+  goBack() {
+    this.location.back();
   }
 
 }

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {EventService} from "../event.service";
-import{ActivatedRoute, Router, Params} from '@angular/router';
-import{FlashMessagesService} from 'angular2-flash-messages';
-import {EventModel} from "../event.model";
+import {EventService} from '../event.service';
+import {ActivatedRoute, Router, Params} from '@angular/router';
+import {FlashMessagesService} from 'angular2-flash-messages';
+import {EventModel} from '../event.model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-event-detail',
@@ -13,11 +14,13 @@ export class EventDetailComponent implements OnInit {
   eid: string;
   event: EventModel;
   deletedEventName: string;
-  constructor(private eventsService: EventService,
-              private router: Router,
-              private route: ActivatedRoute,
-              private flashMessage: FlashMessagesService) {
-  }
+  constructor(
+    private eventsService: EventService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private flashMessage: FlashMessagesService,
+    private location: Location,
+  ) {}
 
   ngOnInit() {
     // Get id from url
@@ -40,7 +43,11 @@ export class EventDetailComponent implements OnInit {
       this.flashMessage.show('Event: ' + this.deletedEventName +' removed', {
         cssClass: 'alert-success', timeout: 4000
       });
-      this.router.navigate(['/events']);
+      this.goBack();
     }
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

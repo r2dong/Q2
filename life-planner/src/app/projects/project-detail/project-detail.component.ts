@@ -6,6 +6,8 @@ import { ProjectModel } from '../project.model';
 import {TaskService} from '../../tasks/task.service';
 import {TaskModel} from '../../tasks/task.model';
 import {Location} from '@angular/common';
+import {EventModel} from "../../events/event.model";
+import {EventService} from "../../events/event.service";
 @Component({
   selector: 'app-project-detail',
   templateUrl: './project-detail.component.html',
@@ -15,7 +17,7 @@ export class ProjectDetailComponent implements OnInit {
   pid: string;
   project: ProjectModel;
   projectTasks: TaskModel[];
-  // projectEvents: EventModel[];
+  projectEvents: EventModel[];
 
   constructor(
     private projectService: ProjectService,
@@ -24,7 +26,7 @@ export class ProjectDetailComponent implements OnInit {
     private flashMessage: FlashMessagesService,
     private location: Location,
     private ts: TaskService,
-    // private es: EventService,
+    private es: EventService,
   ) { }
 
   ngOnInit() {
@@ -42,12 +44,9 @@ export class ProjectDetailComponent implements OnInit {
           this.projectTasks = tasks;
         });
       }
-
-      /*
       this.es.findEvents(project.eids).subscribe(events => {
         this.projectEvents = events;
       });
-       */
     });
   }
 
@@ -61,7 +60,7 @@ export class ProjectDetailComponent implements OnInit {
     }
   }
 
-  goBack(){
+  goBack() {
     this.location.back();
   }
 }

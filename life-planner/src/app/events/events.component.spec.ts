@@ -29,7 +29,7 @@ import { NotFoundComponent } from '../not-found/not-found.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { EventsComponent } from './events.component';
 import{By} from '@angular/platform-browser'
-import {async} from "q";
+import {ProjectService} from "../projects/project.service";
 
 describe('EventsComponent', () => {
   let component: EventsComponent;
@@ -59,7 +59,8 @@ describe('EventsComponent', () => {
       ],
       providers:[
         {provide: APP_BASE_HREF, useValue:'/events'},
-        EventService
+        EventService,
+        ProjectService,
       ]
     });
   }));

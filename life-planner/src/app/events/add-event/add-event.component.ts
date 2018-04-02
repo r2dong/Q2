@@ -45,7 +45,11 @@ export class AddEventComponent implements OnInit {
         cssClass: 'alert-success', timeout: 4000
       });
       // Redirect to previous page
-      this.location.back();
+      this.goBack();
     }
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

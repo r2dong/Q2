@@ -3,7 +3,7 @@ import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} 
 import {AuthService} from '../core/auth.service';
 import {Observable} from 'rxjs/Observable';
 import {EventModel} from './event.model';
-//import {ProjectService} from '../projects/project.service';
+import {ProjectService} from '../projects/project.service';
 
 @Injectable()
 export class EventService {
@@ -13,7 +13,7 @@ export class EventService {
   events: Observable<EventModel[]>;
   singleEvent: Observable<EventModel>;
 
-  constructor(private db: AngularFirestore /*,private ps:ProjectService*/) {
+  constructor(private db: AngularFirestore , private ps: ProjectService) {
     if (AuthService.isLoggedIn()) {
       console.log('User ID: ' + AuthService.currentUserId());
       this.eventsRef = this.db.collection('users').doc(AuthService.currentUserId()).collection('events');
@@ -30,11 +30,11 @@ export class EventService {
     this.eventsRef.add(event)
       .then(item =>{
         if(pid !== undefined){
-          //this.ps.addEventToProject(pid,item.id);
+          this.ps.addEventToProject(pid, item.id);
         }
       })
-      .catch(function(){
-        console.log("Error Adding");
+      .catch(function() {
+        console.log('Error Adding');
       });
 
   }

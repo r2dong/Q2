@@ -33,6 +33,7 @@ import { NavbarComponent } from '../../navbar/navbar.component';
 
 
 import { By } from '@angular/platform-browser';
+import {ProjectService} from "../../projects/project.service";
 
 
 describe('AddEventComponent', () => {
@@ -66,6 +67,7 @@ describe('AddEventComponent', () => {
       providers:[
         {provide: APP_BASE_HREF, useValue: '/events'},
         EventService,
+        ProjectService,
         FlashMessagesService
       ]
     })

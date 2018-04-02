@@ -32,6 +32,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 
 import { By } from '@angular/platform-browser';
 import {TaskService} from "../tasks/task.service";
+import {EventService} from "../events/event.service";
 
 
 describe('ProjectsComponent', () => {
@@ -65,7 +66,8 @@ describe('ProjectsComponent', () => {
       providers: [
         { provide: APP_BASE_HREF, useValue: '/projects'},
         ProjectService,
-        TaskService
+        TaskService,
+        EventService,
       ]
     })
       .compileComponents();
