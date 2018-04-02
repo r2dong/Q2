@@ -31,9 +31,7 @@ import { AuthService } from '../../core/auth.service';
 import { NotFoundComponent } from '../../not-found/not-found.component';
 import { NavbarComponent } from '../../navbar/navbar.component';
 
-
 import { By } from '@angular/platform-browser';
-import {ProjectService} from "../../projects/project.service";
 
 
 describe('AddRoleComponent', () => {
@@ -68,7 +66,6 @@ describe('AddRoleComponent', () => {
       providers: [
         { provide: APP_BASE_HREF, useValue: '/roles'},
         RoleService,
-        ProjectService,
         FlashMessagesService
       ]
     })
@@ -96,7 +93,7 @@ describe('AddRoleComponent', () => {
 
   it('should create a role', () => {
     const role: RoleModel = {
-      tid: '',
+      rid: '',
       name: 'Sample Role For Testing Only',
       color: 'Sample Color'
     };

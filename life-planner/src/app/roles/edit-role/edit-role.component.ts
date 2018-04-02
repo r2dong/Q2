@@ -11,7 +11,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./edit-role.component.css']
 })
 export class EditRoleComponent implements OnInit {
-  tid: string;
+  rid: string;
   role: RoleModel;
 
   constructor(
@@ -23,11 +23,11 @@ export class EditRoleComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.tid = this.route.snapshot.params['tid'];
+    this.rid = this.route.snapshot.params['rid'];
     // Get client
-    this.roleService.getRole(this.tid).subscribe(role => {
+    this.roleService.getRole(this.rid).subscribe(role => {
       if (role != null) {
-        console.log('role found for tid: ' + this.tid);
+        console.log('role found for tid: ' + this.rid);
       }
       this.role = role;
     });
@@ -40,7 +40,7 @@ export class EditRoleComponent implements OnInit {
       });
     } else {
       // Add id to client
-      value.tid = this.tid;
+      value.rid = this.rid;
       value.createdAt = this.role.createdAt;
       // Update client
       this.roleService.updateRole(value);
@@ -51,7 +51,7 @@ export class EditRoleComponent implements OnInit {
     }
   }
 
-  goBack(){
+  goBack() {
     this.location.back();
   }
 

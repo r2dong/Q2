@@ -10,10 +10,8 @@ import { EditRoleComponent } from './edit-role/edit-role.component';
 export const routes: Routes = [
   { path: '', component: RolesComponent, canActivate: [AuthGuard] },
   { path: 'add', component: AddRoleComponent, canActivate: [AuthGuard] },
-  { path: ':tid', component: RoleDetailComponent, canActivate: [AuthGuard] },
-  { path: 'edit/:tid', component: EditRoleComponent, canActivate: [AuthGuard] },
-  { path: 'add/:pid', component: AddRoleComponent, canActivate: [AuthGuard] },
-  { path: ':tid/:pid', component: RoleDetailComponent, canActivate: [AuthGuard] },
+  { path: ':rid', component: RoleDetailComponent, canActivate: [AuthGuard] },
+  { path: 'edit/:rid', component: EditRoleComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

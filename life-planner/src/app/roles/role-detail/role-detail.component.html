@@ -9,7 +9,7 @@
     <h3 class="card-title">{{ role.name }}</h3>
     <div class="card-body">
       <ul class="list-group">
-        <li class="list-group-item">Role ID: {{ role.tid }}</li>
+        <li class="list-group-item">Role ID: {{ role.rid }}</li>
         <li class="list-group-item">Role Name: {{ role.name }}</li>
         <li class="list-group-item">Role Color: {{ role.color }}</li>
         <li class="list-group-item">Role Added On: {{ role.createdAt }}</li>
@@ -18,7 +18,7 @@
       <hr>
     </div>
     <div class="card-action card-content grey lighten-4">
-      <a routerLink="/roles/edit/{{ tid }}" class="btn btn-dark">Edit</a>
+      <a routerLink="/roles/edit/{{ rid }}" class="btn btn-dark">Edit</a>
       <button (click)="onDeleteClick()" class="btn btn-danger">Delete</button>
     </div>
   </div>

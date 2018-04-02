@@ -16,17 +16,18 @@
       <tbody>
       <tr>
         <td colspan="3"></td>
-        <td><a routerLink="/roles/add/{{ pid }}" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
+        <td><a routerLink="/roles/add" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
       </tr>
       <tr *ngFor="let role of roles">
         <td>{{ role.color }}</td>
         <td>{{ role.name }}</td>
-        <td><a routerLink="/roles/{{ role.tid }}/{{ pid }}" class="btn btn-secondary btn-sm"><i class="material-icons">edit</i></a></td>
+        <td><a routerLink="/roles/{{ role.rid }}" class="btn btn-secondary btn-sm"><i class="material-icons">edit</i></a></td>
       </tr>
 
       </tbody>
     </table>
   </div>
+
 
 <ng-template #noRoles>
   <table class="bordered striped">
@@ -40,7 +41,7 @@
   <tbody>
   <tr>
     <td colspan="3">There are no roles in the system for this user.</td>
-    <td><a routerLink="/roles/add/{{ pid }}" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
+    <td><a routerLink="/roles/add" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
   </tr>
 
   </tbody>

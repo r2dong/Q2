@@ -11,7 +11,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./role-detail.component.css']
 })
 export class RoleDetailComponent implements OnInit {
-  tid: string;
+  rid: string;
   role: RoleModel;
 
   constructor(
@@ -24,12 +24,12 @@ export class RoleDetailComponent implements OnInit {
 
   ngOnInit() {
     // Get id from url
-    this.tid = this.route.snapshot.params['tid'];
+    this.rid = this.route.snapshot.params['rid'];
     // Get role
-    console.log('getting tid: ' + this.tid);
-    this.roleService.getRole(this.tid).subscribe(role => {
+    console.log('getting tid: ' + this.rid);
+    this.roleService.getRole(this.rid).subscribe(role => {
       if (role != null) {
-        console.log('role found for tid: ' + this.tid);
+        console.log('role found for tid: ' + this.rid);
       }
       this.role = role;
     });

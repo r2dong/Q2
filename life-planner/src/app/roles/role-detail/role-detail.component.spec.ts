@@ -31,12 +31,9 @@ import { AuthService } from '../../core/auth.service';
 import { NotFoundComponent } from '../../not-found/not-found.component';
 import { NavbarComponent } from '../../navbar/navbar.component';
 
-
 import { ActivatedRoute, Router, Params } from '@angular/router';
 
-
 import { By } from '@angular/platform-browser';
-import {ProjectService} from "../../projects/project.service";
 
 
 describe('RoleDetailComponent', () => {
@@ -74,7 +71,6 @@ describe('RoleDetailComponent', () => {
       providers: [
         { provide: APP_BASE_HREF, useValue: '/role-detail'},
         RoleService,
-        ProjectService,
         FlashMessagesService
       ]
     })

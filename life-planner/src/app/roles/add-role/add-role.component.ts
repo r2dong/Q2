@@ -11,9 +11,8 @@ import {Location} from '@angular/common';
   styleUrls: ['./add-role.component.css']
 })
 export class AddRoleComponent implements OnInit {
-  pid: string;
   role: RoleModel = {
-    tid: '',
+    rid: '',
     name: '',
   };
 
@@ -24,13 +23,10 @@ export class AddRoleComponent implements OnInit {
     private roleService: RoleService,
     private router: Router,
     private location: Location,
-    private route: ActivatedRoute,
   ) { }
 
-  ngOnInit() {
-    this.pid = this.route.snapshot.params['pid'];
-    console.log(this.pid);
-  }
+  ngOnInit() {}
+
 
   onSubmit({value, valid}: {value: RoleModel, valid: boolean}) {
     if (!valid) {
@@ -40,7 +36,7 @@ export class AddRoleComponent implements OnInit {
       });
     } else {
       // Add new client
-      this.roleService.addRole(value, this.pid);
+      this.roleService.addRole(value);
       // Show message
       this.flashMessage.show('New client added', {
         cssClass: 'alert-success', timeout: 4000
@@ -50,7 +46,7 @@ export class AddRoleComponent implements OnInit {
     }
   }
 
-  goBack(){
+  goBack() {
     this.location.back();
   }
 

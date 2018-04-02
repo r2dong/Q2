@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 
 export class RolesComponent implements OnInit {
   @Input() roles: RoleModel[];
-  @Input() pid: string;
 
   constructor(private ts: RoleService, private router: Router) { }
 
@@ -21,7 +20,6 @@ export class RolesComponent implements OnInit {
       this.ts.getRoles().subscribe(roles => {
         this.roles = roles;
       });
-      this.pid = undefined;
     }
   }
 }
