@@ -11,15 +11,11 @@
       <ul class="list-group">
         <li class="list-group-item">Role ID: {{ role.tid }}</li>
         <li class="list-group-item">Role Name: {{ role.name }}</li>
-        <li class="list-group-item">Role Due Date: {{ role.dueDateTime }}</li>
+        <li class="list-group-item">Role Color: {{ role.color }}</li>
         <li class="list-group-item">Role Added On: {{ role.createdAt }}</li>
         <li class="list-group-item">Role Last Updated On: {{ role.updatedAt }}</li>
       </ul>
       <hr>
-      <ul class="list-group">
-        <li class="list-group-item">IsComplete: </li>
-        <li class="list-group-item">IsUrgent: </li>
-      </ul>
     </div>
     <div class="card-action card-content grey lighten-4">
       <a routerLink="/roles/edit/{{ tid }}" class="btn btn-dark">Edit</a>

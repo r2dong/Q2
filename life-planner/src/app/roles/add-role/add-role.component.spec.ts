@@ -19,7 +19,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
 import {RoleService} from '../role.service';
-import {RoleModel, RoleWeight} from '../role.model';
+import {RoleModel} from '../role.model';
 
 // Components
 import {AppComponent} from '../../app.component';
@@ -98,7 +98,7 @@ describe('AddRoleComponent', () => {
     const role: RoleModel = {
       tid: '',
       name: 'Sample Role For Testing Only',
-      dueDateTime: ''
+      color: 'Sample Color'
     };
     spyService = spyOn(service, 'addRole').and.returnValue('TestAccount');
     service.addRole(role);

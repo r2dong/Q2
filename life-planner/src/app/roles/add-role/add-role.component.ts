@@ -15,7 +15,6 @@ export class AddRoleComponent implements OnInit {
   role: RoleModel = {
     tid: '',
     name: '',
-    dueDateTime: ''
   };
 
   @ViewChild('roleForm') form: any;

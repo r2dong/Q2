@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
 import {AuthService} from '../core/auth.service';
 import {Observable} from 'rxjs/Observable';
-import {RoleModel, RoleWeight} from './role.model';
+import {RoleModel} from './role.model';
 import {ProjectService} from '../projects/project.service';
 
 

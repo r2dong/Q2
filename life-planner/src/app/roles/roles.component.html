@@ -8,9 +8,8 @@
     <table *ngIf="roles?.length > 0;else noRoles" class="bordered striped">
       <thead class="thead-inverse">
       <tr>
-        <th>ID</th>
+        <th>Color</th>
         <th>Name</th>
-        <th>Date Due</th>
         <th></th>
       </tr>
       </thead>
@@ -20,9 +19,8 @@
         <td><a routerLink="/roles/add/{{ pid }}" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
       </tr>
       <tr *ngFor="let role of roles">
-        <td>{{ role.tid }}</td>
+        <td>{{ role.color }}</td>
         <td>{{ role.name }}</td>
-        <td>{{ role.dueDateTime }}</td>
         <td><a routerLink="/roles/{{ role.tid }}/{{ pid }}" class="btn btn-secondary btn-sm"><i class="material-icons">edit</i></a></td>
       </tr>
 
@@ -34,9 +32,8 @@
   <table class="bordered striped">
   <thead class="thead-inverse">
   <tr>
-    <th>ID</th>
+    <th>Color</th>
     <th>Name</th>
-    <th>Date Due</th>
     <th></th>
   </tr>
   </thead>

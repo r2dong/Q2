@@ -19,7 +19,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
 import {RoleService} from '../role.service';
-import {RoleModel, RoleWeight} from '../role.model';
+import {RoleModel} from '../role.model';
 import * as firebase from 'firebase';
 // Components
 import {AppComponent} from '../../app.component';
@@ -100,16 +100,6 @@ describe('RoleDetailComponent', () => {
   xit('should get Test Account user', () => {
     expect(AuthService.currentUserId()).toBe('TestAccount');
   });
-/*
-  xit('should show a role', () => {
-    const tid = '123';
-    spyService = spyOn(service, 'getRole').and.returnValue('TestAccount');
-    service.getRole(tid);
-    // Check internal function
-    expect(spyService).toHaveBeenCalled();
-
-  });
-*/
 
 
 });

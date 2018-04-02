@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {RoleService} from './role.service';
-import {RoleModel, RoleWeight} from './role.model';
+import {RoleModel} from './role.model';
 import { Router } from '@angular/router';
 
 
