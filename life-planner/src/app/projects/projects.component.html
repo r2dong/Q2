@@ -19,7 +19,7 @@
       </tr>
       <tr *ngFor="let project of projects">
         <td>{{ project.name }}</td>
-        <td>{{ project.dueDateTime }}</td>
+        <td>{{ project.dueDateTime.split('-')[1] }}-{{ project.dueDateTime.split('-')[2] }}-{{ project.dueDateTime.split('-')[0] }}</td>
         <td><a routerLink="/projects/{{ project.pid }}" class="btn btn-secondary btn-sm"><i class="material-icons">edit</i></a></td>
       </tr>
       </tbody>
