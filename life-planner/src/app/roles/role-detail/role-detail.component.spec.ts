@@ -13,19 +13,19 @@ import {AngularFireStorageModule} from 'angularfire2/storage';
 import { AppRoutingModule } from '../../app-routing.module';
 import { CoreModule } from '../../core/core.module';
 import { SharedModule } from '../../shared/shared.module';
-import { TasksModule } from '../tasks.module';
+import { RolesModule } from '../roles.module';
 import {FormsModule} from '@angular/forms';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
-import {TaskService} from '../task.service';
-import {TaskModel, TaskWeight} from '../task.model';
+import {RoleService} from '../role.service';
+import {RoleModel, RoleWeight} from '../role.model';
 import * as firebase from 'firebase';
 // Components
 import {AppComponent} from '../../app.component';
 import { LoginComponent } from '../../login/login.component';
 import { HomeComponent } from '../../home/home.component';
-import { TaskDetailComponent } from './task-detail.component';
+import { RoleDetailComponent } from './role-detail.component';
 import { WelcomeComponent } from '../../welcome/welcome.component';
 import { AuthService } from '../../core/auth.service';
 import { NotFoundComponent } from '../../not-found/not-found.component';
@@ -39,10 +39,10 @@ import { By } from '@angular/platform-browser';
 import {ProjectService} from "../../projects/project.service";
 
 
-describe('TaskDetailComponent', () => {
-  let component: TaskDetailComponent;
-  let service: TaskService;
-  let fixture: ComponentFixture<TaskDetailComponent>;
+describe('RoleDetailComponent', () => {
+  let component: RoleDetailComponent;
+  let service: RoleService;
+  let fixture: ComponentFixture<RoleDetailComponent>;
   let de: DebugElement;
   let spy: jasmine.Spy;
 
@@ -60,7 +60,7 @@ describe('TaskDetailComponent', () => {
         FlashMessagesModule,
         FormsModule,
         SharedModule,
-        TasksModule,
+        RolesModule,
         CoreModule,
       ],
       declarations: [
@@ -73,7 +73,7 @@ describe('TaskDetailComponent', () => {
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/role-detail'},
-        TaskService,
+        RoleService,
         ProjectService,
         FlashMessagesService
       ]
@@ -84,10 +84,10 @@ describe('TaskDetailComponent', () => {
   beforeEach(() => {
 
     spy = spyOn(AuthService, 'currentUserId').and.returnValue('TestAccount');
-    fixture = TestBed.createComponent(TaskDetailComponent);
+    fixture = TestBed.createComponent(RoleDetailComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;
-    service = de.injector.get(TaskService);
+    service = de.injector.get(RoleService);
 
 
     fixture.detectChanges();
@@ -101,10 +101,10 @@ describe('TaskDetailComponent', () => {
     expect(AuthService.currentUserId()).toBe('TestAccount');
   });
 /*
-  xit('should show a task', () => {
+  xit('should show a role', () => {
     const tid = '123';
-    spyService = spyOn(service, 'getTask').and.returnValue('TestAccount');
-    service.getTask(tid);
+    spyService = spyOn(service, 'getRole').and.returnValue('TestAccount');
+    service.getRole(tid);
     // Check internal function
     expect(spyService).toHaveBeenCalled();
 

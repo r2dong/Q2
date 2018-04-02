@@ -96,6 +96,17 @@ export class ProjectService {
     });
   }
 
+  addRoleToProject(pid: string, eid: string){
+    this.getProject(pid).take(1).forEach(proj => {
+      if(proj.eids === undefined){
+        proj.eids = [];
+      }
+      if(!proj.eids.includes(eid)){
+        proj.eids.push(eid);
+        this.updateProject(proj);
+      }
+    });
+  }
 
   removeTaskFromProject(pid: string, tid: string) {
     this.getProject(pid).take(1).forEach(proj => {
@@ -111,6 +122,19 @@ export class ProjectService {
   }
 
   removeEventFromProject(pid: string, eid: string) {
+    this.getProject(pid).take(1).forEach(proj => {
+      if ( proj.eids === undefined ) {
+        proj.eids = [];
+      }
+      const index = proj.eids.indexOf(eid);
+      if (index !== -1) {
+        proj.eids.splice(index, 1);
+        this.updateProject(proj);
+      }
+    });
+  }
+
+  removeRoleFromProject(pid: string, eid: string) {
     this.getProject(pid).take(1).forEach(proj => {
       if ( proj.eids === undefined ) {
         proj.eids = [];

@@ -13,46 +13,40 @@ import {AngularFireStorageModule} from 'angularfire2/storage';
 import { AppRoutingModule } from '../../app-routing.module';
 import { CoreModule } from '../../core/core.module';
 import { SharedModule } from '../../shared/shared.module';
-import { TasksModule } from '../tasks.module';
+import { RolesModule } from '../roles.module';
 import {FormsModule} from '@angular/forms';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
-import {TaskService} from '../task.service';
-import {TaskModel, TaskWeight} from '../task.model';
-import * as firebase from 'firebase';
+import {RoleService} from '../role.service';
+import {RoleModel, RoleWeight} from '../role.model';
+
 // Components
 import {AppComponent} from '../../app.component';
 import { LoginComponent } from '../../login/login.component';
 import { HomeComponent } from '../../home/home.component';
-import { TaskDetailComponent } from './task-detail.component';
+import { AddRoleComponent } from './add-role.component';
 import { WelcomeComponent } from '../../welcome/welcome.component';
 import { AuthService } from '../../core/auth.service';
 import { NotFoundComponent } from '../../not-found/not-found.component';
 import { NavbarComponent } from '../../navbar/navbar.component';
 
 
-import { ActivatedRoute, Router, Params } from '@angular/router';
-
-
 import { By } from '@angular/platform-browser';
 import {ProjectService} from "../../projects/project.service";
 
 
-describe('TaskDetailComponent', () => {
-  let component: TaskDetailComponent;
-  let service: TaskService;
-  let fixture: ComponentFixture<TaskDetailComponent>;
+describe('AddRoleComponent', () => {
+  let component: AddRoleComponent;
+  let service: RoleService;
+  let fixture: ComponentFixture<AddRoleComponent>;
   let de: DebugElement;
   let spy: jasmine.Spy;
-
-
-  // let spyService: jasmine.Spy;
+  let spyService: jasmine.Spy;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-
         AppRoutingModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
@@ -60,9 +54,9 @@ describe('TaskDetailComponent', () => {
         FlashMessagesModule,
         FormsModule,
         SharedModule,
-        TasksModule,
+        RolesModule,
         CoreModule,
-      ],
+        ],
       declarations: [
         AppComponent,
         WelcomeComponent,
@@ -72,8 +66,8 @@ describe('TaskDetailComponent', () => {
         NavbarComponent
       ],
       providers: [
-        { provide: APP_BASE_HREF, useValue: '/role-detail'},
-        TaskService,
+        { provide: APP_BASE_HREF, useValue: '/roles'},
+        RoleService,
         ProjectService,
         FlashMessagesService
       ]
@@ -84,32 +78,35 @@ describe('TaskDetailComponent', () => {
   beforeEach(() => {
 
     spy = spyOn(AuthService, 'currentUserId').and.returnValue('TestAccount');
-    fixture = TestBed.createComponent(TaskDetailComponent);
+    fixture = TestBed.createComponent(AddRoleComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;
-    service = de.injector.get(TaskService);
-
+    service = de.injector.get(RoleService);
 
     fixture.detectChanges();
   });
 
-  xit('should load page', () => {
+  it('should load page', () => {
     expect(component).toBeTruthy();
   });
 
-  xit('should get Test Account user', () => {
+  it('should get Test Account user', () => {
     expect(AuthService.currentUserId()).toBe('TestAccount');
   });
-/*
-  xit('should show a task', () => {
-    const tid = '123';
-    spyService = spyOn(service, 'getTask').and.returnValue('TestAccount');
-    service.getTask(tid);
+
+  it('should create a role', () => {
+    const role: RoleModel = {
+      tid: '',
+      name: 'Sample Role For Testing Only',
+      dueDateTime: ''
+    };
+    spyService = spyOn(service, 'addRole').and.returnValue('TestAccount');
+    service.addRole(role);
     // Check internal function
     expect(spyService).toHaveBeenCalled();
 
   });
-*/
+
 
 
 });

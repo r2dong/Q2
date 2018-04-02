@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ProjectService } from './project.service';
 import {TasksModule} from '../tasks/tasks.module';
 import {EventsModule} from '../events/events.module';
+import {RolesModule} from '../roles/roles.module';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import {EventsModule} from '../events/events.module';
     SharedModule,
     TasksModule,
     EventsModule,
+    RolesModule
   ],
   declarations: [
     ProjectsComponent,

@@ -36,6 +36,11 @@ const routes: Routes = [
     loadChildren: 'app/events/events.module#EventsModule',
     canActivate: [AuthGuard]
   },
+  {
+    path: 'roles',
+    loadChildren: 'app/roles/roles.module#RolesModule',
+    canActivate: [AuthGuard]
+  },
   {path: '**', component: NotFoundComponent},
 ];
 
