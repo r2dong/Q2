@@ -19,7 +19,7 @@ import { HomeComponent } from './home/home.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import {EventsModule} from "./events/events.module";
+import {EventsModule} from './events/events.module';
 import {RolesModule} from './roles/roles.module';
 
 
@@ -51,8 +51,9 @@ import {RolesModule} from './roles/roles.module';
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor( public location: Location){}
-  goBack(){
+  constructor( public location: Location) { }
+
+  goBack() {
     this.location.back();
   }
 }
