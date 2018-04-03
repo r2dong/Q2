@@ -23,6 +23,7 @@ import { TaskService } from './task.service';
     TaskService
   ],
   exports: [
+    SharedModule,
     TasksComponent,
     TaskDetailComponent,
     AddTaskComponent,
