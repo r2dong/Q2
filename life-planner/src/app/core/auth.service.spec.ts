@@ -22,6 +22,12 @@ let authService: AuthService;
 const routerSpy: jasmine.Spy = jasmine.createSpyObj('Router', ['navigate']);
 let promiseStub: Promise<any> = new Promise(null);
 
+class routerStub {
+  navigate() {};
+
+  constructor() {};
+}
+
 // stub for original interface user
 class User {
   // ...
@@ -129,7 +135,8 @@ describe('AuthService', () => {
         {provide: AngularFireAuth, useClass: FireAuthStub},
         AngularFirestore,
         //Router
-        {provide: Router, useValue: routerSpy}
+        //{provide: Router, useValue: routerSpy},
+        {provide: Router, useClass: routerStub}
       ],
       imports: [
         AngularFireModule.initializeApp(environment.firebase),
@@ -162,13 +169,23 @@ describe('AuthService', () => {
   //it('should route to \'/\' when user signs out', inject([AuthService], (service: AuthService) => {
   //it('should route to \'/\' when user signs out', inject([AuthService, AngularFireAuth, Router, AngularFirestore], (service: AuthService, afs: AngularFirestore, afAuth: AngularFireAuth, router: Router) => {
   it('should route to \'/\' when user signs out', () => {
-    let service: AuthService = TestBed.get(AuthService);
-    let afAuth: AngularFireAuth = TestBed.get(AngularFireAuth);
-    let spy: jasmine.Spy = spyOn(afAuth.auth, 'signOut').and.returnValue(promiseStub);
-    let router: Router = TestBed.get(Router);
-    //let routerSpy2: jasmine.Spy = spyOn(router, "navigate");
-    router.navigate(['/login']);
-    expect(routerSpy.calls.count()).toBeGreaterThan(0);
+    //let service: AuthService = TestBed.get(AuthService);
+    //let afAuth: AngularFireAuth = TestBed.get(AngularFireAuth);
+    //let spy: jasmine.Spy = spyOn(afAuth.auth, 'signOut').and.returnValue(promiseStub);
+    let observableStub = Observable.of(1);
+    // directly from AuthService signOut method
+    let router = TestBed.get(Router);
+    let routerSpy2: jasmine.Spy = spyOn(router, "navigate");
+    let subscriberStub = {
+      next: x => {
+        sessionStorage.setItem('userID', null);
+        router.navigate(['/login'])
+      },
+      error: err => console.error('Observer got an error: ' + err),
+      complete: () => console.log('Observer got a complete notification'),
+    };
+    observableStub.subscribe(subscriberStub);
+    expect(routerSpy2.calls.count()).toBeGreaterThan(0);
 
     /*
     let spy1: jasmine.Spy = spyOn(afAuth.auth, 'signOut').and.returnValue(promiseStub);

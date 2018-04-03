@@ -48,11 +48,26 @@ export class AuthService {
       });
   }
 
+  /*
   signOut() {
     this.afAuth.auth.signOut().then(() => {
       sessionStorage.setItem('userID', null);
       this.router.navigate(['/login']);
     });
+  }
+  */
+
+  signOut() {
+    const myObserver = {
+      next: x => {
+        sessionStorage.setItem('userID', null);
+        this.router.navigate(['/login'])
+      },
+      error: err => console.error('Observer got an error: ' + err),
+      complete: () => console.log('Observer got a complete notification'),
+    };
+    let signOutObservable = Observable.fromPromise(this.afAuth.auth.signOut());
+    signOutObservable.subscribe(myObserver);
   }
 
   private updateUserData(user) {
