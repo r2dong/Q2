@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { HttpClientModule } from '@angular/common/http';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import {Location} from '@angular/common';
 
 // Modules and Services
 import { AppRoutingModule } from './app-routing.module';
@@ -12,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { TasksModule } from './tasks/tasks.module';
+import { ProjectsModule } from './projects/projects.module';
 
 // Components
 import { AppComponent } from './app.component';
@@ -20,6 +22,8 @@ import { HomeComponent } from './home/home.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import {EventsModule} from "./events/events.module";
+import {RolesModule} from './roles/roles.module';
 
 
 
@@ -31,7 +35,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     HomeComponent,
     WelcomeComponent,
     NotFoundComponent,
-    NavbarComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -41,9 +45,17 @@ import { NavbarComponent } from './navbar/navbar.component';
     FormsModule,
     CoreModule,
     SharedModule,
-    TasksModule
+    TasksModule,
+    ProjectsModule,
+    EventsModule,
+    RolesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor( public location: Location){}
+  goBack(){
+    this.location.back();
+  }
+}

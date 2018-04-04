@@ -2,7 +2,6 @@ import { TestBed } from '@angular/core/testing';
 import { APP_BASE_HREF } from '@angular/common';
 // system imports
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FlashMessagesModule } from 'angular2-flash-messages';
@@ -13,7 +12,8 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { TaskService } from './tasks/task.service';
 import { TasksModule } from './tasks/tasks.module';
-
+import{EventService} from "./events/event.service";
+import {EventsModule} from "./events/events.module";
 // Components
 import { AppComponent } from './app.component';
 import { RouterModule, Router } from '@angular/router';
@@ -34,6 +34,7 @@ import { HomeComponent } from './home/home.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import {ProjectsModule} from "./projects/projects.module";
 
 
 describe('AppComponent', () => {
@@ -56,20 +57,13 @@ describe('AppComponent', () => {
         CoreModule,
         SharedModule,
         TasksModule,
-        AngularFirestoreModule,
-        AngularFireModule.initializeApp(environment.firebase),
-        RouterModule,
-        RouterTestingModule
+        ProjectsModule,
+        EventsModule
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue : '/' },
         TaskService,
-        AngularFirestore,
-        AuthService,
-        AngularFireAuth,
-        //{provide: Router, useClass: class {navigate = jasmine.createSpy("navigate")}},
-        {provide: ActivatedRoute, useClass: jasmine.createSpy("ActivatedRoute")},
-        LocationStrategy
+        EventService
       ]
     }).compileComponents();
   });

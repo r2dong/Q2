@@ -26,6 +26,21 @@ const routes: Routes = [
     path: 'tasks',
     loadChildren: 'app/tasks/tasks.module#TasksModule'
   },
+  {
+    path: 'projects',
+    loadChildren: 'app/projects/projects.module#ProjectsModule',
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'events',
+    loadChildren: 'app/events/events.module#EventsModule',
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'roles',
+    loadChildren: 'app/roles/roles.module#RolesModule',
+    canActivate: [AuthGuard]
+  },
   {path: '**', component: NotFoundComponent},
 ];
 
@@ -34,4 +49,4 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [AuthGuard]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule{}

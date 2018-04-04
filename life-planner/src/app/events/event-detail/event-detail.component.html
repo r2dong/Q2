@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-md-6">
+    <h4 class="col s12 center-align">Event Detail</h4>
+    <a (click)="goBack()" class="btn btn-link">
+      <i class="fa fa-arrow-circle-o-left"></i> Back
+    </a>
+  </div>
+  <div *ngIf="event" class="card">
+    <h3 class="card-title">{{ event.name }}</h3>
+    <div class="card-body">
+      <ul class="list-group">
+        <li class="list-group-item">Event:            {{ event.eid }}</li>
+        <li class="list-group-item">Event Name:       {{ event.name }}</li>
+        <li class="list-group-item">Event Start Date: {{ event.sdate }}</li>
+        <li class="list-group-item">Event Start time: {{ event.stime }}</li>
+        <li class="list-group-item">Event End Date:   {{event.edate}}</li>
+        <li class="list-group-item">Event End Time:   {{event.etime}}</li>
+        <li class="list-group-item">Added On:         {{ event.createdAt}}</li>
+
+      </ul>
+      <hr>
+      <ul class="list-group">
+        <li class="list-group-item">IsComplete:</li>
+        <li class="list-group-item">IsImportant: </li>
+      </ul>
+    </div>
+    <div class="card-action card-content grey lighten-4">
+      <a routerLink="/events/edit/{{event.eid}}" class="btn btn-dark">Edit</a>
+      <button (click)="onDeleteClick()" class="btn btn-danger">Delete</button>
+    </div>
+  </div>
+</div>

@@ -8,5 +8,4 @@ export const environment = {
     storageBucket: 'q2-test-7a344.appspot.com',
     messagingSenderId: '187350235334'
   }
-
 };

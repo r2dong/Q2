@@ -36,6 +36,7 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 
 
 import { By } from '@angular/platform-browser';
+import {ProjectService} from "../../projects/project.service";
 
 
 describe('TaskDetailComponent', () => {
@@ -71,8 +72,9 @@ describe('TaskDetailComponent', () => {
         NavbarComponent
       ],
       providers: [
-        { provide: APP_BASE_HREF, useValue: '/task-detail'},
+        { provide: APP_BASE_HREF, useValue: '/role-detail'},
         TaskService,
+        ProjectService,
         FlashMessagesService
       ]
     })

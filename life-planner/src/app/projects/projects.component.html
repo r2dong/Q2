@@ -1,0 +1,45 @@
+<!-- Project List -->
+<div class="row">
+  <div class="col s12">
+    <h4 class="col s12 center-align">Projects</h4>
+    <hr>
+    <br>
+    <table *ngIf="projects?.length > 0;else noProjects" class="bordered striped">
+      <thead class="thead-inverse">
+      <tr>
+        <th>Name</th>
+        <th>Date Due</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td colspan="2"></td>
+        <td><a routerLink="/projects/add" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
+      </tr>
+      <tr *ngFor="let project of projects">
+        <td>{{ project.name }}</td>
+        <td>{{ project.dueDateTime.split('-')[1] }}-{{ project.dueDateTime.split('-')[2] }}-{{ project.dueDateTime.split('-')[0] }}</td>
+        <td><a routerLink="/projects/{{ project.pid }}" class="btn btn-secondary btn-sm"><i class="material-icons">edit</i></a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #noProjects>
+    <table class="bordered striped">
+      <thead class="thead-inverse">
+      <tr>
+        <th>Name</th>
+        <th>Date Due</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td colspan="2">There are no projects in the system for this user.</td>
+        <td><a routerLink="/projects/add" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
+      </tr>
+      </tbody>
+    </table>
+  </ng-template>
+</div>

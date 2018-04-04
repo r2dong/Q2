@@ -33,6 +33,7 @@ import { NavbarComponent } from '../../navbar/navbar.component';
 
 
 import { By } from '@angular/platform-browser';
+import {ProjectService} from "../../projects/project.service";
 
 
 describe('AddTaskComponent', () => {
@@ -67,6 +68,7 @@ describe('AddTaskComponent', () => {
       providers: [
         { provide: APP_BASE_HREF, useValue: '/tasks'},
         TaskService,
+        ProjectService,
         FlashMessagesService
       ]
     })
@@ -96,6 +98,7 @@ describe('AddTaskComponent', () => {
     const task: TaskModel = {
       tid: '',
       name: 'Sample Task For Testing Only',
+      weight: TaskWeight.HARD,
       dueDateTime: ''
     };
     spyService = spyOn(service, 'addTask').and.returnValue('TestAccount');

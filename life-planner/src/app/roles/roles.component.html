@@ -1,0 +1,50 @@
+<!-- Role List -->
+<div class="row">
+  <div class="col s12">
+    <h4 class="col s12 center-align">Roles</h4>
+    <hr>
+    <br>
+
+    <table *ngIf="roles?.length > 0;else noRoles" class="bordered striped">
+      <thead class="thead-inverse">
+      <tr>
+        <th>Color</th>
+        <th>Name</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td colspan="3"></td>
+        <td><a routerLink="/roles/add" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
+      </tr>
+      <tr *ngFor="let role of roles">
+        <td>{{ role.color }}</td>
+        <td>{{ role.name }}</td>
+        <td><a routerLink="/roles/{{ role.rid }}" class="btn btn-secondary btn-sm"><i class="material-icons">edit</i></a></td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+
+<ng-template #noRoles>
+  <table class="bordered striped">
+  <thead class="thead-inverse">
+  <tr>
+    <th>Color</th>
+    <th>Name</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td colspan="3">There are no roles in the system for this user.</td>
+    <td><a routerLink="/roles/add" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
+  </tr>
+
+  </tbody>
+  </table>
+</ng-template>
+</div>

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { TaskService } from './task.service';
-import { TaskModel, TaskWeight } from './task.model';
+import {Component, Input, OnInit} from '@angular/core';
+import {TaskService} from './task.service';
+import {TaskModel, TaskWeight} from './task.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,16 +10,17 @@ import { Router } from '@angular/router';
 })
 
 export class TasksComponent implements OnInit {
-  tasks: TaskModel[];
+  @Input() tasks: TaskModel[];
+  @Input() pid: string;
 
   constructor(private ts: TaskService, private router: Router) { }
 
-
   ngOnInit() {
-    this.ts.getTasks().subscribe(tasks => {
-      this.tasks = tasks;
-    });
+    if ( this.router.url === '/tasks') {
+      this.ts.getTasks().subscribe(tasks => {
+        this.tasks = tasks;
+      });
+      this.pid = undefined;
+    }
   }
-
-
 }

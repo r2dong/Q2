@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-md-6">
+    <h4 class="col s12 center-align">Project Details</h4>
+    <a (click)="goBack()" class="btn btn-link">
+      <i class="fa fa-arrow-circle-o-left"></i> Back
+    </a>
+  </div>
+  <div *ngIf="project" class="card">
+    <h3 class="card-title">{{ project.name }}</h3>
+    <div class="card-body">
+      <ul class="list-group">
+        <li class="list-group-item">Project ID: {{ project.pid }}</li>
+        <li class="list-group-item">Project Name: {{ project.name }}</li>
+        <li class="list-group-item">Project Due Date: {{ project.dueDateTime }}</li>
+        <li class="list-group-item">Project Added On: {{ project.createdAt }}</li>
+        <li class="list-group-item">Project Last Updated On: {{ project.updatedAt }}</li>
+      </ul>
+      <hr>
+      <ul class="list-group">
+        <li class="list-group-item">IsComplete: </li>
+        <li class="list-group-item">IsUrgent: </li>
+      </ul>
+    </div>
+    <div class="card-action card-content grey lighten-4">
+      <a routerLink="/projects/edit/{{ pid }}" class="btn btn-dark">Edit</a>
+      <button (click)="onDeleteClick()" class="btn btn-danger">Delete</button>
+    </div>
+  </div>
+</div>
+<app-tasks [tasks] = projectTasks [pid]=pid></app-tasks>
+<app-events [events] = projectEvents [pid]=pid></app-events>
+

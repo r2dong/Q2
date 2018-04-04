@@ -1,5 +1,5 @@
 <!-- Task List -->
-<div class="container row">
+<div class="row">
   <div class="col s12">
     <h4 class="col s12 center-align">Tasks</h4>
     <hr>
@@ -10,6 +10,7 @@
       <tr>
         <th>ID</th>
         <th>Name</th>
+        <th>Weight</th>
         <th>Date Due</th>
         <th></th>
       </tr>
@@ -17,13 +18,14 @@
       <tbody>
       <tr>
         <td colspan="3"></td>
-        <td><a routerLink="/tasks/add" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
+        <td><a routerLink="/tasks/add/{{ pid }}" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
       </tr>
       <tr *ngFor="let task of tasks">
         <td>{{ task.tid }}</td>
         <td>{{ task.name }}</td>
+        <td>{{ task.weight }}</td>
         <td>{{ task.dueDateTime }}</td>
-        <td><a routerLink="/tasks/{{ task.tid }}" class="btn btn-secondary btn-sm"><i class="material-icons">edit</i></a></td>
+        <td><a routerLink="/tasks/{{ task.tid }}/{{ pid }}" class="btn btn-secondary btn-sm"><i class="material-icons">edit</i></a></td>
       </tr>
 
       </tbody>
@@ -43,7 +45,7 @@
   <tbody>
   <tr>
     <td colspan="3">There are no tasks in the system for this user.</td>
-    <td><a routerLink="/tasks/add" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
+    <td><a routerLink="/tasks/add/{{ pid }}" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
   </tr>
 
   </tbody>
