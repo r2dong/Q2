@@ -69,6 +69,10 @@ class AuthInFireAuthStub {
   createUserWithEmailAndPassword;
   createUserAndRetrieveDataWithEmailAndPassword;
   fetchProvidersForEmail;
+  fetchSignInMethodsForEmail;
+  isSignInWithEmailLink;
+  sendSignInLinkToEmail;
+  signInWithEmailLink;
   getRedirectResult;
 
   constructor() {
