@@ -1,0 +1,12 @@
+<p>
+  schedule works!
+</p>
+<a class="waves-effect waves-light btn" (click)='getSchedule()'>Get Schedule</a>
+<tr *ngFor="let task of tasks">
+  <td>{{ task.name }}</td>
+  <td>{{ task.urgent }}</td>
+  <td>{{ task.important }}</td>
+  <td>{{ task.dueDateTime }}</td>
+  <td>{{ task.weight }}</td>
+  <td><a routerLink="/tasks/{{ task.tid }}/{{ pid }}" class="btn btn-secondary btn-sm"><i class="material-icons">edit</i></a></td>
+</tr>

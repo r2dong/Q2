@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './auth.service';
+import { SchedulingService } from './scheduling.service';
 
 /*
   Create a CoreModule with providers for the singleton services you load when the application starts.
@@ -16,6 +17,9 @@ import { AuthService } from './auth.service';
     CommonModule,
   ],
   declarations: [],
-  providers: [ AuthService ]
+  providers: [ 
+    AuthService,
+    SchedulingService
+   ]
 })
 export class CoreModule { }

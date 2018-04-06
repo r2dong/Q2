@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuard } from './core/auth.guard';
+import { ScheduleComponent } from './schedule/schedule.component';
 
 const routes: Routes = [
   {
@@ -41,7 +42,14 @@ const routes: Routes = [
     loadChildren: 'app/roles/roles.module#RolesModule',
     canActivate: [AuthGuard]
   },
-  {path: '**', component: NotFoundComponent},
+  {
+    path: 'schedule',
+    component: ScheduleComponent
+  },
+  {
+    path: '**', 
+    component: NotFoundComponent
+  }
 ];
 
 @NgModule({

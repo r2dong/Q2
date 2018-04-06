@@ -1,8 +1,6 @@
 // import { Role } from '../roles/role.model';
 // import { Tags } from '../tags/tag.model';
 
-
-
 export interface TaskModel {
   tid?: string;
   rid?: string; // Role.id;
