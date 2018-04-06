@@ -11,7 +11,7 @@ export interface DummyTaskModel {
   //pid?: string;
   urgent: boolean;
   important: boolean;
-  dueDateTime?: string; // Date;
+  dueDateTime?: Date;
   isComplete: boolean;
   weight?: number; // for developing let it be a number
   //tagIDs?: string[];
@@ -25,7 +25,7 @@ let dummyTasks: DummyTaskModel[] = [
     name: "rob a bank",
     urgent: true,
     important: true,
-    dueDateTime: '2017-04-20',
+    dueDateTime: new Date(2018, 3, 6, 9, 26),
     isComplete: false,
     weight: 10
   },
@@ -33,7 +33,7 @@ let dummyTasks: DummyTaskModel[] = [
     name: "pass this course",
     urgent: false,
     important: false,
-    dueDateTime: '2017-04-30',
+    dueDateTime: new Date(2018, 3, 6, 9, 26),
     isComplete: false,
     weight: 6
   },
@@ -41,7 +41,7 @@ let dummyTasks: DummyTaskModel[] = [
     name: "go to the gym",
     urgent: true,
     important: false,
-    dueDateTime: '2017-04-15',
+    dueDateTime: new Date(2018, 3, 6, 9, 26),
     isComplete: false,
     weight: 5
   },
@@ -49,7 +49,7 @@ let dummyTasks: DummyTaskModel[] = [
     name: "eat tacos",
     urgent: false,
     important: true,
-    dueDateTime: '2017-04-17',
+    dueDateTime: new Date(2018, 3, 6, 9, 26),
     isComplete: false,
     weight: 1
   },
@@ -57,6 +57,8 @@ let dummyTasks: DummyTaskModel[] = [
 
 @Injectable()
 export class SchedulingService {
+
+  currentDate: Date;
 
   constructor() {}
   //constructor(private taskService: TaskService) {}
@@ -68,6 +70,9 @@ export class SchedulingService {
   /* for now complete all urgent tasks first, then interleave between non
   urgent ones */
   createSchedule(): DummyTaskModel[] {
+
+    this.updateCurrentTime();
+
     let tasks: DummyTaskModel[] = dummyTasks;
     /* probably go back to 3330 for scheduling algorithms for all urgent
     tasks, the work around extra time with remaining time */
@@ -111,5 +116,11 @@ export class SchedulingService {
     for (i4; i4 < q4.length; i4++)
       schedule.push(q4[i4++]); 
     return schedule;
+  }
+
+  private updateCurrentTime() {
+    this.currentDate = new Date(Date.now());
+    console.log("Updated current date to: " + this.currentDate.getDate());
+    console.log("Updated current Month to: " + this.currentDate.getMonth());
   }
 }
