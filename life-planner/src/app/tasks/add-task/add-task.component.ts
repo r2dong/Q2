@@ -1,4 +1,4 @@
-import {Component, Input, NgModule, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { TaskService } from '../task.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';

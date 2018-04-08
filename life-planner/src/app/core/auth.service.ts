@@ -51,7 +51,7 @@ export class AuthService {
   signOut() {
     this.afAuth.auth.signOut().then(() => {
       sessionStorage.setItem('userID', null);
-      this.router.navigate(['/login']);
+      this.router.navigate(['/']);
     });
   }
 

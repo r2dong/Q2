@@ -5,13 +5,13 @@
 
 <!-- User NOT logged in -->
 <ng-template #guest>
-  <h3>Howdy, GUEST</h3>
-  <p>Login to get started...</p>
-
-  <button (click)="auth.googleLogin()">
-    <i class="fa fa-google"></i> Connect Google
+  <img class="icon" src="../../assets/images/Q2-Icon.png" alt="Icon">
+  <button (click)="auth.googleLogin()" class="login-button">
+    <a class="waves-effect waves-light btn-large button-img cyan lighten-3">
+      <i class="material-icons right fa fa-google">keyboard_arrow_right</i>Login with Google
+    </a>
+    <!-- <i class="fa fa-google"></i> Connect Google -->
   </button>
-
 </ng-template>
 
 
