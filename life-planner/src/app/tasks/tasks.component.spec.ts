@@ -32,7 +32,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 
 
 import { By } from '@angular/platform-browser';
-import {ProjectService} from "../projects/project.service";
+import {ProjectService} from '../projects/project.service';
 
 
 describe('TasksComponent', () => {
@@ -91,7 +91,7 @@ describe('TasksComponent', () => {
     expect(AuthService.currentUserId()).toBe('TestAccount');
   });
 
-  xit('should create a task', () => {
+  it('should create a task', () => {
     const task: TaskModel = {
       tid: '',
       name: 'Sample Task For Testing Only',
