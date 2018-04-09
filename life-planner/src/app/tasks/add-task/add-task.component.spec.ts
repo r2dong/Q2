@@ -33,7 +33,7 @@ import { NavbarComponent } from '../../navbar/navbar.component';
 
 
 import { By } from '@angular/platform-browser';
-import {ProjectService} from "../../projects/project.service";
+import {ProjectService} from '../../projects/project.service';
 
 
 describe('AddTaskComponent', () => {
@@ -97,9 +97,12 @@ describe('AddTaskComponent', () => {
   it('should create a task', () => {
     const task: TaskModel = {
       tid: '',
-      name: 'Sample Task For Testing Only',
-      weight: TaskWeight.HARD,
-      dueDateTime: ''
+      name: '',
+      urgent: true,
+      important: true,
+      dueDateTime: null,
+      isComplete: false,
+      weight: TaskWeight.NONE
     };
     spyService = spyOn(service, 'addTask').and.returnValue('TestAccount');
     service.addTask(task);

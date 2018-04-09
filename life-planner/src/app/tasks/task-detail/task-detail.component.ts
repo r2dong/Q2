@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Pipe} from '@angular/core';
 import { TaskService } from '../task.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { TaskModel } from '../task.model';
 import { Location } from '@angular/common';
 
+
 @Component({
   selector: 'app-task-detail',
   templateUrl: './task-detail.component.html',
   styleUrls: ['./task-detail.component.css']
 })
+
 export class TaskDetailComponent implements OnInit {
   tid: string;
   task: TaskModel;
@@ -34,7 +36,6 @@ export class TaskDetailComponent implements OnInit {
       this.task = task;
     });
   }
-
 
   onDeleteClick() {
     if (confirm('Are you sure?')) {

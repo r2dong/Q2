@@ -30,5 +30,7 @@ import { TaskService } from './task.service';
     EditTaskComponent
   ]
 })
+
 export class TasksModule {
+
 }

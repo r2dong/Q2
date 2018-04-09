@@ -8,10 +8,10 @@ export interface TaskModel {
   rid?: string; // Role.id;
   name: string;
   pid?: string;
-//  urgent: boolean;
-//  important: boolean;
-  dueDateTime?: string; // Date;
-//  isComplete: boolean;
+  urgent: boolean;
+  important: boolean;
+  dueDateTime?: Date;
+  isComplete: boolean;
   weight?: TaskWeight;
 //  tagIDs?: string[];
   createdAt?: Date;

@@ -17,7 +17,10 @@ export class AddTaskComponent implements OnInit {
   task: TaskModel = {
     tid: '',
     name: '',
-    dueDateTime: '',
+    urgent: false,
+    important: false,
+    dueDateTime: null,
+    isComplete: false,
     weight: TaskWeight.NONE
   };
   TaskWeight = TaskWeight;
@@ -41,7 +44,7 @@ export class AddTaskComponent implements OnInit {
 
   ngOnInit() {
     this.pid = this.route.snapshot.params['pid'];
-    console.log(this.pid);
+    console.log('Tadd: pid: ' + this.pid);
   }
 
   onSubmit({value, valid}: {value: TaskModel, valid: boolean}) {
