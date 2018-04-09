@@ -26,9 +26,6 @@ import {EventsModule} from "./events/events.module";
 import {RolesModule} from './roles/roles.module';
 import { ScheduleComponent } from './schedule/schedule.component';
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent,

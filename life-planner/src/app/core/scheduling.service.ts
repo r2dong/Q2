@@ -1,31 +1,24 @@
 import { Injectable } from '@angular/core';
-// import { TaskService } from '../Tasks/task.service';
-// import { DummyTaskModel } from '../tasks/task.model'; stubbing for now
 import { Observable } from 'rxjs';
 
 // stubbing interface, use imported interface when actual one completed
 export interface DummyTaskModel {
-  //tid?: string;
-  //rid?: string; // Role.id;
-  name: string; // assume no identical names for now
-  //pid?: string;
+  name: string;
   urgent: boolean;
   important: boolean;
   dueDateTime?: Date;
   isComplete: boolean;
-  weight?: number; // for developing let it be a number
-  //tagIDs?: string[];
-  //createdAt?: Date;
-  //updatedAt?: Date;
+  weight?: number;
 }
 
 // dummy tasks for testing algorithms
-let dummyTasks: DummyTaskModel[] = [
+// year month day hour minute second millisecond
+const dummyTasks: DummyTaskModel[] = [
   {
     name: "rob a bank",
     urgent: true,
     important: true,
-    dueDateTime: new Date(2018, 3, 6, 9, 26),
+    dueDateTime: new Date(2018, 3, 7, 9, 26),
     isComplete: false,
     weight: 10
   },
@@ -33,7 +26,7 @@ let dummyTasks: DummyTaskModel[] = [
     name: "pass this course",
     urgent: false,
     important: false,
-    dueDateTime: new Date(2018, 3, 6, 9, 26),
+    dueDateTime: new Date(2018, 3, 8, 9, 26),
     isComplete: false,
     weight: 6
   },
@@ -41,7 +34,7 @@ let dummyTasks: DummyTaskModel[] = [
     name: "go to the gym",
     urgent: true,
     important: false,
-    dueDateTime: new Date(2018, 3, 6, 9, 26),
+    dueDateTime: new Date(2018, 3, 5, 9, 26),
     isComplete: false,
     weight: 5
   },
@@ -49,7 +42,7 @@ let dummyTasks: DummyTaskModel[] = [
     name: "eat tacos",
     urgent: false,
     important: true,
-    dueDateTime: new Date(2018, 3, 6, 9, 26),
+    dueDateTime: new Date(2018, 3, 4, 9, 26),
     isComplete: false,
     weight: 1
   },
@@ -61,15 +54,51 @@ export class SchedulingService {
   currentDate: Date;
 
   constructor() {}
-  //constructor(private taskService: TaskService) {}
+
+  // insertion sort in increasing deadline (greedy algorithm)
+  private sortTasks(tasks: DummyTaskModel[]): DummyTaskModel[] {
+    let toReturn: DummyTaskModel[] = []
+    toReturn.push(tasks[0])
+    for (let i: number = 1; i < tasks.length; i++) {
+      if (tasks[i].dueDateTime < toReturn[0].dueDateTime) {
+        toReturn.splice(0, 0, tasks[i])
+        continue
+      }
+      else if (tasks[i].dueDateTime > 
+        toReturn[toReturn.length - 1].dueDateTime) {
+        toReturn.push(tasks[i])
+        continue
+      }
+      for (let j: number = 0; j < toReturn.length - 1; j++) {
+        if (tasks[i].dueDateTime >= toReturn[j].dueDateTime &&
+            tasks[i].dueDateTime <= toReturn[j+1].dueDateTime) {
+          toReturn.splice(j + 1, 0, tasks[i])
+          break
+        }
+      }
+    }
+    return toReturn
+  }
+
+  private updateCurrentTime() {
+    this.currentDate = new Date(Date.now());
+    console.log("Updated current date to: " + this.currentDate.getDate());
+    console.log("Updated current Month to: " + this.currentDate.getMonth());
+  }
+
+    //constructor(private taskService: TaskService) {}
   
   //createScheduleObWrapper() {
   //  this.taskService.getTasks().subscribe(tasks => {});
   //}
 
-  /* for now complete all urgent tasks first, then interleave between non
-  urgent ones */
   createSchedule(): DummyTaskModel[] {
+    return this.sortTasks(dummyTasks)
+  }
+  
+  /* complete all urgent tasks first, then interleave between non
+  urgent ones */
+  naiveSchedule(): DummyTaskModel[] {
 
     this.updateCurrentTime();
 
@@ -116,11 +145,5 @@ export class SchedulingService {
     for (i4; i4 < q4.length; i4++)
       schedule.push(q4[i4++]); 
     return schedule;
-  }
-
-  private updateCurrentTime() {
-    this.currentDate = new Date(Date.now());
-    console.log("Updated current date to: " + this.currentDate.getDate());
-    console.log("Updated current Month to: " + this.currentDate.getMonth());
   }
 }
