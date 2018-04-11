@@ -1,14 +1,19 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core'
+import { Observable } from 'rxjs'
+
+// internal value of an hour
+const hourVal: number = 
+  new Date(2018, 3, 8, 10).valueOf() - new Date(2018, 3, 8, 1).valueOf()
 
 // stubbing interface, use imported interface when actual one completed
 export interface DummyTaskModel {
-  name: string;
-  urgent: boolean;
-  important: boolean;
-  dueDateTime?: Date;
-  isComplete: boolean;
-  weight?: number;
+  name: string
+  urgent: boolean
+  important: boolean
+  dueDateTime?: Date
+  isComplete: boolean
+  weight?: number
+  scheduledTime?: Date
 }
 
 // dummy tasks for testing algorithms
@@ -80,6 +85,30 @@ export class SchedulingService {
     return toReturn
   }
 
+  /* shift task start time so that they are finished offset days before due not
+    overdue for interleaving. in map returned key = start time
+    assuming that a no overdue schedule exists
+    assume weight = time needed in hours
+    to avoid overlapping of tasks go from right to left, use min(start of 
+    current task, due of previous task) as basis of pushing previous task to
+    right.
+   */
+  private pushRight(tasks: DummyTaskModel[]): DummyTaskModel[] {
+    let basis: Date = tasks[tasks.length - 1].dueDateTime;
+    let start: Date;
+    for (let i: number = tasks.length - 1; i > -1; i--) {
+      start = new Date(basis.valueOf() - tasks[i].weight * hourVal)
+      tasks[i].scheduledTime = start
+      // still have more tasks
+      if (i != 0)
+        if (start.valueOf() < tasks[i - 1].dueDateTime.valueOf())
+          basis = start;
+        else
+          basis = tasks[i - 1].dueDateTime;
+    return tasks
+    }
+  }
+
   private updateCurrentTime() {
     this.currentDate = new Date(Date.now());
     console.log("Updated current date to: " + this.currentDate.getDate());
@@ -92,8 +121,8 @@ export class SchedulingService {
   //  this.taskService.getTasks().subscribe(tasks => {});
   //}
 
-  createSchedule(): DummyTaskModel[] {
-    return this.sortTasks(dummyTasks)
+  createSchedule(): Observable<DummyTaskModel[]> {
+    return Observable.of(this.pushRight(this.sortTasks(dummyTasks)))
   }
   
   /* complete all urgent tasks first, then interleave between non
