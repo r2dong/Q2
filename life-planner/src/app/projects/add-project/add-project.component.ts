@@ -39,7 +39,7 @@ export class AddProjectComponent implements OnInit {
       // Add new client
       this.projectService.addProject(value);
       // Show message
-      this.flashMessage.show('New client added', {
+      this.flashMessage.show('New project added', {
         cssClass: 'alert-success', timeout: 4000
       });
       // Redirect to dash
