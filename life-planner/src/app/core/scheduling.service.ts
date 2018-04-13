@@ -205,6 +205,10 @@ export class SchedulingService {
 
   createSchedule(): Observable<DummyTaskModel[]> {
     let quadrants: Map<number, DummyTaskModel[]> = this.filter(dummyTasks)
+    let q1: DummyTaskModel[] = [];
+    let q2: DummyTaskModel[] = [];
+    let q3: DummyTaskModel[] = [];
+    let q4: DummyTaskModel[] = [];
     let interleaveTasks = quadrants.get(2).concat(quadrants.get(4))
     let urgentTasks = quadrants.get(1).concat(quadrants.get(3))
     // sort urgent tasks by increasing deadline (greedy algorithm)
