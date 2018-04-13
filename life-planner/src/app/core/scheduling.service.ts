@@ -85,7 +85,12 @@ const dummyTasks: DummyTaskModel[] = [
 export class SchedulingService {
 
   currentDate: Date;
-
+  
+  //constructor(private taskService: TaskService) {}
+  //createScheduleObWrapper() {
+  //  this.taskService.getTasks().subscribe(tasks => {});
+  //}
+  
   constructor() {}
 
   // assume shcedule to have start time all assigned, tasks are tasks to be
@@ -135,31 +140,6 @@ export class SchedulingService {
     // return schedule containing interleaving tasks
     console.log("schedule length: " + schedule.length)
     return schedule
-  }
-
-  // insertion sort in increasing deadline (greedy algorithm)
-  private sortTasks(tasks: DummyTaskModel[]): DummyTaskModel[] {
-    let toReturn: DummyTaskModel[] = []
-    toReturn.push(tasks[0])
-    for (let i: number = 1; i < tasks.length; i++) {
-      if (tasks[i].dueDateTime < toReturn[0].dueDateTime) {
-        toReturn.splice(0, 0, tasks[i])
-        continue
-      }
-      else if (tasks[i].dueDateTime > 
-        toReturn[toReturn.length - 1].dueDateTime) {
-        toReturn.push(tasks[i])
-        continue
-      }
-      for (let j: number = 0; j < toReturn.length - 1; j++) {
-        if (tasks[i].dueDateTime >= toReturn[j].dueDateTime &&
-            tasks[i].dueDateTime <= toReturn[j+1].dueDateTime) {
-          toReturn.splice(j + 1, 0, tasks[i])
-          break
-        }
-      }
-    }
-    return toReturn
   }
 
   /* shift task start time so that they are finished offset days before due not
@@ -223,16 +203,15 @@ export class SchedulingService {
     console.log("Updated current Month to: " + this.currentDate.getMonth());
   }
 
-  //constructor(private taskService: TaskService) {}
-  //createScheduleObWrapper() {
-  //  this.taskService.getTasks().subscribe(tasks => {});
-  //}
-
   createSchedule(): Observable<DummyTaskModel[]> {
     let quadrants: Map<number, DummyTaskModel[]> = this.filter(dummyTasks)
     let interleaveTasks = quadrants.get(2).concat(quadrants.get(4))
     let urgentTasks = quadrants.get(1).concat(quadrants.get(3))
-    return Observable.of(this.interleave(this.pushRight(this.sortTasks(urgentTasks)), interleaveTasks))
-    //return Observable.of(this.pushRight(this.sortTasks(urgentTasks)))
+    // sort urgent tasks by increasing deadline (greedy algorithm)
+    urgentTasks.sort((t1, t2) => {
+      return t1.dueDateTime.valueOf() - t2.dueDateTime.valueOf()
+    })
+    //return Observable.of(this.interleave(this.pushRight(this.sortTasks(urgentTasks)), interleaveTasks))
+    return Observable.of(this.interleave(this.pushRight(urgentTasks), interleaveTasks))
   } 
 }
