@@ -31,7 +31,9 @@ import { ShowTasksComponent } from './show-tasks/show-tasks.component';
     TasksComponent,
     TaskDetailComponent,
     AddTaskComponent,
-    EditTaskComponent
+    EditTaskComponent,
+    SelectTaskComponent,
+    ShowTasksComponent
   ]
 })
 

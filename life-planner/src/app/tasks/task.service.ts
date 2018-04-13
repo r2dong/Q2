@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
 import {AuthService} from '../core/auth.service';
 import {Observable} from 'rxjs/Observable';
@@ -28,12 +28,13 @@ export class TaskService {
   addTask(task: TaskModel, pid?: string) {
     // this.db.collection('finishedExercises').add(task);
     task.createdAt = new Date();
-    if ( pid !== undefined ) { task.pid = pid; }
+    if (pid !== undefined) {
+      task.pid = pid;
+    }
     this.tasksRef.add(task)
-      .then( item => {
-        if ( pid !== undefined ) { this.ps.addTaskToProject(pid, item.id); }
-      })
-      .catch(function() { console.log('Error adding'); } );
+      .catch(function () {
+        console.log('Error adding');
+      });
   }
 
   getTask(tid: string): Observable<TaskModel> {
@@ -56,7 +57,7 @@ export class TaskService {
   }
 
   findTasks(list: string[] = []): Observable<TaskModel[]> {
-    this.tasks = this.getTasks().map(epics => epics.filter(epic => list.includes(epic.tid) ));
+    this.tasks = this.getTasks().map(epics => epics.filter(epic => list.includes(epic.tid)));
     return this.tasks;
   }
 
@@ -74,15 +75,25 @@ export class TaskService {
   updateTask(task: TaskModel) {
     task.updatedAt = new Date();
     this.taskDoc = this.tasksRef.doc(task.tid);
+    console.log('TS update: incoming task name: ' + task.name);
+    this.taskDoc.update(task);
+  }
+
+  completeTask(task: TaskModel) {
+    task.updatedAt = new Date();
+    this.taskDoc = this.tasksRef.doc(task.tid);
+    task.isComplete = true;
+    console.log('TS: completing task for: ' + task.name);
     this.taskDoc.update(task);
   }
 
   deleteTask(task: TaskModel) {
     this.taskDoc = this.tasksRef.doc(task.tid);
-    if ( task.pid !== undefined ) { this.ps.removeTaskFromProject(task.pid, task.tid); }
+    if (task.pid !== undefined) {
+      this.ps.removeTaskFromProject(task.pid, task.tid);
+    }
     this.taskDoc.delete();
   }
-
 
 
 }

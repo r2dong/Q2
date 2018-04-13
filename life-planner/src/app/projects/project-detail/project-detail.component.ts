@@ -37,18 +37,22 @@ export class ProjectDetailComponent implements OnInit {
     // Get project
     console.log('getting pid: ' + this.pid);
     this.projectService.getProject(this.pid).subscribe(project => {
-      if (project != null) {
-        console.log('project found for pid: ' + this.pid);
-      }
-      this.project = project;
       if (project !== null) {
+        console.log('project found for pid: ' + this.pid);
+        this.project = project;
+
+        console.log('looking for tasks for pid: ' + this.project.pid);
         this.ts.findTasks(project.tids).subscribe(tasks => {
+          console.log('found ' + tasks.length.toString() + ' tasks for pid: ' + this.project.pid);
           this.projectTasks = tasks;
         });
+        console.log('looking for events for pid: ' + this.project.pid);
+        this.es.findEvents(project.eids).subscribe(events => {
+          console.log('found ' + events.length.toString() + ' events for pid: ' + this.project.pid);
+          this.projectEvents = events;
+        });
       }
-      this.es.findEvents(project.eids).subscribe(events => {
-        this.projectEvents = events;
-      });
+
     });
   }
 
