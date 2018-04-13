@@ -3,7 +3,7 @@ import { Observable } from 'rxjs'
 
 // internal value of an hour
 const hourVal: number = 
-  new Date(2018, 3, 8, 10).valueOf() - new Date(2018, 3, 8, 1).valueOf()
+  new Date(2018, 3, 8, 10).valueOf() - new Date(2018, 3, 8, 9).valueOf()
 
 // stubbing interface, use imported interface when actual one completed
 export interface DummyTaskModel {
@@ -23,33 +23,61 @@ const dummyTasks: DummyTaskModel[] = [
     name: "rob a bank",
     urgent: true,
     important: true,
-    dueDateTime: new Date(2018, 3, 7, 9, 26),
+    dueDateTime: new Date(2018, 3, 5, 9, 0),
     isComplete: false,
     weight: 10
   },
   {
     name: "pass this course",
-    urgent: false,
-    important: false,
-    dueDateTime: new Date(2018, 3, 8, 9, 26),
+    urgent: true,
+    important: true,
+    dueDateTime: new Date(2018, 3, 10, 9, 0),
     isComplete: false,
     weight: 6
   },
   {
     name: "go to the gym",
     urgent: true,
-    important: false,
-    dueDateTime: new Date(2018, 3, 5, 9, 26),
+    important: true,
+    dueDateTime: new Date(2018, 3, 15, 9, 0),
     isComplete: false,
     weight: 5
   },
   {
     name: "eat tacos",
-    urgent: false,
+    urgent: true,
     important: true,
-    dueDateTime: new Date(2018, 3, 4, 9, 26),
+    dueDateTime: new Date(2018, 3, 20, 9, 0),
     isComplete: false,
     weight: 1
+  },
+  {
+    name: "length-2400-interleave",
+    urgent: false,
+    important: false,
+    isComplete: false,
+    weight: 2400
+  },
+  {
+    name: "length-100-interleave",
+    urgent: false,
+    important: false,
+    isComplete: false,
+    weight: 100
+  },
+  {
+    name: "length-22-interleave",
+    urgent: false,
+    important: false,
+    isComplete: false,
+    weight: 3
+  },
+  {
+    name: "length-5-interleave",
+    urgent: false,
+    important: false,
+    isComplete: false,
+    weight: 5
   },
 ]
 
@@ -59,6 +87,55 @@ export class SchedulingService {
   currentDate: Date;
 
   constructor() {}
+
+  // assume shcedule to have start time all assigned, tasks are tasks to be
+  // stuffed into the schedule, schedule should be sorted
+  private interleave(schedule: DummyTaskModel[], tasks: DummyTaskModel[]): DummyTaskModel[] {
+    
+    // find time slots available for interleaving
+    // start and end of each time slot
+    let timeSlots: Map<Date, Date> = new Map<Date, Date>();
+    for (let i: number = 0; i < schedule.length - 1; i++)
+      timeSlots.set(schedule[i].dueDateTime, schedule[i + 1].scheduledTime)
+  
+    // sort tasks to interleave with duration
+    tasks.sort((t1, t2) => {
+      return t1.weight - t2.weight
+    })
+
+    // should probably apply some ordering to tasks to be interleaved as well
+    // ignoring that for now
+    let timeSlotsUpdated: boolean = false
+    let taskInserted: boolean
+    let newTimeSlots:  Map<Date, Date>;
+    let curStart: Date
+    let nextTask: DummyTaskModel
+    newTimeSlots = new Map<Date, Date>()
+    timeSlots.forEach((value, key, map) => {
+      console.log("time slot: " + key.toLocaleString() + " -> " + value.toLocaleString())
+      curStart = key
+      for (let i: number = tasks.length - 1; i >= 0; i--) {
+        console.log("next interleave task requires " + tasks[i].weight + "hours")
+        if (value.valueOf() - curStart.valueOf() > tasks[i].weight * hourVal) {
+          nextTask = tasks.splice(i, 1)[0]
+          nextTask.scheduledTime = curStart
+          console.log("next task scheduled at: " + curStart.toLocaleString())
+          // update starting time of time slot
+          curStart = new Date(curStart.valueOf() + nextTask.weight * hourVal)
+          console.log("curStart updated to " + curStart.toLocaleString())
+          // remove task from list of interleaving tasks
+          
+          // put interleave task into final schedule
+          schedule.push(nextTask)
+          console.log("pushing a new interleave task")
+        }
+      }
+    })
+    
+    // return schedule containing interleaving tasks
+    console.log("schedule length: " + schedule.length)
+    return schedule
+  }
 
   // insertion sort in increasing deadline (greedy algorithm)
   private sortTasks(tasks: DummyTaskModel[]): DummyTaskModel[] {
@@ -105,8 +182,39 @@ export class SchedulingService {
           basis = start;
         else
           basis = tasks[i - 1].dueDateTime;
-    return tasks
+    
     }
+    let i: number
+    return tasks
+  }
+
+  // filter tasks into the four quadrants
+  private filter(tasks: DummyTaskModel[]): Map<number, DummyTaskModel[]> {
+    let q1: DummyTaskModel[] = [];
+    let q2: DummyTaskModel[] = [];
+    let q3: DummyTaskModel[] = [];
+    let q4: DummyTaskModel[] = [];
+
+    // characterize all tasks
+    for (let i: number = 0; i < tasks.length; i++) {
+      if (tasks[i].urgent && tasks[i].important)
+        q1.push(tasks[i]);
+      else if (tasks[i].urgent && !tasks[i].important)
+        q3.push(tasks[i]);
+      else if (!tasks[i].urgent && tasks[i].important)
+        q2.push(tasks[i]);
+      else if (!tasks[i].urgent && !tasks[i].important)
+        q4.push(tasks[i]);
+    }
+    
+    let quadrants: Map<number, DummyTaskModel[]>
+    quadrants = new Map<number, DummyTaskModel[]>()
+    quadrants.set(1, q1)
+    quadrants.set(2, q2)
+    quadrants.set(3, q3)
+    quadrants.set(4, q4)
+
+    return quadrants
   }
 
   private updateCurrentTime() {
@@ -115,64 +223,16 @@ export class SchedulingService {
     console.log("Updated current Month to: " + this.currentDate.getMonth());
   }
 
-    //constructor(private taskService: TaskService) {}
-  
+  //constructor(private taskService: TaskService) {}
   //createScheduleObWrapper() {
   //  this.taskService.getTasks().subscribe(tasks => {});
   //}
 
   createSchedule(): Observable<DummyTaskModel[]> {
-    return Observable.of(this.pushRight(this.sortTasks(dummyTasks)))
-  }
-  
-  /* complete all urgent tasks first, then interleave between non
-  urgent ones */
-  naiveSchedule(): DummyTaskModel[] {
-
-    this.updateCurrentTime();
-
-    let tasks: DummyTaskModel[] = dummyTasks;
-    /* probably go back to 3330 for scheduling algorithms for all urgent
-    tasks, the work around extra time with remaining time */
-    let schedule: DummyTaskModel[] = [];
-    let q1: DummyTaskModel[] = [];
-    let q2: DummyTaskModel[] = [];
-    let q3: DummyTaskModel[] = [];
-    let q4: DummyTaskModel[] = [];
-    let deadlyUrgent: DummyTaskModel[] = []; // finish everything here before interleaving
-    
-    // characterize all tasks
-    for (let i: number = 0; i < tasks.length; i++) {
-      if (tasks[i].urgent && tasks[i].important) {
-        q1.push(tasks[i]);
-        console.log("pushing " + tasks[i].name + " to q1");
-      }
-      else if (tasks[i].urgent && !tasks[i].important)
-        q3.push(tasks[i]);
-      else if (!tasks[i].urgent && tasks[i].important)
-        q2.push(tasks[i]);
-      else if (!tasks[i].urgent && !tasks[i].important)
-        q4.push(tasks[i]);
-    }
-
-    // complete all urgent stuff and then interleave
-    for (let i: number = 0; i < q1.length; i++)
-      schedule.push(q1[i]);
-    for (let i: number = 0; i < q3.length; i++)
-      schedule.push(q3[i]);
-    // interleave
-    let i2: number = 0;
-    let i4: number = 0;
-    let inter: number = 0;
-    while (i2 < q2.length && i4 < q2.length)
-      if (inter % 2 == 0)
-        schedule.push(q2[i2++]);
-      else
-        schedule.push(q4[i4++]);
-    for (i2; i2 < q2.length; i2++)
-      schedule.push(q2[i2++]);
-    for (i4; i4 < q4.length; i4++)
-      schedule.push(q4[i4++]); 
-    return schedule;
-  }
+    let quadrants: Map<number, DummyTaskModel[]> = this.filter(dummyTasks)
+    let interleaveTasks = quadrants.get(2).concat(quadrants.get(4))
+    let urgentTasks = quadrants.get(1).concat(quadrants.get(3))
+    return Observable.of(this.interleave(this.pushRight(this.sortTasks(urgentTasks)), interleaveTasks))
+    //return Observable.of(this.pushRight(this.sortTasks(urgentTasks)))
+  } 
 }

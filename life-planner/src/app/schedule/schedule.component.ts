@@ -24,14 +24,8 @@ export class ScheduleComponent implements OnInit {
     let s: Observable<DummyTaskModel[]> = this.schedulingService.createSchedule();
     s.subscribe(p => {
       this.schedule = p
-      for (let i: number = 0; i < p.length; i++) {
-        console.log(i)
-        console.log(this.schedule[i].name)
-        console.log(this.schedule[i].dueDateTime)
-        console.log()
-      }
     })
-    
+
     
     /*
     // update splitting of schedule

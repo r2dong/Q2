@@ -6,7 +6,10 @@
   <td>{{ task.name }}</td>
   <!-- <td>{{ task.dueDateTime }}</td> -->
   <td>{{ task.weight }}</td>
-  <td>{{ task.scheduledTime }}</td>
+  <td>
+    {{ task.scheduledTime.toLocaleDateString() }} 
+    {{ task.scheduledTime.toLocaleTimeString() }}
+  </td>
   <!--
   <td>
     <a routerLink="/tasks/{{ task.tid }}/{{ pid }}" class="btn btn-secondary btn-sm">
