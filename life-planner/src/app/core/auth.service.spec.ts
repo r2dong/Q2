@@ -1,23 +1,24 @@
-import { TestBed, inject } from '@angular/core/testing';
-import { HttpClientModule } from '@angular/common/http';
-import { APP_BASE_HREF } from '@angular/common';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AppRoutingModule } from '../app-routing.module';
-import 'rxjs/add/operator/switchMap';
-import { User } from './user.model';
-import {AuthService} from './auth.service';
-import {AngularFireModule} from 'angularfire2';
-import {environment} from '../../environments/environment';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { FlashMessagesModule } from 'angular2-flash-messages';
+import { TestBed, inject } from '@angular/core/testing'
+import { HttpClientModule } from '@angular/common/http'
+import { APP_BASE_HREF } from '@angular/common'
+import { AngularFireAuthModule } from 'angularfire2/auth'
+import { AppRoutingModule } from '../app-routing.module'
+import 'rxjs/add/operator/switchMap'
+import { User } from './user.model'
+import { AuthService } from './auth.service'
+import { AngularFireModule } from 'angularfire2'
+import { environment } from '../../environments/environment'
+import { AngularFirestoreModule } from 'angularfire2/firestore'
+import { FlashMessagesModule } from 'angular2-flash-messages'
 
-import {AppComponent} from '../app.component';
-import { LoginComponent } from '../login/login.component';
-import { HomeComponent } from '../home/home.component';
-import { WelcomeComponent } from '../welcome/welcome.component';
-import { NotFoundComponent } from '../not-found/not-found.component';
-import { NavbarComponent } from '../navbar/navbar.component';
-import {Observable} from 'rxjs/Observable';
+import { AppComponent } from '../app.component'
+import { LoginComponent } from '../login/login.component'
+import { HomeComponent } from '../home/home.component'
+import { WelcomeComponent } from '../welcome/welcome.component'
+import { NotFoundComponent } from '../not-found/not-found.component'
+import { NavbarComponent } from '../navbar/navbar.component'
+import { Observable } from 'rxjs/Observable'
+import { ScheduleComponent } from '../schedule/schedule.component'
 
 class RouterStub {
   navigate() {}
@@ -42,7 +43,8 @@ describe('AuthService', () => {
         HomeComponent,
         LoginComponent,
         NotFoundComponent,
-        NavbarComponent
+        NavbarComponent,
+        ScheduleComponent
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/core'},

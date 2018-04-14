@@ -29,6 +29,7 @@ import { WelcomeComponent } from '../welcome/welcome.component';
 import { AuthService } from '../core/auth.service';
 import { NotFoundComponent } from '../not-found/not-found.component';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { ScheduleComponent } from '../schedule/schedule.component'
 
 import { By } from '@angular/platform-browser';
 
@@ -59,7 +60,8 @@ describe('RolesComponent', () => {
         HomeComponent,
         LoginComponent,
         NotFoundComponent,
-        NavbarComponent
+        NavbarComponent,
+        ScheduleComponent
          ],
       providers: [
          { provide: APP_BASE_HREF, useValue: '/roles'},

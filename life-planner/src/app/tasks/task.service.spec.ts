@@ -19,6 +19,7 @@ import {NotFoundComponent} from '../not-found/not-found.component';
 import {WelcomeComponent} from '../welcome/welcome.component';
 import {APP_BASE_HREF} from '@angular/common';
 import {ProjectService} from '../projects/project.service';
+import { ScheduleComponent } from '../schedule/schedule.component'
 
 describe('TaskService', () => {
   beforeEach(() => {
@@ -39,7 +40,8 @@ describe('TaskService', () => {
         HomeComponent,
         LoginComponent,
         NotFoundComponent,
-        NavbarComponent
+        NavbarComponent,
+        ScheduleComponent
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/tasks'},

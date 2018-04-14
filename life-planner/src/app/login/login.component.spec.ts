@@ -17,6 +17,7 @@ import { AuthService } from '../core/auth.service';
 import { NotFoundComponent } from '../not-found/not-found.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import {Observable} from 'rxjs/Observable';
+import { ScheduleComponent } from '../schedule/schedule.component'
 
 interface User {
   uid: string;
@@ -47,8 +48,6 @@ export class AuthServiceStubFullClass {
   }
 }
 
-
-
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
@@ -56,7 +55,6 @@ describe('LoginComponent', () => {
   let de: DebugElement;
   let el: DebugElement;
   let service: AuthService;
-
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -72,7 +70,8 @@ describe('LoginComponent', () => {
         HomeComponent,
         LoginComponent,
         NotFoundComponent,
-        NavbarComponent
+        NavbarComponent,
+        ScheduleComponent
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/login'},

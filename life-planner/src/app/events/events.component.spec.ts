@@ -18,9 +18,10 @@ import {FormsModule} from '@angular/forms';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 
 import {EventService} from './event.service';
-import {EventModel} from './event.model';
+import { EventModel } from './event.model';
+
 //Components
-import {AppComponent} from '../app.component';
+import { AppComponent } from '../app.component';
 import { LoginComponent } from '../login/login.component';
 import { HomeComponent } from '../home/home.component';
 import { WelcomeComponent } from '../welcome/welcome.component';
@@ -28,8 +29,9 @@ import { AuthService } from '../core/auth.service';
 import { NotFoundComponent } from '../not-found/not-found.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { EventsComponent } from './events.component';
-import{By} from '@angular/platform-browser'
-import {ProjectService} from "../projects/project.service";
+import { By } from '@angular/platform-browser'
+import { ProjectService } from "../projects/project.service";
+import { ScheduleComponent } from '../schedule/schedule.component'
 
 describe('EventsComponent', () => {
   let component: EventsComponent;
@@ -46,7 +48,9 @@ describe('EventsComponent', () => {
       HomeComponent,
       LoginComponent,
       NotFoundComponent,
-      NavbarComponent],
+      NavbarComponent,
+      ScheduleComponent
+    ],
       imports:[
         AppRoutingModule,
         AngularFireModule.initializeApp(environment.firebase),

@@ -18,6 +18,7 @@ import {AppComponent} from '../app.component';
 import {NotFoundComponent} from '../not-found/not-found.component';
 import {WelcomeComponent} from '../welcome/welcome.component';
 import {APP_BASE_HREF} from '@angular/common';
+import { ScheduleComponent } from '../schedule/schedule.component'
 
 describe('RoleService', () => {
   beforeEach(() => {
@@ -38,7 +39,8 @@ describe('RoleService', () => {
         HomeComponent,
         LoginComponent,
         NotFoundComponent,
-        NavbarComponent
+        NavbarComponent,
+        ScheduleComponent
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/roles'},
