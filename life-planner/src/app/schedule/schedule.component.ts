@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { SchedulingService } from '../core/scheduling.service';
-import { DummyTaskModel } from '../core/scheduling.service';
-import { TasksModule } from '../tasks/tasks.module';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core'
+import { SchedulingService } from '../core/scheduling.service'
+import { DummyTaskModel } from '../../testing/dummyTasks'
+import { TasksModule } from '../tasks/tasks.module'
+import { Observable } from 'rxjs'
 
 @Component({
   selector: 'app-schedule',

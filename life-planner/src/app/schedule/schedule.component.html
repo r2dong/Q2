@@ -4,11 +4,11 @@
 <a class="waves-effect waves-light btn" (click)='getSchedule()'>Get Schedule</a>
 <tr *ngFor="let task of schedule">
   <td>{{ task.name }}</td>
-  <!-- <td>{{ task.dueDateTime }}</td> -->
+  <!-- <td>{{ task.due }}</td> -->
   <td>{{ task.weight }}</td>
   <td>
-    {{ task.scheduledTime.toLocaleDateString() }} 
-    {{ task.scheduledTime.toLocaleTimeString() }}
+    {{ task.start.toLocaleDateString() }} 
+    {{ task.start.toLocaleTimeString() }}
   </td>
   <!--
   <td>
