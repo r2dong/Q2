@@ -6,6 +6,8 @@ import {FlashMessagesService} from 'angular2-flash-messages';
 import {Location} from '@angular/common';
 import {ProjectService} from '../../projects/project.service';
 import {ProjectModel} from '../../projects/project.model';
+import {Subject} from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
 
 @Component({
   selector: 'app-select-tasks',
@@ -13,7 +15,9 @@ import {ProjectModel} from '../../projects/project.model';
   styleUrls: ['./select-task.component.css']
 })
 
-export class SelectTaskComponent implements OnInit {
+export class SelectTaskComponent implements OnInit, OnDestroy {
+  private ngUnsubscribe: Subject<boolean> = new Subject();
+
   @Input() tasks: TaskModel[];
   @Input() pid: string;
 
@@ -36,7 +40,9 @@ export class SelectTaskComponent implements OnInit {
     console.log('current pid: ' + this.pid);
     if (this.pid !== undefined) {
 
-      const projectSubscription = this.projectService.getProject(this.pid).subscribe(project => {
+       this.projectService.getProject(this.pid)
+         .takeUntil(this.ngUnsubscribe)
+         .subscribe(project => {
         if (project.pid !== undefined) {
           console.log('project found for pid: ' + this.pid);
           this.singleProject = project;
@@ -62,16 +68,18 @@ export class SelectTaskComponent implements OnInit {
 
 
         }
-        projectSubscription.unsubscribe();
       });
-      projectSubscription.unsubscribe();
-
     }
 
   }
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
 
   onAddClick(task: TaskModel) {
-    this.projectService.addTaskToProject(this.pid, task.tid);
+    console.log('select-task: onAddClick starting pid: ' + this.pid + ' selected task: ' + task.tid);
+    this.taskService.addTaskToProject(this.pid, task);
     this.flashMessage.show('Task added to this project', {
       cssClass: 'alert-success', timeout: 4000
     });

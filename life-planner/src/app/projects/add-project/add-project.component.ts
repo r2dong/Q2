@@ -14,7 +14,8 @@ export class AddProjectComponent implements OnInit {
   project: ProjectModel = {
     pid: '',
     name: '',
-    dueDateTime: ''
+    dueDateTime: '',
+    tids: []
   };
 
   @ViewChild('projectForm') form: any;

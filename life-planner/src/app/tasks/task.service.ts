@@ -57,8 +57,9 @@ export class TaskService {
   }
 
   findTasks(list: string[] = []): Observable<TaskModel[]> {
-    this.tasks = this.getTasks().map(epics => epics.filter(epic => list.includes(epic.tid)));
-    return this.tasks;
+    console.log('TS: findTasks tids count: ' + list.length);
+    return this.getTasks()
+    .map(epics => epics.filter(task => list.includes(task.tid)));
   }
 
   getTasks(): Observable<TaskModel[]> {
@@ -69,6 +70,7 @@ export class TaskService {
         return data;
       });
     });
+
     return this.tasks;
   }
 
@@ -85,6 +87,29 @@ export class TaskService {
     task.isComplete = true;
     console.log('TS: completing task for: ' + task.name);
     this.taskDoc.update(task);
+  }
+
+  removeTaskFromProject(task: TaskModel) {
+    console.log('TS: removeTaskFromProject pid: ' + task.pid);
+    console.log('TS: removeTaskFromProject tid: ' + task.tid);
+    this.taskDoc = this.tasksRef.doc(task.tid);
+    if (task.pid !== undefined) {
+      this.ps.removeTaskFromProject(task.pid, task.tid);
+    }
+    task.pid = '';
+    this.updateTask(task);
+  }
+
+  addTaskToProject(pid: string, task: TaskModel) {
+    console.log('TS addTaskToProject: beginning string pid: ' + pid);
+    task.pid = pid;
+    this.taskDoc = this.tasksRef.doc(task.tid);
+    console.log('TS addTaskToProject: adding PID to task: ' + task.name);
+    this.taskDoc.update(task);
+    if (task.pid !== undefined) {
+      console.log('TS calling PS addTaskToProject for pid: ' + task.pid);
+      this.ps.addTaskToProject(task.pid, task.tid);
+    }
   }
 
   deleteTask(task: TaskModel) {

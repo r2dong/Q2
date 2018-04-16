@@ -35,20 +35,21 @@ export class ProjectDetailComponent implements OnInit {
     // Get id from url
     this.pid = this.route.snapshot.params['pid'];
     // Get project
-    console.log('getting pid: ' + this.pid);
+    console.log('PDC: ngOnInit: getting pid: ' + this.pid);
     this.projectService.getProject(this.pid).subscribe(project => {
       if (project !== null) {
-        console.log('project found for pid: ' + this.pid);
+        console.log('PDC: ngOnInit: project found for pid: ' + this.pid);
         this.project = project;
 
-        console.log('looking for tasks for pid: ' + this.project.pid);
+        console.log('PDC: ngOnInit: looking for tasks for pid: ' + this.project.pid);
+        console.log('PDC: ngOnInit: tids count??: ' + project.tids.length);
         this.ts.findTasks(project.tids).subscribe(tasks => {
-          console.log('found ' + tasks.length.toString() + ' tasks for pid: ' + this.project.pid);
+          console.log('PDC: ngOnInit: found ' + tasks.length.toString() + ' tasks for pid: ' + this.project.pid);
           this.projectTasks = tasks;
         });
-        console.log('looking for events for pid: ' + this.project.pid);
+        // console.log('PDC: ngOnInit: looking for events for pid: ' + this.project.pid);
         this.es.findEvents(project.eids).subscribe(events => {
-          console.log('found ' + events.length.toString() + ' events for pid: ' + this.project.pid);
+          // console.log('PDC: ngOnInit: found ' + events.length.toString() + ' events for pid: ' + this.project.pid);
           this.projectEvents = events;
         });
       }

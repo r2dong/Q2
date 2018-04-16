@@ -6,8 +6,6 @@
     <table *ngIf="tasks?.length > 0;else noTasks" class="bordered striped">
       <thead class="thead-inverse">
       <tr>
-        <th>ID</th>
-        <th>PID</th>
         <th>Name</th>
         <th>Urgent?</th>
         <th>Important?</th>
@@ -19,12 +17,10 @@
       </thead>
       <tbody>
       <tr>
-        <td colspan="7"></td>
-        <td><a routerLink="/tasks/select/{{ pid }}" class="btn btn-secondary btn-sm"><i class="material-icons right">send</i> Assign Tasks</a></td>
+        <td colspan="5"></td>
+        <td colspan="2"><a routerLink="/tasks/select/{{ pid }}" class="btn btn-secondary btn-sm"><i class="material-icons right">send</i> Assign Tasks</a></td>
       </tr>
       <tr *ngFor="let task of tasks">
-        <td>{{ task.tid }}</td>
-        <td>{{ task.pid }}</td>
         <td>{{ task.name }}</td>
         <td>{{ task.urgent | yesNoPipe }}</td>
         <td>{{ task.important | yesNoPipe }}</td>
@@ -46,8 +42,8 @@
 
       <tbody>
       <tr>
-        <td colspan="7">There are no tasks in the system for this user.</td>
-        <td><a routerLink="/tasks/select/{{ pid }}" class="btn btn-secondary btn-sm"><i class="material-icons right">send</i> Assign Tasks</a></td>
+        <td colspan="5">There are no tasks in the system for this user.</td>
+        <td colspan="2"><a routerLink="/tasks/select/{{ pid }}" class="btn btn-secondary btn-sm"><i class="material-icons right">send</i> Assign Tasks</a></td>
       </tr>
 
       </tbody>

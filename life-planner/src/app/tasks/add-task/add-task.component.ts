@@ -58,7 +58,7 @@ export class AddTaskComponent implements OnInit {
       // Add new client
       this.taskService.addTask(value, this.pid);
       // Show message
-      this.flashMessage.show('New client added', {
+      this.flashMessage.show('New task added', {
         cssClass: 'alert-success', timeout: 4000
       });
       // Redirect to tasks

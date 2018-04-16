@@ -13,6 +13,7 @@ export class ProjectService {
   projectDoc: AngularFirestoreDocument<ProjectModel>;
   projects: Observable<ProjectModel[]>;
   singleProject: Observable<ProjectModel>;
+  project: ProjectModel;
 
   constructor(private db: AngularFirestore) {
     if (AuthService.isLoggedIn()) {
@@ -28,6 +29,7 @@ export class ProjectService {
   addProject(project: ProjectModel) {
     // this.db.collection('finishedExercises').add(project);
     project.createdAt = new Date();
+    project.tids = [];
     this.projectsRef.add(project);
   }
 
@@ -74,6 +76,24 @@ export class ProjectService {
   }
 
   addTaskToProject(pid: string, tid: string) {
+    console.log('PS addTaskToProject: adding PID to project: ' + pid);
+    console.log('PS addTaskToProject: adding TID to project: ' + tid);
+
+    // get current project from pid
+    /*
+    this.getProject(pid).subscribe(proj => {
+      if (proj != null) {
+        console.log('project found for pid: ' + proj.pid);
+      }
+      this.project = proj;
+    })
+      .unsubscribe();
+
+    this.project.tids.push(tid);
+    this.updateProject(this.project);
+*/
+
+
     this.getProject(pid).take(1).forEach(proj => {
       if (proj.tids === undefined) {
         proj.tids = [];
@@ -83,6 +103,7 @@ export class ProjectService {
         this.updateProject(proj);
       }
     });
+
   }
 
   addEventToProject(pid: string, eid: string) {

@@ -33,12 +33,10 @@ export class ShowTasksComponent implements OnInit {
     }
   }
   onRemoveClick(task: TaskModel) {
-    if (confirm('Remove task from this model?')) {
-
-      console.log('show-tasks task.pid: ' + task.pid.toString());
-      console.log('show-tasks task.tid: ' + task.tid.toString());
-
-      this.projectService.removeTaskFromProject(task.pid, task.tid);
+    if (confirm('Remove task from this project?')) {
+      console.log('show-tasks task.pid: ' + task.pid);
+      console.log('show-tasks task.tid: ' + task.tid);
+      this.taskService.removeTaskFromProject(task);
       this.flashMessage.show('Task removed from this project', {
         cssClass: 'alert-success', timeout: 4000
       });
@@ -51,7 +49,6 @@ export class ShowTasksComponent implements OnInit {
       this.flashMessage.show('Task deleted', {
         cssClass: 'alert-success', timeout: 4000
       });
-      this.goBack();
     }
   }
 
