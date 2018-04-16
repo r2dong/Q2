@@ -19,7 +19,7 @@
         <td><a routerLink="/roles/add" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
       </tr>
       <tr *ngFor="let role of roles">
-        <td>{{ role.color }}</td>
+        <td class="{{role.color}} lighten-1"></td>
         <td>{{ role.name }}</td>
         <td><a routerLink="/roles/{{ role.rid }}" class="btn btn-secondary btn-sm"><i class="material-icons">edit</i></a></td>
       </tr>

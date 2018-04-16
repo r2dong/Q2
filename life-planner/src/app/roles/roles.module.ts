@@ -23,6 +23,7 @@ import { RoleService } from './role.service';
     RoleService
   ],
   exports: [
+    SharedModule,
     RolesComponent,
     RoleDetailComponent,
     AddRoleComponent,
