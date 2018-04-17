@@ -1,3 +1,13 @@
+// internal value of time
+const hourVal: number = 
+  new Date(2018, 3, 8, 10).valueOf() - 
+  new Date(2018, 3, 8, 9).valueOf()
+const minuteVal: number =
+  new Date(2018, 3, 8, 10, 2).valueOf() - 
+  new Date(2018, 3, 8, 10, 1).valueOf()
+// ten minutes (1 / 6 of an hour)
+const defaultWeight: number = 1 / 6 
+
 // stubbing interface, use imported interface when actual one completed
 export interface DummyTaskModel {
     name: string
