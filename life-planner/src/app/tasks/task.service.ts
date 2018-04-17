@@ -59,7 +59,7 @@ export class TaskService {
   findTasks(list: string[] = []): Observable<TaskModel[]> {
     console.log('TS: findTasks tids count: ' + list.length);
     return this.getTasks()
-    .map(epics => epics.filter(task => list.includes(task.tid)));
+      .map(epics => epics.filter(task => list.includes(task.tid)));
   }
 
   getTasks(): Observable<TaskModel[]> {
@@ -87,6 +87,16 @@ export class TaskService {
     task.isComplete = true;
     console.log('TS: completing task for: ' + task.name);
     this.taskDoc.update(task);
+  }
+
+  removeRoleFromTask(tid: string, rid: string) {
+    console.log('TS: removeTaskFromProject tid: ' + tid);
+    console.log('TS: removeTaskFromProject rid: ' + rid);
+  }
+
+  addRoleToTask(tid: string, rid: string) {
+    console.log('TS: removeTaskFromProject tid: ' + tid);
+    console.log('TS: removeTaskFromProject rid: ' + rid);
   }
 
   removeTaskFromProject(task: TaskModel) {

@@ -9,10 +9,12 @@ import { SharedModule } from '../shared/shared.module';
 import { TaskService } from './task.service';
 import { SelectTaskComponent } from './select-task/select-task.component';
 import { ShowTasksComponent } from './show-tasks/show-tasks.component';
+import {RolesModule} from '../roles/roles.module';
 
 @NgModule({
   imports: [
     TasksRoutingModule,
+    RolesModule,
     SharedModule
   ],
   declarations: [

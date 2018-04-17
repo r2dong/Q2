@@ -1,0 +1,52 @@
+<!-- Task List -->
+<div class="row">
+  <div class="col s12">
+    <h5 class="col s12 center-align">Available Roles to Add</h5>
+
+    <hr>
+    <a (click)="goBack()" class="btn btn-link">
+      <i class="fa fa-arrow-circle-o-left"></i> Back
+    </a>
+    <br>
+
+    <table *ngIf="roles?.length > 0;else noTasks" class="bordered striped">
+      <thead class="thead-inverse">
+      <tr>
+        <!--  <th>ID</th> -->
+        <th>Name</th>
+        <th>Color</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td colspan="2"></td>
+        <td><a routerLink="/roles/add/{{ tid }}" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a>
+        </td>
+      </tr>
+      <tr *ngFor="let role of roles">
+        <!--   <td>{{ role.tid }}</td> -->
+        <td>{{ role.name }}</td>
+        <td class="{{ role.color }} lighten-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>
+          <button (click)="onAddClick(role)" class="btn btn-danger"><i class="material-icons">add_box</i></button>
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noTasks>
+    <table class="bordered striped">
+      <tbody>
+      <tr>
+        <td colspan="2">There are no roles in the system for this task.</td>
+        <td><a routerLink="/roles/add/{{ tid }}" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a>
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+  </ng-template>
+</div>

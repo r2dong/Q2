@@ -22,6 +22,7 @@
         <li class="list-group-item">IsUrgent: {{ task.urgent | yesNoPipe }} </li>
         <li class="list-group-item">IsComplete: {{ task.isComplete | yesNoPipe }} </li>
         <li class="list-group-item">Associated to: {{ task.pid }} </li>
+        <li class="list-group-item">Assigned to Roles: {{ task.rid }} </li>
       </ul>
     </div>
     <div class="card-action card-content grey lighten-4">
@@ -30,4 +31,5 @@
     </div>
   </div>
 </div>
+<app-show-roles [roles] = taskRoles [tid]=tid></app-show-roles>
 

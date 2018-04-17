@@ -1,9 +1,11 @@
 import {Component, OnInit, Pipe} from '@angular/core';
-import { TaskService } from '../task.service';
-import { ActivatedRoute, Router, Params } from '@angular/router';
-import { FlashMessagesService } from 'angular2-flash-messages';
-import { TaskModel } from '../task.model';
-import { Location } from '@angular/common';
+import {TaskService} from '../task.service';
+import {ActivatedRoute, Router, Params} from '@angular/router';
+import {FlashMessagesService} from 'angular2-flash-messages';
+import {TaskModel} from '../task.model';
+import {Location} from '@angular/common';
+import {RoleService} from '../../roles/role.service';
+import {RoleModel} from '../../roles/role.model';
 
 
 @Component({
@@ -15,14 +17,18 @@ import { Location } from '@angular/common';
 export class TaskDetailComponent implements OnInit {
   tid: string;
   task: TaskModel;
+  taskRoles: RoleModel[];
+
 
   constructor(
     private taskService: TaskService,
+    private roleService: RoleService,
     private router: Router,
     private route: ActivatedRoute,
     private flashMessage: FlashMessagesService,
     private location: Location,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     // Get id from url

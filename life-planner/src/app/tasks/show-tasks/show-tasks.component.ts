@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FlashMessagesService } from 'angular2-flash-messages';
-import { TaskService } from '../task.service';
-import { TaskModel } from '../task.model';
-import { Router } from '@angular/router';
+import {Component, Input, OnInit} from '@angular/core';
+import {FlashMessagesService} from 'angular2-flash-messages';
+import {TaskService} from '../task.service';
+import {TaskModel} from '../task.model';
+import {Router} from '@angular/router';
 import {ProjectService} from '../../projects/project.service';
 import {Location} from '@angular/common';
 
@@ -22,16 +22,18 @@ export class ShowTasksComponent implements OnInit {
     private router: Router,
     private flashMessage: FlashMessagesService,
     private location: Location,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
-    if ( this.router.url === '/tasks/show-tasks') {
+    if (this.router.url === '/tasks/show-tasks') {
       this.taskService.getTasks().subscribe(tasks => {
         this.tasks = tasks;
       });
       this.pid = undefined;
     }
   }
+
   onRemoveClick(task: TaskModel) {
     if (confirm('Remove task from this project?')) {
       console.log('show-tasks task.pid: ' + task.pid);
