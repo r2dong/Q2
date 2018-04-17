@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DebugElement } from '@angular/core';
-import { APP_BASE_HREF } from '@angular/common';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {DebugElement} from '@angular/core';
+import {APP_BASE_HREF} from '@angular/common';
 import {Observable} from 'rxjs/Observable';
 
 import {AngularFireModule} from 'angularfire2';
@@ -10,28 +10,30 @@ import {AngularFireStorageModule} from 'angularfire2/storage';
 
 
 // Modules
-import { AppRoutingModule } from '../../app-routing.module';
-import { CoreModule } from '../../core/core.module';
-import { SharedModule } from '../../shared/shared.module';
-import { RolesModule } from '../roles.module';
+import {AppRoutingModule} from '../../app-routing.module';
+import {CoreModule} from '../../core/core.module';
+import {SharedModule} from '../../shared/shared.module';
+import {RolesModule} from '../roles.module';
 import {FormsModule} from '@angular/forms';
-import { FlashMessagesModule } from 'angular2-flash-messages';
-import { FlashMessagesService } from 'angular2-flash-messages';
+import {FlashMessagesModule} from 'angular2-flash-messages';
+import {FlashMessagesService} from 'angular2-flash-messages';
 
 import {RoleService} from '../role.service';
 import {RoleModel} from '../role.model';
 
 // Components
 import {AppComponent} from '../../app.component';
-import { LoginComponent } from '../../login/login.component';
-import { HomeComponent } from '../../home/home.component';
-import { AddRoleComponent } from './add-role.component';
-import { WelcomeComponent } from '../../welcome/welcome.component';
-import { AuthService } from '../../core/auth.service';
-import { NotFoundComponent } from '../../not-found/not-found.component';
-import { NavbarComponent } from '../../navbar/navbar.component';
+import {LoginComponent} from '../../login/login.component';
+import {HomeComponent} from '../../home/home.component';
+import {AddRoleComponent} from './add-role.component';
+import {WelcomeComponent} from '../../welcome/welcome.component';
+import {AuthService} from '../../core/auth.service';
+import {NotFoundComponent} from '../../not-found/not-found.component';
+import {NavbarComponent} from '../../navbar/navbar.component';
 
-import { By } from '@angular/platform-browser';
+import {By} from '@angular/platform-browser';
+import {TaskService} from '../../tasks/task.service';
+import {ProjectService} from '../../projects/project.service';
 
 
 describe('AddRoleComponent', () => {
@@ -54,7 +56,7 @@ describe('AddRoleComponent', () => {
         SharedModule,
         RolesModule,
         CoreModule,
-        ],
+      ],
       declarations: [
         AppComponent,
         WelcomeComponent,
@@ -64,7 +66,9 @@ describe('AddRoleComponent', () => {
         NavbarComponent
       ],
       providers: [
-        { provide: APP_BASE_HREF, useValue: '/roles'},
+        {provide: APP_BASE_HREF, useValue: '/roles'},
+        TaskService,
+        ProjectService,
         RoleService,
         FlashMessagesService
       ]
@@ -103,7 +107,6 @@ describe('AddRoleComponent', () => {
     expect(spyService).toHaveBeenCalled();
 
   });
-
 
 
 });

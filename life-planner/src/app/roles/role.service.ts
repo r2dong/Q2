@@ -62,7 +62,7 @@ export class RoleService {
   }
 
   findRoles(list: string[] = []): Observable<RoleModel[]> {
-    console.log('RS: findRoles tids count: ' + list.length);
+    console.log('RS: findRoles rids count: ' + list.length);
     return this.getRoles()
       .map(epics => epics.filter(role => list.includes(role.rid)));
   }

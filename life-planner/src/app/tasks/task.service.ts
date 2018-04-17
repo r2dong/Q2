@@ -14,6 +14,7 @@ export class TaskService {
   tasks: Observable<TaskModel[]>;
   singleTask: Observable<TaskModel>;
 
+
   constructor(private db: AngularFirestore, private ps: ProjectService) {
     if (AuthService.isLoggedIn()) {
       console.log('User ID: ' + AuthService.currentUserId());
@@ -92,11 +93,43 @@ export class TaskService {
   removeRoleFromTask(tid: string, rid: string) {
     console.log('TS: removeTaskFromProject tid: ' + tid);
     console.log('TS: removeTaskFromProject rid: ' + rid);
+    this.getTask(tid).take(1).forEach(task => {
+      if (task.rid === undefined) {
+        task.rid = ''; // [];
+      }
+      console.log('TS: removeTaskFromProject rid on task: ' + task.rid);
+      if (task.rid === rid) {
+        task.rid = '';
+        this.updateTask(task);
+      }
+      /*if (!task.rid.includes(tid)) {
+        task.rid.push(tid);
+        this.updateTask(task);
+      }
+      */
+    });
   }
 
   addRoleToTask(tid: string, rid: string) {
-    console.log('TS: removeTaskFromProject tid: ' + tid);
-    console.log('TS: removeTaskFromProject rid: ' + rid);
+    console.log('TS: addRoleToTask tid: ' + tid);
+    console.log('TS: addRoleToTask rid: ' + rid);
+    this.getTask(tid).take(1).forEach(task => {
+      if (task.rid === undefined) {
+        task.rid = ''; // [];
+      }
+      console.log('TS: addRoleToTask rid on task: ' + task.rid);
+      if (task.rid !== rid) {
+        console.log('TS: addRoleToTask applying rid: ' + task.rid + ' to task:' + task.tid);
+        task.rid = rid;
+        this.updateTask(task);
+      }
+      /*if (!task.rid.includes(tid)) {
+        task.rid.push(tid);
+        this.updateTask(task);
+      }
+      */
+    });
+
   }
 
   removeTaskFromProject(task: TaskModel) {

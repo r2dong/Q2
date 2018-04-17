@@ -38,7 +38,7 @@ export class ShowRolesComponent implements OnInit {
     if (confirm('Remove role from this project?')) {
       console.log('show-roles for role.rid: ' + role.rid);
 
-      this.taskService.removeRoleFromTask(this.tid,role.rid);
+      this.taskService.removeRoleFromTask(this.tid, role.rid);
       this.flashMessage.show('Role removed from this task', {
         cssClass: 'alert-success', timeout: 4000
       });

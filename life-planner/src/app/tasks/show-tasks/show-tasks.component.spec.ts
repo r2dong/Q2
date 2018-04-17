@@ -30,6 +30,7 @@ import {NavbarComponent} from '../../navbar/navbar.component';
 import {ShowTasksComponent} from './show-tasks.component';
 
 import {ProjectService} from '../../projects/project.service';
+import {RolesModule} from "../../roles/roles.module";
 
 
 describe('ShowTasksComponent', () => {

@@ -40,6 +40,12 @@ export class TaskDetailComponent implements OnInit {
         console.log('task found for tid: ' + this.tid);
       }
       this.task = task;
+      const rids = [];
+      rids.push(task.rid);
+      this.roleService.findRoles(rids).subscribe(roles => {
+        console.log('TDC: ngOnInit: found ' + roles.length.toString() + ' roles for tid: ' + this.task.tid);
+        this.taskRoles = roles;
+      });
     });
   }
 
