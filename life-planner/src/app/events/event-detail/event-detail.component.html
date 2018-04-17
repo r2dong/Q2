@@ -20,8 +20,8 @@
       </ul>
       <hr>
       <ul class="list-group">
-        <li class="list-group-item">IsComplete: {{event.complete}}</li>
-        <li class="list-group-item">IsImportant: {{event.important}} </li>
+        <li class="list-group-item">IsComplete: {{event.complete|yesNoPipe}}</li>
+        <li class="list-group-item">IsImportant: {{event.important|yesNoPipe}} </li>
       </ul>
     </div>
     <div class="card-action card-content grey lighten-4">
