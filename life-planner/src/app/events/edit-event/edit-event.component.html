@@ -32,6 +32,18 @@
             </div>
           </div>
         </div>
+        <!--Checkbox: important-->
+        <div class = "form-group">
+          <input
+            class = "form-control"
+            type="checkbox"
+            id="important"
+            #eventImportant
+            [(ngModel)] = "event.important"
+            name ="important"
+          />
+          <label class="form-control-label" for="important">Important</label>
+        </div>
         <!--Edit Start Date-->
         <div class="form-group">
           <label class="form-control-label" for="name">Event Start Date</label>

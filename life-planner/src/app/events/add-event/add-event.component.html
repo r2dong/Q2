@@ -12,7 +12,6 @@
         <div class="form-group">
           <label class="form-control-label" for="name">Event Name</label>
           <input
-
             class="form-control"
             type="text"
             id="name"
@@ -32,7 +31,18 @@
               Must be at least 2 characters
             </div>
           </div>
-
+          <!--Checkbox: important-->
+          <div class = "form-group">
+            <input
+              class = "form-control"
+              type="checkbox"
+              id="important"
+              #eventImportant
+              [(ngModel)] = "event.important"
+              name ="important"
+            />
+            <label class="form-control-label" for="important">Important</label>
+          </div>
 
         </div>
         <!--START DATE-->

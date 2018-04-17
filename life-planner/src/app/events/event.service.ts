@@ -28,8 +28,8 @@ export class EventService {
     // this.db.collection('finishedExercises').add(event);
     event.createdAt = new Date();
     this.eventsRef.add(event)
-      .then(item =>{
-        if(pid !== undefined){
+      .then(item => {
+        if ( pid !== undefined) {
           this.ps.addEventToProject(pid, item.id);
         }
       })
@@ -58,7 +58,7 @@ export class EventService {
     return this.singleEvent;
   }
   findEvents(list: string[] = []): Observable<EventModel[]> {
-    return this.getEvents().map(fevent => fevent.filter(fevent => list.includes(fevent.eid) ));
+    return this.getEvents().map(fevents => fevents.filter( fevent => list.includes (fevent.eid) ));
   }
   getEvents(): Observable<EventModel[]> {
     this.events = this.eventsRef.snapshotChanges().map(changes => {
