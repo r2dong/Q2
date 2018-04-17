@@ -26,6 +26,10 @@ import {EventsModule} from "./events/events.module";
 import {RolesModule} from './roles/roles.module';
 import { ScheduleComponent } from './schedule/schedule.component';
 
+//calendar
+import { FullCalendarModule } from 'ng-fullcalendar';
+import { NgFullcalendarComponent } from './ng-fullcalendar/ng-fullcalendar.component'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,9 +39,11 @@ import { ScheduleComponent } from './schedule/schedule.component';
     NotFoundComponent,
     NavbarComponent,
     ScheduleComponent,
+    NgFullcalendarComponent,
   ],
   imports: [
     BrowserModule,
+    FullCalendarModule,
     HttpClientModule,
     AppRoutingModule,
     FlashMessagesModule.forRoot(),

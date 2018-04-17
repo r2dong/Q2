@@ -8,8 +8,12 @@ import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuard } from './core/auth.guard';
 import { ScheduleComponent } from './schedule/schedule.component';
+import { NgFullcalendarComponent } from './ng-fullcalendar/ng-fullcalendar.component'
 
 const routes: Routes = [
+  {
+    path: 'ngFullCalendar', component: NgFullcalendarComponent
+  },
   {
     path: '', redirectTo: '/welcome', pathMatch: 'full'
   },
