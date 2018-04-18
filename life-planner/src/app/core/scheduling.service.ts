@@ -5,11 +5,11 @@ import { Time } from '@angular/common';
 
 /*
 Stuff to add
-1. restrict shcedule to daytime
+1. restrict shcedule to daytime (9am - 5pm)
 2. add breaks
 3. add lunch time, etc
 4. put some transition time between tasks
-5. split 1 task into two parts
+5. (done) split 1 task into two parts
 6. working around events
 7. a helper function for comparing time
 */
@@ -31,6 +31,24 @@ const minuteVal: number =
   new Date(2018, 3, 8, 10, 1).valueOf()
 // ten minutes (1 / 6 of an hour)
 const defaultWeight: number = 1 / 6
+
+// map month to days in those month
+const dayInMonth: Map<number, number> = new Map(
+  [
+    [0, 31], // January
+    [1, 28], // February, edge case handled in fucntion
+    [2, 31], // ...
+    [3, 30],
+    [4, 31],
+    [5, 30],
+    [6, 31],
+    [7, 31],
+    [8, 30],
+    [9, 31],
+    [10, 30],
+    [11, 31]
+  ]
+)
 
 @Injectable()
 export class SchedulingService {
@@ -190,7 +208,8 @@ export class SchedulingService {
   right.
   */
   private pushRight(tasks: DummyTaskModel[]): DummyTaskModel[] {
-    let basis: Date = tasks[tasks.length - 1].due;
+    // do this by a slot basis similar to interleaving
+    let basis: Date = this.roundToEndOfDay(tasks[tasks.length - 1].due);
     let start: Date
     let curWeight: number
     for (let i: number = tasks.length - 1; i > -1; i--) {
@@ -210,6 +229,63 @@ export class SchedulingService {
           basis = tasks[i - 1].due;
     }
     return tasks
+  }
+
+  /* round a due to the neareast end of day, if it dues at night.
+  we don't want to modify the orignal due */
+  private roundToEndOfDay(due: Date): Date {
+    let newDue: Date = Object.assign({}, due)
+    if (due.getHours() > 17 || due.getHours() == 17 && due.getMinutes() > 0) {
+      newDue.setHours(17)
+      newDue.setMinutes(0)
+      return newDue
+    }
+    else if (due.getHours() < 9) {
+      newDue = this.subtractDay(newDue)
+      newDue.setMinutes(0)
+      return newDue
+    }
+    else {
+      return newDue
+    }
+  }
+
+  private subtractDay(date: Date): Date {
+    let preDate: Date = Object.assign({}, date)
+    let newDate: number = date.getDate()
+    let newMonth: number = date.getMonth()
+    let newYear: number = date.getFullYear()
+    newDate -= 1
+    if (newDate != 0) {
+      preDate.setDate(newDate)
+      return preDate
+    }
+    else {
+      newMonth -= 1
+      if (newMonth >= 0) {
+        newDate = this.getNumDaysInMonth(newYear, newMonth)
+        preDate.setMonth(newMonth)
+        preDate.setDate(newDate)
+        return preDate
+      }
+      else { // edge case of subtracting first day of a year
+        preDate.setMonth(12)
+        preDate.setDate(31)
+        preDate.setFullYear(newYear - 1)
+        return preDate
+      }
+    }
+  }
+
+  /* month is 0 based */
+  private getNumDaysInMonth(year: number, month: number): number {
+    if (month != 1)
+      return dayInMonth.get(month)
+    else
+      if (year % 4 != 0)
+        return dayInMonth.get(month)
+      else
+        return 29
   }
 
   // filter tasks into the four quadrants
