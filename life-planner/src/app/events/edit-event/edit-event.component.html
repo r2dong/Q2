@@ -65,7 +65,7 @@
         </div>
         <!--Edit Start Time-->
         <div class="form-group">
-          <label class="form-control-label" for="name">Event Start Time</label>
+          <label class="form-control-label" for="name">Event Start Time  ex: 12:20AM</label>
           <input
             type="time"
             class="form-control"
@@ -78,7 +78,7 @@
           >
           <div *ngIf="eventStartTime.errors && (eventStartTime.dirty || eventStartTime.touched)">
             <div [hidden]="eventStartTime.errors?.required" class="invalid-feedback red-text darken-4">
-              Event start date required
+              Event start date required  example: 12:20PM
             </div>
           </div>
         </div>
@@ -103,7 +103,7 @@
         </div>
         <!--Edit End Time-->
         <div class="form-group">
-          <label class="form-control-label" for="name">Event End Time</label>
+          <label class="form-control-label" for="name">Event End Time   ex: 12:30PM</label>
           <input
             type="time"
             class="form-control"

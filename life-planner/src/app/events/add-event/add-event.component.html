@@ -57,11 +57,11 @@
             [ngClass]="{'is-invalid':eventStartDate.errors && eventStartDate.touched}"
             [(ngModel)]="event.sdate"
             name="sdate"
-
+            required
             />
             <div *ngIf="eventStartDate.errors && (eventStartDate.dirty || eventStartDate.touched)">
               <div [hidden]="!eventStartDate.errors?.required" class="invalid-feedback red-text darken-4">
-              Event start date required
+              Event start date required ex: 12:20 PM
               </div>
           </div>
         </div>
@@ -103,7 +103,7 @@
         </div>
         <!--END TIME-->
           <div class="form-group">
-            <label class="form-control-label" for="name">Event End Time</label>
+            <label class="form-control-label" for="name">Event End Time     ex: 12:30PM</label>
             <input
 
               class="form-control"
