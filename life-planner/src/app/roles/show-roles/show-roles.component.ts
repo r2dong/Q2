@@ -35,7 +35,7 @@ export class ShowRolesComponent implements OnInit {
   }
 
   onRemoveClick(role: RoleModel) {
-    if (confirm('Remove role from this project?')) {
+    if (confirm('Remove role from this task?')) {
       console.log('show-roles for role.rid: ' + role.rid);
 
       this.taskService.removeRoleFromTask(this.tid, role.rid);

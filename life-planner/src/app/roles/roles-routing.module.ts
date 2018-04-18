@@ -14,6 +14,7 @@ export const routes: Routes = [
   {path: ':rid', component: RoleDetailComponent, canActivate: [AuthGuard]},
   {path: 'edit/:rid', component: EditRoleComponent, canActivate: [AuthGuard]},
   {path: 'select/:tid', component: SelectRoleComponent, canActivate: [AuthGuard]},
+  {path: 'add/:tid', component: AddRoleComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
