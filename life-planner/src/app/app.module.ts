@@ -24,6 +24,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import {EventsModule} from './events/events.module';
 import {RolesModule} from './roles/roles.module';
+import { GoalsComponent } from './goals/goals.component';
 
 
 
@@ -35,7 +36,8 @@ import {RolesModule} from './roles/roles.module';
     HomeComponent,
     WelcomeComponent,
     NotFoundComponent,
-    NavbarComponent
+    NavbarComponent,
+    GoalsComponent
   ],
   imports: [
     BrowserModule,
