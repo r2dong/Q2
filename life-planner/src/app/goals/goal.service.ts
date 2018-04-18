@@ -57,9 +57,10 @@ export class GoalService {
 
     return this.singleGoal;
   }
+  /*
   findGoals(list: string[] = []): Observable<GoalModel[]> {
     return this.getGoals().map(fgoals => fgoals.filter(fgoal => list.includes(fgoal.gid) ));
-  }
+  }*/
   getGoals(): Observable<GoalModel[]> {
     this.goals = this.goalsRef.snapshotChanges().map(changes => {
       return changes.map(action => {
