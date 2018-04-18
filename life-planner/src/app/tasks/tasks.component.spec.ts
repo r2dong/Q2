@@ -60,7 +60,8 @@ describe('TasksComponent', () => {
         FormsModule,
         SharedModule,
         TasksModule,
-        CoreModule,],
+        CoreModule,
+      ],
       declarations: [
         AppComponent,
         WelcomeComponent,
@@ -106,6 +107,17 @@ describe('TasksComponent', () => {
 
   });
 
+  it('navigate to "edit/" takes you to /edit/', fakeAsync(() => {
+
+    router.navigate(['edit']).then(() => {
+      tick(50);
+      expect(location.path()).toEqual('/edit');
+    });
+
+
+  }));
+
+
   it('navigate to "tasks/add" takes you to /tasks/add', fakeAsync(() => {
 
     router.navigate(['add']).then(() => {
@@ -122,7 +134,7 @@ describe('TasksComponent', () => {
       tick(50);
       expect(location.path()).toEqual('/welcome');
     });
-}));
+  }));
 
 
 });
