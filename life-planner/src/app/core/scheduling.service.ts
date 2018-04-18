@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
-import { DummyTaskModel, dummyTasks } from '../../testing/dummyTasks'
+import { DummyTaskModel, dummyTasks, TimeSlot } from '../../testing/dummyTasks'
+import { Time } from '@angular/common';
 
 /*
 Stuff to add
@@ -10,6 +11,7 @@ Stuff to add
 4. put some transition time between tasks
 5. split 1 task into two parts
 6. working around events
+7. a helper function for comparing time
 */
 
 /*
@@ -21,21 +23,21 @@ done 2. no due -> put as last tasks for important/non-important regions,
 */
 
 // internal value of time
-const hourVal: number = 
-  new Date(2018, 3, 8, 10).valueOf() - 
+const hourVal: number =
+  new Date(2018, 3, 8, 10).valueOf() -
   new Date(2018, 3, 8, 9).valueOf()
 const minuteVal: number =
-  new Date(2018, 3, 8, 10, 2).valueOf() - 
+  new Date(2018, 3, 8, 10, 2).valueOf() -
   new Date(2018, 3, 8, 10, 1).valueOf()
 // ten minutes (1 / 6 of an hour)
-const defaultWeight: number = 1 / 6 
+const defaultWeight: number = 1 / 6
 
 @Injectable()
 export class SchedulingService {
 
   currentDate: Date;
-  
-  constructor() {}
+
+  constructor() { }
 
   /*
   - shcedule - should contain only scheduled tasks
@@ -43,24 +45,31 @@ export class SchedulingService {
   */
   private interleave(schedule: DummyTaskModel[], tasks: DummyTaskModel[]): DummyTaskModel[] {
 
-    // sort schedule into consecutive tasks
-    schedule.sort((t1, t2) => {
-      return t1.start.valueOf() - t2.start.valueOf()
+    /* get occupied time slot from given schedule */
+    let allScheduledSlots: TimeSlot[] = []
+    schedule.forEach((task: DummyTaskModel) => {
+      task.schedule.forEach((slot: TimeSlot) => {
+        allScheduledSlots.push(slot)
+      })
     })
-    
-    // key/value of Map = start/end time of time slots
-    let timeSlots: Map<Date, Date> = new Map<Date, Date>()
-    let curWeight: number
+    /* sort the given time slots (assuming they don't overlap) */
+    allScheduledSlots.sort((s1: TimeSlot, s2: TimeSlot) => {
+      return s1.start.valueOf() - s2.start.valueOf()
+    })
+    /* get open time slots for interleaving */
+    let timeSlots: TimeSlot[] = []
     let startTime: Date // starting time of next time slot
-    for (let i: number = 0; i < schedule.length - 1; i++) {
-      if (schedule[i].weight === undefined)
-        curWeight = defaultWeight
-      else
-        curWeight = schedule[i].weight
-      startTime = new Date(schedule[i].start.valueOf() + curWeight * hourVal)
-      timeSlots.set(startTime, schedule[i + 1].start)
-    }
-    
+    let endTime: Date // ending time " "
+    allScheduledSlots.forEach((slot: TimeSlot) => {
+      endTime = slot.start
+        if (!startTime === undefined)
+          timeSlots.push({
+            start: startTime,
+            end: endTime
+          })
+        startTime = slot.end
+    })
+  
     // sort tasks to interleave with duration
     tasks.sort((t1, t2) => {
       let weight1: number = t1.weight === undefined ? defaultWeight : t1.weight
@@ -71,26 +80,84 @@ export class SchedulingService {
     /* should probably apply some ordering to tasks to be interleaved as well
     ignoring that for now
     */
-    let curStart: Date
-    let nextTask: DummyTaskModel
-    let nextWeight: number
-    timeSlots.forEach((value, key, map) => {
-      curStart = key
-      /* modifying a list during iteration here. currently seems working,
-      but might break in future
-      */
-      for (let i: number = tasks.length - 1; i >= 0; i--) {
-        nextWeight = tasks[i].weight === undefined ? defaultWeight : tasks[i].weight
-        if (value.valueOf() - curStart.valueOf() > nextWeight * hourVal) {
-          nextTask = tasks.splice(i, 1)[0]
-          nextTask.start = curStart
-          // update starting time of time slot
-          curStart = new Date(curStart.valueOf() + nextWeight * hourVal)
-          schedule.push(nextTask)
-        }
+    let start: Date
+    let end: Date
+    let curTask: IteratorResult<DummyTaskModel> = {
+      value: undefined,
+      done: false
+    }
+    let curSlot: IteratorResult<TimeSlot> = {
+      value: undefined,
+      done: false
+    }
+    let timeRemain: number = 0
+    let slotIterator: Iterator<TimeSlot> = timeSlots[Symbol.iterator]()
+    let taskIterator: Iterator<DummyTaskModel> = tasks[Symbol.iterator]()
+
+    while (true) {
+
+      // retrieve next time slot if current one is completely filled
+      if (start == end) {
+        curSlot = slotIterator.next()
+        if (curSlot.done)
+          break
+        start = curSlot.value.start
+        end = curSlot.value.end
       }
-    })
-    
+
+      // if finished with interleaving previous task, continue to next one
+      if (timeRemain == 0) {
+        curTask = taskIterator.next()
+        if (curTask.done)
+          break
+        timeRemain = curTask.value.weight === undefined ? defaultWeight : curTask.value.weight
+        timeRemain *= hourVal
+      }
+
+      // interleave tasks
+      // current slot not/just enough for the task
+      if (timeRemain >= end.valueOf() - start.valueOf()) {
+        curTask.value.schedule.push({
+          start: start,
+          end: end
+        })
+        timeRemain -= end.valueOf() - start.valueOf()
+        start = end
+      }
+      // current task not enough for the slot
+      else if (timeRemain < end.valueOf() - start.valueOf()) {
+        curTask.value.schedule.push({
+          start: start,
+          end: new Date(start.valueOf() + timeRemain)
+        })
+        start = new Date(start.valueOf() + timeRemain)
+        timeRemain = 0
+      }
+    }
+
+    /* if all slots cannot acommodate interleaving tasks */
+    /* first handle the partially shceudled task, if any */
+    start = allScheduledSlots[allScheduledSlots.length - 1].end
+    if (timeRemain > 0) {
+      end = new Date(start.valueOf() + timeRemain)
+      curTask.value.schedule.push({
+        start: start,
+        end: end
+      })
+      start = end
+      curTask = taskIterator.next()
+    }
+    /* then schedule all remaining tasks back to back */
+    while (!curTask.done) {
+      end = new Date(start.valueOf() + curTask.value.weight * hourVal)
+      curTask.value.schedule.push({
+        start: start,
+        end: end
+      })
+      start = end
+    }
+
+    schedule.concat(tasks)
     return schedule
   }
 
@@ -107,10 +174,13 @@ export class SchedulingService {
     let start: Date
     let curWeight: number
     for (let i: number = tasks.length - 1; i > -1; i--) {
-      curWeight = 
+      curWeight =
         tasks[i].weight === undefined ? defaultWeight : tasks[i].weight
       start = new Date(basis.valueOf() - curWeight * hourVal)
-      tasks[i].start = start
+      tasks[i].schedule.push({
+        start: start,
+        end: basis
+      })
       if (i != 0)
         if (start.valueOf() < tasks[i - 1].due.valueOf())
           basis = start;
@@ -138,7 +208,7 @@ export class SchedulingService {
       else if (!tasks[i].urgent && !tasks[i].important)
         q4.push(tasks[i]);
     }
-    
+
     let quadrants: Map<number, DummyTaskModel[]>
     quadrants = new Map<number, DummyTaskModel[]>()
     quadrants.set(1, q1)
@@ -156,7 +226,7 @@ export class SchedulingService {
   }
 
   createSchedule(): Observable<DummyTaskModel[]> {
-    
+
     // divide tasks into according quadrants
     let quadrants: Map<number, DummyTaskModel[]> = this.filter(dummyTasks)
     let q1: DummyTaskModel[] = quadrants.get(1)
@@ -177,14 +247,14 @@ export class SchedulingService {
       else
         return t1.due.valueOf() - t2.due.valueOf()
     })
-    
+
     // remove urgent tasks with no due date
     let noDueNum: number = 0
     let noDues: DummyTaskModel[]
     for (let i: number = urgentTasks.length - 1; i >= 0; i--) {
       if (urgentTasks[i].due !== undefined)
         break
-      noDueNum++    
+      noDueNum++
     }
     noDues = urgentTasks.splice(urgentTasks.length - noDueNum, noDueNum)
 

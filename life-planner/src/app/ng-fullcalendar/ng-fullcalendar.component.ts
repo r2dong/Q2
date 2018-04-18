@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CalendarComponent } from 'ng-fullcalendar';
 import { Options } from 'fullcalendar';
-import { DummyTaskModel } from '../../testing/dummyTasks'
+import { DummyTaskModel, TimeSlot } from '../../testing/dummyTasks'
 import { SchedulingService } from '../core/scheduling.service'
 
 interface Item {
@@ -70,20 +70,22 @@ export class NgFullcalendarComponent implements OnInit {
 
   updateCalendar() {
     this.getSchedule()
-    let item: Item
-    for (let i: number = 0; i < this.items.length; i++) {
-      item = {
-        title: this.items[i].name,
-        start: this.items[i].start.toLocaleString(),
-        end: this.computeEndTime(this.items[i].start, this.items[i].weight).toLocaleString()
-      }
-      this.ucCalendar.fullCalendar('renderEvent', item);
-    }
+    this.items.forEach((task: DummyTaskModel) => {
+      task.schedule.forEach((slot: TimeSlot) => {
+        this.ucCalendar.fullCalendar('renderEvent', {
+          title: task.name,
+          start: slot.start.toLocaleString(),
+          end: slot.end.toLocaleString()
+        });
+      })
+    })
   }
 
+  /*
   private computeEndTime(start: Date, duration: number): Date {
     let startVal: number = start.valueOf()
     let endVal: number = startVal + duration * hourVal
     return new Date(endVal)
   }
+  */
 }

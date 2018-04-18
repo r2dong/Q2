@@ -1,12 +1,17 @@
 // internal value of time
-const hourVal: number = 
-  new Date(2018, 3, 8, 10).valueOf() - 
-  new Date(2018, 3, 8, 9).valueOf()
+const hourVal: number =
+    new Date(2018, 3, 8, 10).valueOf() -
+    new Date(2018, 3, 8, 9).valueOf()
 const minuteVal: number =
-  new Date(2018, 3, 8, 10, 2).valueOf() - 
-  new Date(2018, 3, 8, 10, 1).valueOf()
+    new Date(2018, 3, 8, 10, 2).valueOf() -
+    new Date(2018, 3, 8, 10, 1).valueOf()
 // ten minutes (1 / 6 of an hour)
-const defaultWeight: number = 1 / 6 
+const defaultWeight: number = 1 / 6
+
+export interface TimeSlot {
+    start: Date
+    end: Date
+}
 
 // stubbing interface, use imported interface when actual one completed
 export interface DummyTaskModel {
@@ -16,7 +21,7 @@ export interface DummyTaskModel {
     due?: Date
     isComplete: boolean
     weight?: number
-    start?: Date
+    schedule?: TimeSlot[] // start/end of time slots assigned
 }
 
 // dummy tasks for testing algorithms
