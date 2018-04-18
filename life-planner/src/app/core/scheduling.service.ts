@@ -62,14 +62,15 @@ export class SchedulingService {
     let endTime: Date // ending time " "
     allScheduledSlots.forEach((slot: TimeSlot) => {
       endTime = slot.start
-        if (!startTime === undefined)
-          timeSlots.push({
-            start: startTime,
-            end: endTime
-          })
-        startTime = slot.end
+      if (!(startTime === undefined)) {
+        timeSlots.push({
+          start: startTime,
+          end: endTime
+        })
+      }
+      startTime = slot.end
     })
-  
+
     // sort tasks to interleave with duration
     tasks.sort((t1, t2) => {
       let weight1: number = t1.weight === undefined ? defaultWeight : t1.weight
@@ -110,6 +111,8 @@ export class SchedulingService {
         curTask = taskIterator.next()
         if (curTask.done)
           break
+        if (curTask.value.schedule === undefined)
+          curTask.value.schedule = []
         timeRemain = curTask.value.weight === undefined ? defaultWeight : curTask.value.weight
         timeRemain *= hourVal
       }
@@ -149,16 +152,18 @@ export class SchedulingService {
     }
     /* then schedule all remaining tasks back to back */
     while (!curTask.done) {
-      end = new Date(start.valueOf() + curTask.value.weight * hourVal)
+      //console.log(curTask)
+      let curWeight: number
+      curWeight = curTask.value.weight != undefined ? curTask.value.weight : defaultWeight
+      end = new Date(start.valueOf() + curWeight * hourVal)
       curTask.value.schedule.push({
         start: start,
         end: end
       })
       start = end
     }
-
-    schedule.concat(tasks)
-    return schedule
+    
+    return schedule.concat(tasks)
   }
 
   /* Assign scheduled time to tasks in a way that they are finished right
@@ -177,6 +182,8 @@ export class SchedulingService {
       curWeight =
         tasks[i].weight === undefined ? defaultWeight : tasks[i].weight
       start = new Date(basis.valueOf() - curWeight * hourVal)
+      if (tasks[i].schedule === undefined)
+        tasks[i].schedule = []
       tasks[i].schedule.push({
         start: start,
         end: basis

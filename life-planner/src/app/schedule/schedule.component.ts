@@ -25,18 +25,5 @@ export class ScheduleComponent implements OnInit {
     s.subscribe(p => {
       this.schedule = p
     })
-
-    
-    /*
-    // update splitting of schedule
-    this.times = []
-    this.tasks = []
-    let curTime: Date
-    for (var time in this.schedule) {
-      curTime = new Date(time)
-      this.times.push(curTime)
-      this.tasks.push(this.schedule.get(curTime))
-    } 
-    */
   }
 }

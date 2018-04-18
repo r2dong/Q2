@@ -80,12 +80,4 @@ export class NgFullcalendarComponent implements OnInit {
       })
     })
   }
-
-  /*
-  private computeEndTime(start: Date, duration: number): Date {
-    let startVal: number = start.valueOf()
-    let endVal: number = startVal + duration * hourVal
-    return new Date(endVal)
-  }
-  */
 }

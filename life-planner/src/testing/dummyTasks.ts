@@ -60,28 +60,28 @@ export const dummyTasks: DummyTaskModel[] = [
         weight: 1
     },
     {
-        name: "length-2400-interleave",
+        name: "length-2400-nonurg-nonimp",
         urgent: false,
         important: false,
         isComplete: false,
         weight: 2400
     },
     {
-        name: "length-100-interleave",
+        name: "length-100-nonurg-nonimp",
         urgent: false,
         important: false,
         isComplete: false,
         weight: 100
     },
     {
-        name: "length-3-interleave",
+        name: "length-3-nonurg-nonimp",
         urgent: false,
         important: false,
         isComplete: false,
         weight: 3
     },
     {
-        name: "length-5-interleave",
+        name: "length-5-nonurg-nonimp",
         urgent: false,
         important: false,
         isComplete: false,
