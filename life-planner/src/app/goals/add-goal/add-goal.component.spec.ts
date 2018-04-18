@@ -4,42 +4,43 @@ import { APP_BASE_HREF } from '@angular/common';
 import {Observable} from 'rxjs/Observable';
 
 import {AngularFireModule} from 'angularfire2';
-import {environment} from '../../environments/environment';
+import {environment} from '../../../environments/environment';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {AngularFireStorageModule} from 'angularfire2/storage';
 
 
 // Modules
-import { AppRoutingModule } from '../app-routing.module';
-import { CoreModule } from '../core/core.module';
-import { SharedModule } from '../shared/shared.module';
-import { GoalsModule } from './goals.module';
+import { AppRoutingModule } from '../../app-routing.module';
+import { CoreModule } from '../../core/core.module';
+import { SharedModule } from '../../shared/shared.module';
+import {GoalsModule} from '../goals.module';
 import {FormsModule} from '@angular/forms';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
-import {GoalService} from './goal.service';
-import {GoalModel} from './goal.model';
+import {GoalService} from '../goal.service';
+import {GoalModel} from '../goal.model';
 
 // Components
-import {AppComponent} from '../app.component';
-import { LoginComponent } from '../login/login.component';
-import { HomeComponent } from '../home/home.component';
-import {GoalsComponent} from './goals.component';
-import { WelcomeComponent } from '../welcome/welcome.component';
-import { AuthService } from '../core/auth.service';
-import { NotFoundComponent } from '../not-found/not-found.component';
-import { NavbarComponent } from '../navbar/navbar.component';
+import {AppComponent} from '../../app.component';
+import { LoginComponent } from '../../login/login.component';
+import { HomeComponent } from '../../home/home.component';
+import {AddGoalComponent} from './add-goal.component';
+import { WelcomeComponent } from '../../welcome/welcome.component';
+import { AuthService } from '../../core/auth.service';
+import { NotFoundComponent } from '../../not-found/not-found.component';
+import { NavbarComponent } from '../../navbar/navbar.component';
 
 
 import { By } from '@angular/platform-browser';
-import {ProjectService} from '../projects/project.service';
-import {GoalsComponent} from './goals.component';
+import {ProjectService} from '../../projects/project.service';
+import {GoalService} from '../goal.service';
 
 
-describe('GoalsComponent', () => {
-  let component: GoalsComponent;
+describe('AddGoalComponent', () => {
+  let component: AddGoalComponent;
   let service: GoalService;
-  let fixture: ComponentFixture<GoalsComponent>;
+  let fixture: ComponentFixture<AddGoalComponent>;
   let de: DebugElement;
   let spy: jasmine.Spy;
   let spyService: jasmine.Spy;
@@ -55,7 +56,8 @@ describe('GoalsComponent', () => {
         FormsModule,
         SharedModule,
         GoalsModule,
-        CoreModule, ],
+        CoreModule,
+      ],
       declarations: [
         AppComponent,
         WelcomeComponent,
@@ -67,7 +69,8 @@ describe('GoalsComponent', () => {
       providers: [
         { provide: APP_BASE_HREF, useValue: '/goals'},
         GoalService,
-        ProjectService
+        ProjectService,
+        FlashMessagesService
       ]
     })
       .compileComponents();
@@ -76,7 +79,7 @@ describe('GoalsComponent', () => {
   beforeEach(() => {
 
     spy = spyOn(AuthService, 'currentUserId').and.returnValue('TestAccount');
-    fixture = TestBed.createComponent(GoalsComponent);
+    fixture = TestBed.createComponent(AddGoalComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;
     service = de.injector.get(GoalService);
@@ -92,12 +95,20 @@ describe('GoalsComponent', () => {
     expect(AuthService.currentUserId()).toBe('TestAccount');
   });
 
-  it('should get all goals', () => {
-    spyService = spyOn(service, 'getGoals').and.returnValue('TestAccount');
-    service.getGoals();
+  it('should create a goal', () => {
+    const goal: GoalModel = {
+      gid: '',
+      name: '',
+      endDate: null,
+    };
+    spyService = spyOn(service, 'addGoal').and.returnValue('TestAccount');
+    service.addGoal(goal);
     // Check internal function
     expect(spyService).toHaveBeenCalled();
 
   });
 
+
+
 });
+

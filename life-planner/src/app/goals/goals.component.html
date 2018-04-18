@@ -1,3 +1,52 @@
-<p>
-  goals works!
-</p>
+<!-- Goals List -->
+<div class="row">
+  <div class="col s12">
+    <h4 class="col s12 center-align">Goals</h4>
+    <hr>
+    <br>
+
+    <table *ngIf="goals?.length > 0;else noGoals" class="bordered striped">
+      <thead class="thead-inverse">
+      <tr>
+        <!--  <th>ID</th> -->
+        <th>Name</th>
+        <th>Date Due</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td colspan="6"></td>
+        <td><a routerLink="/goals/add/{{ pid }}" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
+      </tr>
+      <tr *ngFor="let goal of goals">
+        <!--   <td>{{ task.tid }}</td> -->
+        <td>{{ goal.name }}</td>
+        <td>{{ goal.endDate }}</td>
+        <td><a routerLink="/goals/{{ goal.gid }}/{{ pid }}" class="btn btn-secondary btn-sm"><i class="material-icons">edit</i></a></td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noGoals>
+    <table class="bordered striped">
+      <thead class="thead-inverse">
+      <tr>
+        <!-- <th>ID</th> -->
+        <th>Name</th>
+        <th>Date Due</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td colspan="3">There are no goals in the system for this user.</td>
+        <td><a routerLink="/goals/add/{{ pid }}" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
+      </tr>
+
+      </tbody>
+    </table>
+  </ng-template>
+</div>

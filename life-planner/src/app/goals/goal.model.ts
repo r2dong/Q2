@@ -3,7 +3,7 @@ export interface GoalModel{
   rid?: string;
   name: string;
   pid?: string;
-  endDate: string;
+  endDate?: Date;
   // tgIDs?: string[];
   createdAt?: Date;
   updatedAt?: Date;
