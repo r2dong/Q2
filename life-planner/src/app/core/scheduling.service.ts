@@ -45,6 +45,8 @@ export class SchedulingService {
   */
   private interleave(schedule: DummyTaskModel[], tasks: DummyTaskModel[]): DummyTaskModel[] {
 
+    console.log("another call to interleave")
+
     /* get occupied time slot from given schedule */
     let allScheduledSlots: TimeSlot[] = []
     schedule.forEach((task: DummyTaskModel) => {
@@ -67,6 +69,7 @@ export class SchedulingService {
           start: startTime,
           end: endTime
         })
+        console.log("found new time slot, start: " + startTime + ", end: " + endTime)
       }
       startTime = slot.end
     })
@@ -98,13 +101,19 @@ export class SchedulingService {
     while (true) {
 
       // retrieve next time slot if current one is completely filled
-      if (start == end) {
+      let stopFlag: boolean = false
+      while (start == end) { //skip length-0 slots
+        console.log("skipping empty time slot")
         curSlot = slotIterator.next()
-        if (curSlot.done)
+        if (curSlot.done) {
+          stopFlag = true
           break
+        }
         start = curSlot.value.start
         end = curSlot.value.end
       }
+      if (stopFlag)
+        break
 
       // if finished with interleaving previous task, continue to next one
       if (timeRemain == 0) {
@@ -124,6 +133,9 @@ export class SchedulingService {
           start: start,
           end: end
         })
+        console.log("scheduling task: " + curTask.value.name)
+        console.log("start:" + start)
+        console.log("end" + end)
         timeRemain -= end.valueOf() - start.valueOf()
         start = end
       }
@@ -133,6 +145,9 @@ export class SchedulingService {
           start: start,
           end: new Date(start.valueOf() + timeRemain)
         })
+        console.log("scheduling task: " + curTask.value.name)
+        console.log("start:" + start)
+        console.log("end" + new Date(start.valueOf() + timeRemain))
         start = new Date(start.valueOf() + timeRemain)
         timeRemain = 0
       }
