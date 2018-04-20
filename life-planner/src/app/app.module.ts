@@ -40,10 +40,6 @@ import { GoalDetailComponent } from './goals/goal-detail/goal-detail.component';
     WelcomeComponent,
     NotFoundComponent,
     NavbarComponent,
-    // GoalsComponent,
-   // AddGoalComponent,
-   // EditGoalComponent,
-   // GoalDetailComponent
   ],
   imports: [
     BrowserModule,
