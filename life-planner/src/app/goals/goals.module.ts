@@ -16,7 +16,7 @@ import {GoalDetailComponent} from './goal-detail/goal-detail.component';
     SharedModule
   ],
   declarations: [
-    GoalsComponent,
+     GoalsComponent,
     GoalDetailComponent,
     AddGoalComponent,
     EditGoalComponent
