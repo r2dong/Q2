@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core'
+import { Injectable, TRANSLATIONS } from '@angular/core'
 import { Observable } from 'rxjs'
 import { DummyTaskModel, dummyTasks, TimeSlot } from '../../testing/dummyTasks'
 import { Time } from '@angular/common';
@@ -211,8 +211,28 @@ export class SchedulingService {
     // do this by a slot basis similar to interleaving
     let basis: Date = this.roundToEndOfDay(tasks[tasks.length - 1].due);
     let start: Date
-    let curWeight: number
+    let timeRemain: number = 0
+    let taskIterator: Iterator<DummyTaskModel> = tasks[Symbol.iterator]()
+    let task: IteratorResult<DummyTaskModel> = {
+      value: undefined,
+      done: false
+    }
+    while (!task.done) {
+      // if finished with interleaving previous task, continue to next one
+      if (timeRemain == 0) {
+        task = taskIterator.next()
+        if (task.done)
+          break
+        if (task.value.schedule === undefined)
+          task.value.schedule = []
+        timeRemain = task.value.weight === undefined ? defaultWeight : task.value.weight
+        timeRemain *= hourVal
+      }
+    }
+
+
     for (let i: number = tasks.length - 1; i > -1; i--) {
+        
       curWeight =
         tasks[i].weight === undefined ? defaultWeight : tasks[i].weight
       start = new Date(basis.valueOf() - curWeight * hourVal)
