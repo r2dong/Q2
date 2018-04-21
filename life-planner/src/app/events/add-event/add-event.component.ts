@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {EventService} from "../../events/event.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {EventService} from '../event.service';
+import {ActivatedRoute, Router} from '@angular/router';
 import{FlashMessagesService} from 'angular2-flash-messages';
-import{EventModel} from "../../events/event.model";
-import{Location} from "@angular/common";
+import{EventModel} from '../event.model';
+import{Location} from '@angular/common';
 
 @Component({
   selector: 'app-add-event',
@@ -11,21 +11,22 @@ import{Location} from "@angular/common";
   styleUrls: ['./add-event.component.css']
 })
 export class AddEventComponent implements OnInit {
-  event: EventModel={
+  event: EventModel = {
     eid: '',
-    name:'',
-    sdate:'',
+    name: '',
+    sdate: '',
     stime: '',
     edate: '',
-    etime: ''
+    etime: '',
+    important: false
   };
-  pid:string;
+  pid: string;
   @ViewChild('eventForm') form: any;
 
   constructor(private flashMessage: FlashMessagesService,
               private eventService: EventService,
               private router: Router,
-              private location:Location,
+              private location: Location,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
