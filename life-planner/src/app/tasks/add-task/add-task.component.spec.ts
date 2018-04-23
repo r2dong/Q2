@@ -1,7 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DebugElement } from '@angular/core';
-import { APP_BASE_HREF } from '@angular/common';
+import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import {DebugElement} from '@angular/core';
+import {APP_BASE_HREF} from '@angular/common';
 import {Observable} from 'rxjs/Observable';
+import {Location} from '@angular/common';
+
 
 import {AngularFireModule} from 'angularfire2';
 import {environment} from '../../../environments/environment';
@@ -10,19 +12,20 @@ import {AngularFireStorageModule} from 'angularfire2/storage';
 
 
 // Modules
-import { AppRoutingModule } from '../../app-routing.module';
-import { CoreModule } from '../../core/core.module';
-import { SharedModule } from '../../shared/shared.module';
-import { TasksModule } from '../tasks.module';
+import {AppRoutingModule} from '../../app-routing.module';
+import {CoreModule} from '../../core/core.module';
+import {SharedModule} from '../../shared/shared.module';
+import {TasksModule} from '../tasks.module';
 import {FormsModule} from '@angular/forms';
-import { FlashMessagesModule } from 'angular2-flash-messages';
-import { FlashMessagesService } from 'angular2-flash-messages';
+import {FlashMessagesModule} from 'angular2-flash-messages';
+import {FlashMessagesService} from 'angular2-flash-messages';
 
 import {TaskService} from '../task.service';
 import {TaskModel, TaskWeight} from '../task.model';
 
 // Components
 import {AppComponent} from '../../app.component';
+<<<<<<< HEAD
 import { LoginComponent } from '../../login/login.component';
 import { HomeComponent } from '../../home/home.component';
 import { AddTaskComponent } from './add-task.component';
@@ -31,10 +34,19 @@ import { AuthService } from '../../core/auth.service';
 import { NotFoundComponent } from '../../not-found/not-found.component';
 import { NavbarComponent } from '../../navbar/navbar.component';
 import { ScheduleComponent } from '../../schedule/schedule.component'
+=======
+import {LoginComponent} from '../../login/login.component';
+import {HomeComponent} from '../../home/home.component';
+import {AddTaskComponent} from './add-task.component';
+import {WelcomeComponent} from '../../welcome/welcome.component';
+import {AuthService} from '../../core/auth.service';
+import {NotFoundComponent} from '../../not-found/not-found.component';
+import {NavbarComponent} from '../../navbar/navbar.component';
+>>>>>>> master
 
 
-import { By } from '@angular/platform-browser';
-import {ProjectService} from "../../projects/project.service";
+import {By} from '@angular/platform-browser';
+import {ProjectService} from '../../projects/project.service';
 
 
 describe('AddTaskComponent', () => {
@@ -44,6 +56,8 @@ describe('AddTaskComponent', () => {
   let de: DebugElement;
   let spy: jasmine.Spy;
   let spyService: jasmine.Spy;
+  let loc: Location;
+
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -57,7 +71,7 @@ describe('AddTaskComponent', () => {
         SharedModule,
         TasksModule,
         CoreModule,
-        ],
+      ],
       declarations: [
         AppComponent,
         WelcomeComponent,
@@ -68,7 +82,7 @@ describe('AddTaskComponent', () => {
         ScheduleComponent
       ],
       providers: [
-        { provide: APP_BASE_HREF, useValue: '/tasks'},
+        {provide: APP_BASE_HREF, useValue: '/tasks'},
         TaskService,
         ProjectService,
         FlashMessagesService
@@ -77,6 +91,7 @@ describe('AddTaskComponent', () => {
       .compileComponents();
   });
 
+
   beforeEach(() => {
 
     spy = spyOn(AuthService, 'currentUserId').and.returnValue('TestAccount');
@@ -84,6 +99,7 @@ describe('AddTaskComponent', () => {
     component = fixture.componentInstance;
     de = fixture.debugElement;
     service = de.injector.get(TaskService);
+    loc = TestBed.get(Location);
 
     fixture.detectChanges();
   });
@@ -97,19 +113,23 @@ describe('AddTaskComponent', () => {
   });
 
   it('should create a task', () => {
+    const location = fixture.debugElement.injector.get(Location);
     const task: TaskModel = {
       tid: '',
-      name: 'Sample Task For Testing Only',
-      weight: TaskWeight.HARD,
-      dueDateTime: ''
+      name: '',
+      urgent: true,
+      important: true,
+      dueDateTime: null,
+      isComplete: false,
+      weight: TaskWeight.NONE
     };
     spyService = spyOn(service, 'addTask').and.returnValue('TestAccount');
     service.addTask(task);
     // Check internal function
     expect(spyService).toHaveBeenCalled();
 
-  });
 
+  });
 
 
 });

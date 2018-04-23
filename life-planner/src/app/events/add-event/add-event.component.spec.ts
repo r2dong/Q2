@@ -19,7 +19,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
 import {EventService} from '../event.service';
-import {EventModel} from '../event.model'
+import {EventModel} from '../event.model';
 
 // Components
 import {AppComponent} from '../../app.component';
@@ -33,7 +33,7 @@ import { NavbarComponent } from '../../navbar/navbar.component';
 import { ScheduleComponent } from '../../schedule/schedule.component'
 
 import { By } from '@angular/platform-browser';
-import {ProjectService} from "../../projects/project.service";
+import {ProjectService} from '../../projects/project.service';
 
 
 describe('AddEventComponent', () => {

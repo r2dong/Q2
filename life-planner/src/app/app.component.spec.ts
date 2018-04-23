@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { FlashMessagesModule } from 'angular2-flash-messages'
 
 // Modules and Services
+<<<<<<< HEAD
 import { AppRoutingModule } from './app-routing.module'
 import { CoreModule } from './core/core.module'
 import { SharedModule } from './shared/shared.module'
@@ -14,6 +15,15 @@ import { TaskService } from './tasks/task.service'
 import { TasksModule } from './tasks/tasks.module'
 import { EventService } from "./events/event.service"
 import { EventsModule } from "./events/events.module"
+=======
+import { AppRoutingModule } from './app-routing.module';
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
+import { TaskService } from './tasks/task.service';
+import { TasksModule } from './tasks/tasks.module';
+import{EventService} from './events/event.service';
+import {EventsModule} from './events/events.module';
+>>>>>>> master
 // Components
 import { AppComponent } from './app.component'
 import { RouterModule, Router } from '@angular/router'
@@ -70,7 +80,7 @@ describe('AppComponent', () => {
   });
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance; 
+    const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   });
   it(`should have as title 'app'`, () => {

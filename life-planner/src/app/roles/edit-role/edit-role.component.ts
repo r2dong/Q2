@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { RoleService } from '../role.service';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { FlashMessagesService } from 'angular2-flash-messages';
-import { RoleModel } from '../role.model';
-import { Location } from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {RoleService} from '../role.service';
+import {Router, ActivatedRoute, Params} from '@angular/router';
+import {FlashMessagesService} from 'angular2-flash-messages';
+import {RoleModel} from '../role.model';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-edit-role',
@@ -20,7 +20,8 @@ export class EditRoleComponent implements OnInit {
     private route: ActivatedRoute,
     private flashMessage: FlashMessagesService,
     private location: Location,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.rid = this.route.snapshot.params['rid'];
@@ -33,7 +34,7 @@ export class EditRoleComponent implements OnInit {
     });
   }
 
-  onSubmit({value, valid}: {value: RoleModel, valid: boolean}) {
+  onSubmit({value, valid}: { value: RoleModel, valid: boolean }) {
     if (!valid) {
       this.flashMessage.show('Please fill out the form correctly', {
         cssClass: 'alert-danger', timeout: 4000

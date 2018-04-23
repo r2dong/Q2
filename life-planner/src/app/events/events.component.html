@@ -14,6 +14,8 @@
         <th>Start Time</th>
         <th>End Date</th>
         <th>End Time</th>
+        <th>Important</th>
+        <th>Is Complete?</th>
         <th></th>
       </tr>
       </thead>
@@ -29,8 +31,9 @@
         <td>{{event.stime}}</td>
         <td>{{event.edate}}</td>
         <td>{{event.etime}}</td>
+        <td>{{event.important|yesNoPipe}}</td>
+        <td>{{event.complete|yesNoPipe}}</td>
         <td colspan = "3" ><a routerLink="/events/{{ event.eid }}/{{pid}}" class="btn btn-secondary btn-sm"><i class="material-icons">edit</i></a></td>
-        <!--<td><input type = "checkbox" id = event.important, [ngModel]="event.important", #eventImportant = "ngMod" </td>-->
       </tr>
       </tbody>
     </table>
@@ -45,6 +48,8 @@
         <th>Start Time</th>
         <th>End Date</th>
         <th>End Time</th>
+        <th>Important</th>
+        <th>Is Complete?</th>
         <th></th>
       </tr>
       </thead>

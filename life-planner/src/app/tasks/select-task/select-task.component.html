@@ -1,0 +1,58 @@
+<!-- Task List -->
+<div class="row">
+  <div class="col s12">
+    <h5 class="col s12 center-align">Available Tasks to Add</h5>
+
+    <hr>
+    <a (click)="goBack()" class="btn btn-link">
+      <i class="fa fa-arrow-circle-o-left"></i> Back
+    </a>
+    <br>
+
+    <table *ngIf="tasks?.length > 0;else noTasks" class="bordered striped">
+      <thead class="thead-inverse">
+      <tr>
+        <!--  <th>ID</th> -->
+        <th>Name</th>
+        <th>Urgent?</th>
+        <th>Important?</th>
+        <th>Weight</th>
+        <th>Date Due</th>
+        <th>Is Complete?</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td colspan="6"></td>
+        <td><a routerLink="/tasks/add/{{ pid }}" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
+      </tr>
+      <tr *ngFor="let task of tasks">
+        <!--   <td>{{ task.tid }}</td> -->
+        <td>{{ task.name }}</td>
+        <td>{{ task.urgent | yesNoPipe }}</td>
+        <td>{{ task.important | yesNoPipe }}</td>
+        <td>{{ task.weight }}</td>
+        <td>{{ task.dueDateTime }}</td>
+        <td>{{ task.isComplete | yesNoPipe }}</td>
+        <td>
+          <button (click)="onAddClick(task)" class="btn btn-danger"><i class="material-icons">add_box</i></button>
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noTasks>
+    <table class="bordered striped">
+      <tbody>
+      <tr>
+        <td colspan="6">There are no tasks in the system for this user.</td>
+        <td><a routerLink="/tasks/add/{{ pid }}" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
+      </tr>
+
+      </tbody>
+    </table>
+  </ng-template>
+</div>

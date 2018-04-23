@@ -32,9 +32,21 @@
             </div>
           </div>
         </div>
+        <!--Checkbox: important-->
+        <div class = "form-group">
+          <input
+            class = "form-control"
+            type="checkbox"
+            id="important"
+            #eventImportant
+            [(ngModel)] = "event.important"
+            name ="important"
+          />
+          <label class="form-control-label" for="important">Important</label>
+        </div>
         <!--Edit Start Date-->
         <div class="form-group">
-          <label class="form-control-label" for="name">Event Start Date</label>
+          <label class="form-control-label" for="name">Event Start Date </label>
           <input
           type="date"
           class="form-control"
@@ -53,7 +65,7 @@
         </div>
         <!--Edit Start Time-->
         <div class="form-group">
-          <label class="form-control-label" for="name">Event Start Time</label>
+          <label class="form-control-label" for="name">Event Start Time  ex: 10:00AM</label>
           <input
             type="time"
             class="form-control"
@@ -66,7 +78,7 @@
           >
           <div *ngIf="eventStartTime.errors && (eventStartTime.dirty || eventStartTime.touched)">
             <div [hidden]="eventStartTime.errors?.required" class="invalid-feedback red-text darken-4">
-              Event start date required
+              Event start date required  example: 12:20PM
             </div>
           </div>
         </div>
@@ -81,7 +93,6 @@
             [ngClass]="{'is-invalid':eventEndDate.errors && eventEndDate.touched}"
             [(ngModel)]="event.edate"
             name="edate"
-            required
           />
           <div *ngIf="eventEndDate.errors && (eventEndDate.dirty || eventEndDate.touched)">
             <div [hidden]="eventEndDate.errors?.required" class="invalid-feedback red-text darken-4">
@@ -91,7 +102,7 @@
         </div>
         <!--Edit End Time-->
         <div class="form-group">
-          <label class="form-control-label" for="name">Event End Time</label>
+          <label class="form-control-label" for="name">Event End Time   ex: 12:30PM</label>
           <input
             type="time"
             class="form-control"
@@ -100,13 +111,24 @@
             [ngClass]="{'is-invalid':eventEndTime.errors && eventEndTime.touched}"
             [(ngModel)]="event.etime"
             name="etime"
-            required
           >
           <div *ngIf="eventEndTime.errors && (eventEndTime.dirty || eventEndTime.touched)">
             <div [hidden]="eventEndTime.errors?.required" class="invalid-feedback red-text darken-4">
               Event end time required
             </div>
           </div>
+        </div>
+        <!--Checkbox: complete-->
+        <div class = "form-group">
+          <input
+            class = "form-control"
+            type="checkbox"
+            id="complete"
+            #eventComplete
+            [(ngModel)] = "event.complete"
+            name ="important"
+          />
+          <label class="form-control-label" for="complete">Complete</label>
         </div>
         <div class="form-group">
           <div class="card-action card-content grey lighten-4">

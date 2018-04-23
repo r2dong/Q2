@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { TaskService } from '../task.service';
+import {TaskService} from '../task.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import { FlashMessagesService } from 'angular2-flash-messages';
+import {FlashMessagesService} from 'angular2-flash-messages';
 
 import {TaskModel, TaskWeight} from '../task.model';
 import {Location} from '@angular/common';
@@ -17,13 +17,15 @@ export class AddTaskComponent implements OnInit {
   task: TaskModel = {
     tid: '',
     name: '',
-    dueDateTime: '',
+    urgent: false,
+    important: false,
+    dueDateTime: null,
+    isComplete: false,
     weight: TaskWeight.NONE
   };
   TaskWeight = TaskWeight;
   // private taskWeights: TaskWeight[];
   private selectedTaskWeight: TaskWeight;
-
 
 
   @ViewChild('taskForm') form: any;
@@ -41,10 +43,10 @@ export class AddTaskComponent implements OnInit {
 
   ngOnInit() {
     this.pid = this.route.snapshot.params['pid'];
-    console.log(this.pid);
+    console.log('Tadd: pid: ' + this.pid);
   }
 
-  onSubmit({value, valid}: {value: TaskModel, valid: boolean}) {
+  onSubmit({value, valid}: { value: TaskModel, valid: boolean }) {
     if (!valid) {
       // Show error
       this.flashMessage.show('Please fill out the form correctly', {
@@ -55,7 +57,7 @@ export class AddTaskComponent implements OnInit {
       // Add new client
       this.taskService.addTask(value, this.pid);
       // Show message
-      this.flashMessage.show('New client added', {
+      this.flashMessage.show('New task added', {
         cssClass: 'alert-success', timeout: 4000
       });
       // Redirect to tasks

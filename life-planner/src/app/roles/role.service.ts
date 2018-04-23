@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
 import {AuthService} from '../core/auth.service';
 import {Observable} from 'rxjs/Observable';
 import {RoleModel} from './role.model';
+import {TaskService} from '../tasks/task.service';
 
 
 @Injectable()
@@ -13,7 +14,7 @@ export class RoleService {
   roles: Observable<RoleModel[]>;
   singleRole: Observable<RoleModel>;
 
-  constructor(private db: AngularFirestore) {
+  constructor(private db: AngularFirestore, private taskService: TaskService) {
     if (AuthService.isLoggedIn()) {
       console.log('User ID: ' + AuthService.currentUserId());
       this.rolesRef = this.db.collection('users').doc(AuthService.currentUserId()).collection('roles');
@@ -58,6 +59,28 @@ export class RoleService {
       });
     });
     return this.roles;
+  }
+
+  findRoles(list: string[] = []): Observable<RoleModel[]> {
+    console.log('RS: findRoles rids count: ' + list.length);
+    return this.getRoles()
+      .map(epics => epics.filter(role => list.includes(role.rid)));
+  }
+
+  addRoleToTask(tid: string, role: RoleModel) {
+    console.log('RS: addRoleToTask rid: ' + role.rid);
+    console.log('RS: addRoleToTask tid: ' + tid);
+    if (role.rid !== undefined && tid !== undefined) {
+      this.taskService.addRoleToTask(tid, role.rid);
+    }
+  }
+
+  removeRoleFromTask(tid: string, role: RoleModel) {
+    console.log('RS: removeRoleFromTask rid: ' + role.rid);
+    console.log('RS: removeRoleFromTask tid: ' + tid);
+    if (role.rid !== undefined) {
+      this.taskService.removeRoleFromTask(tid, role.rid);
+    }
   }
 
   updateRole(role: RoleModel) {

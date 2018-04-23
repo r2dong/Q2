@@ -32,6 +32,8 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { ScheduleComponent } from '../schedule/schedule.component'
 
 import { By } from '@angular/platform-browser';
+import {ProjectService} from '../projects/project.service';
+import {TaskService} from '../tasks/task.service';
 
 
 describe('RolesComponent', () => {
@@ -65,6 +67,8 @@ describe('RolesComponent', () => {
          ],
       providers: [
          { provide: APP_BASE_HREF, useValue: '/roles'},
+        TaskService,
+        ProjectService,
         RoleService,
       ]
     })

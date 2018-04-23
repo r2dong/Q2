@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
 import {AuthService} from '../core/auth.service';
 import {Observable} from 'rxjs/Observable';
@@ -13,6 +13,7 @@ export class ProjectService {
   projectDoc: AngularFirestoreDocument<ProjectModel>;
   projects: Observable<ProjectModel[]>;
   singleProject: Observable<ProjectModel>;
+  project: ProjectModel;
 
   constructor(private db: AngularFirestore) {
     if (AuthService.isLoggedIn()) {
@@ -28,6 +29,7 @@ export class ProjectService {
   addProject(project: ProjectModel) {
     // this.db.collection('finishedExercises').add(project);
     project.createdAt = new Date();
+    project.tids = [];
     this.projectsRef.add(project);
   }
 
@@ -49,6 +51,7 @@ export class ProjectService {
 
     return this.singleProject;
   }
+
   getProjects(): Observable<ProjectModel[]> {
     this.projects = this.projectsRef.snapshotChanges().map(changes => {
       return changes.map(action => {
@@ -72,36 +75,55 @@ export class ProjectService {
     this.projectDoc.delete();
   }
 
-  addTaskToProject(pid: string, tid: string){
+  addTaskToProject(pid: string, tid: string) {
+    console.log('PS addTaskToProject: adding PID to project: ' + pid);
+    console.log('PS addTaskToProject: adding TID to project: ' + tid);
+
+    // get current project from pid
+    /*
+    this.getProject(pid).subscribe(proj => {
+      if (proj != null) {
+        console.log('project found for pid: ' + proj.pid);
+      }
+      this.project = proj;
+    })
+      .unsubscribe();
+
+    this.project.tids.push(tid);
+    this.updateProject(this.project);
+*/
+
+
     this.getProject(pid).take(1).forEach(proj => {
-      if(proj.tids === undefined){
+      if (proj.tids === undefined) {
         proj.tids = [];
       }
-      if(!proj.tids.includes(tid)){
+      if (!proj.tids.includes(tid)) {
         proj.tids.push(tid);
         this.updateProject(proj);
       }
     });
+
   }
 
-  addEventToProject(pid: string, eid: string){
+  addEventToProject(pid: string, eid: string) {
     this.getProject(pid).take(1).forEach(proj => {
-      if(proj.eids === undefined){
+      if (proj.eids === undefined) {
         proj.eids = [];
       }
-      if(!proj.eids.includes(eid)){
+      if (!proj.eids.includes(eid)) {
         proj.eids.push(eid);
         this.updateProject(proj);
       }
     });
   }
 
-  addRoleToProject(pid: string, eid: string){
+  addRoleToProject(pid: string, eid: string) {
     this.getProject(pid).take(1).forEach(proj => {
-      if(proj.eids === undefined){
+      if (proj.eids === undefined) {
         proj.eids = [];
       }
-      if(!proj.eids.includes(eid)){
+      if (!proj.eids.includes(eid)) {
         proj.eids.push(eid);
         this.updateProject(proj);
       }
@@ -109,13 +131,14 @@ export class ProjectService {
   }
 
   removeTaskFromProject(pid: string, tid: string) {
+    console.log('PS: removing task' + tid + ' for project pid: ' + pid);
     this.getProject(pid).take(1).forEach(proj => {
-      if ( proj.tids === undefined ) {
+      if (proj.tids === undefined) {
         proj.tids = [];
       }
       const index = proj.tids.indexOf(tid);
-      if ( index !== -1) {
-        proj.tids.splice(index, 1 );
+      if (index !== -1) {
+        proj.tids.splice(index, 1);
         this.updateProject(proj);
       }
     });
@@ -123,7 +146,7 @@ export class ProjectService {
 
   removeEventFromProject(pid: string, eid: string) {
     this.getProject(pid).take(1).forEach(proj => {
-      if ( proj.eids === undefined ) {
+      if (proj.eids === undefined) {
         proj.eids = [];
       }
       const index = proj.eids.indexOf(eid);
@@ -136,7 +159,7 @@ export class ProjectService {
 
   removeRoleFromProject(pid: string, eid: string) {
     this.getProject(pid).take(1).forEach(proj => {
-      if ( proj.eids === undefined ) {
+      if (proj.eids === undefined) {
         proj.eids = [];
       }
       const index = proj.eids.indexOf(eid);

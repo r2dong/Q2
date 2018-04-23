@@ -40,7 +40,7 @@ export class EventDetailComponent implements OnInit {
     if (confirm('Are you sure?')) {
       this.deletedEventName = this.event.name;
       this.eventsService.deleteEvent(this.event);
-      this.flashMessage.show('Event: ' + this.deletedEventName +' removed', {
+      this.flashMessage.show('Event: ' + this.deletedEventName + ' removed', {
         cssClass: 'alert-success', timeout: 4000
       });
       this.goBack();

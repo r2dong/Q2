@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { RoleService } from '../role.service';
-import { ActivatedRoute, Router, Params } from '@angular/router';
-import { FlashMessagesService } from 'angular2-flash-messages';
-import { RoleModel } from '../role.model';
-import { Location } from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {RoleService} from '../role.service';
+import {ActivatedRoute, Router, Params} from '@angular/router';
+import {FlashMessagesService} from 'angular2-flash-messages';
+import {RoleModel} from '../role.model';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-role-detail',
@@ -20,7 +20,8 @@ export class RoleDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private flashMessage: FlashMessagesService,
     private location: Location,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     // Get id from url

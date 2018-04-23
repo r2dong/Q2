@@ -11,7 +11,7 @@
       <ul class="list-group">
         <li class="list-group-item">Role ID: {{ role.rid }}</li>
         <li class="list-group-item">Role Name: {{ role.name }}</li>
-        <li class="list-group-item">Role Color: {{ role.color }}</li>
+        <li class="list-group-item">Role Color: <span class="{{ role.color }} lighten-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
         <li class="list-group-item">Role Added On: {{ role.createdAt }}</li>
         <li class="list-group-item">Role Last Updated On: {{ role.updatedAt }}</li>
       </ul>

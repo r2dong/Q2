@@ -8,7 +8,7 @@ export interface ProjectModel {
   name: string;
   description?: string;
   dueDateTime?: string; // Date
-  tids?: string[];
+  tids: string[];
   eids?: string[];
   tgids?: string[];
   createdAt?: Date;

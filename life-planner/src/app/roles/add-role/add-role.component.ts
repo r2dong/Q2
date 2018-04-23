@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { RoleService } from '../role.service';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {RoleService} from '../role.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import { FlashMessagesService } from 'angular2-flash-messages';
-import { RoleModel } from '../role.model';
+import {FlashMessagesService} from 'angular2-flash-messages';
+import {RoleModel} from '../role.model';
 import {Location} from '@angular/common';
 
 @Component({
@@ -23,12 +23,14 @@ export class AddRoleComponent implements OnInit {
     private roleService: RoleService,
     private router: Router,
     private location: Location,
-  ) { }
+  ) {
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
 
-  onSubmit({value, valid}: {value: RoleModel, valid: boolean}) {
+  onSubmit({value, valid}: { value: RoleModel, valid: boolean }) {
     if (!valid) {
       // Show error
       this.flashMessage.show('Please fill out the form correctly', {

@@ -6,6 +6,8 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import {environment} from '../../environments/environment';
+import {YesNoPipe} from './YesNoPipe';
+
 
 // should not contain any services
 // added to other modules as needed
@@ -33,7 +35,7 @@ import {environment} from '../../environments/environment';
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
   ],
-  declarations: [],
-  exports: [ CommonModule, AngularFireModule, AngularFireStorageModule, AngularFireAuthModule, AngularFirestoreModule, FormsModule ]
+  declarations: [YesNoPipe],
+  exports: [ CommonModule, AngularFireModule, AngularFireStorageModule, AngularFireAuthModule, AngularFirestoreModule, FormsModule, YesNoPipe ]
 })
 export class SharedModule { }

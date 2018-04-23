@@ -12,7 +12,6 @@
         <div class="form-group">
           <label class="form-control-label" for="name">Event Name</label>
           <input
-
             class="form-control"
             type="text"
             id="name"
@@ -32,7 +31,18 @@
               Must be at least 2 characters
             </div>
           </div>
-
+          <!--Checkbox: important-->
+          <div class = "form-group">
+            <input
+              class = "form-control"
+              type="checkbox"
+              id="important"
+              #eventImportant
+              [(ngModel)] = "event.important"
+              name ="important"
+            />
+            <label class="form-control-label" for="important">Important</label>
+          </div>
 
         </div>
         <!--START DATE-->
@@ -47,7 +57,7 @@
             [ngClass]="{'is-invalid':eventStartDate.errors && eventStartDate.touched}"
             [(ngModel)]="event.sdate"
             name="sdate"
-
+            required
             />
             <div *ngIf="eventStartDate.errors && (eventStartDate.dirty || eventStartDate.touched)">
               <div [hidden]="!eventStartDate.errors?.required" class="invalid-feedback red-text darken-4">
@@ -57,7 +67,7 @@
         </div>
         <!--START TIME-->
         <div class="form-group">
-          <label class="form-control-label" for="name">Event Start Time</label>
+          <label class="form-control-label" for="name">Event Start Time ex 10:00AM</label>
           <input
             class="form-control"
             type="time"
@@ -66,10 +76,11 @@
             [ngClass]="{'is-invalid':eventStartTime.errors && eventStartTime.touched}"
             [(ngModel)]="event.stime"
             name="stime"
+            required
           >
           <div *ngIf="eventStartTime.errors && (eventStartTime.dirty || eventStartTime.touched)">
             <div [hidden]="!eventStartTime.errors?.required" class="invalid-feedback red-text darken-4">
-              Event start time required
+              Event start time required ex: 10:00AM
             </div>
           </div>
         </div>
@@ -93,7 +104,7 @@
         </div>
         <!--END TIME-->
           <div class="form-group">
-            <label class="form-control-label" for="name">Event End Time</label>
+            <label class="form-control-label" for="name">Event End Time     ex: 12:30PM</label>
             <input
 
               class="form-control"

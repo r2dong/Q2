@@ -34,6 +34,28 @@
         </div>
 
       <div class="form-group">
+        <input
+          class="form-control"
+          type="checkbox"
+          id="urgent"
+          #taskUrgent
+          [(ngModel)]="task.urgent"
+          name="urgent"
+        />
+        <label class="form-control-label" for="urgent">Urgent</label>
+
+        <input
+          class="form-control"
+          type="checkbox"
+          id="important"
+          #taskUrgent
+          [(ngModel)]="task.important"
+          name="important"
+        />
+        <label class="form-control-label" for="important">Important</label>
+      </div>
+
+      <div class="form-group">
         <label class="form-control-label" for="name">Task Weight</label>
         <select class="form-control browser-default" [(ngModel)]="task.weight" name="weight">
           <option *ngFor="let weight of TaskWeight.values();"
@@ -45,8 +67,8 @@
       <div class="form-group">
         <label class="form-control-label" for="name">Task Due Date</label>
         <input
-          type="text"
-          class="datepicker"
+          type="date"
+          class="form-control"
           id="dueDateTime"
           #taskDueDateTime="ngModel"
           [ngClass]="{'is-invalid':taskDueDateTime.errors && taskDueDateTime.touched}"

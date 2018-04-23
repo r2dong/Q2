@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ProjectService } from '../project.service';
-import { ActivatedRoute, Router, Params } from '@angular/router';
-import { FlashMessagesService } from 'angular2-flash-messages';
-import { ProjectModel } from '../project.model';
+import {Component, OnInit} from '@angular/core';
+import {ProjectService} from '../project.service';
+import {ActivatedRoute, Router, Params} from '@angular/router';
+import {FlashMessagesService} from 'angular2-flash-messages';
+import {ProjectModel} from '../project.model';
 import {TaskService} from '../../tasks/task.service';
 import {TaskModel} from '../../tasks/task.model';
 import {Location} from '@angular/common';
-import {EventModel} from "../../events/event.model";
-import {EventService} from "../../events/event.service";
+import {EventModel} from '../../events/event.model';
+import {EventService} from '../../events/event.service';
+
 @Component({
   selector: 'app-project-detail',
   templateUrl: './project-detail.component.html',
@@ -27,26 +28,32 @@ export class ProjectDetailComponent implements OnInit {
     private location: Location,
     private ts: TaskService,
     private es: EventService,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     // Get id from url
     this.pid = this.route.snapshot.params['pid'];
     // Get project
-    console.log('getting pid: ' + this.pid);
+    console.log('PDC: ngOnInit: getting pid: ' + this.pid);
     this.projectService.getProject(this.pid).subscribe(project => {
-      if (project != null) {
-        console.log('project found for pid: ' + this.pid);
-      }
-      this.project = project;
-      if ( project !== null ) {
+      if (project !== null) {
+        console.log('PDC: ngOnInit: project found for pid: ' + this.pid);
+        this.project = project;
+
+        console.log('PDC: ngOnInit: looking for tasks for pid: ' + this.project.pid);
+        console.log('PDC: ngOnInit: tids count??: ' + project.tids.length);
         this.ts.findTasks(project.tids).subscribe(tasks => {
+          console.log('PDC: ngOnInit: found ' + tasks.length.toString() + ' tasks for pid: ' + this.project.pid);
           this.projectTasks = tasks;
         });
+        // console.log('PDC: ngOnInit: looking for events for pid: ' + this.project.pid);
+        this.es.findEvents(project.eids).subscribe(events => {
+          // console.log('PDC: ngOnInit: found ' + events.length.toString() + ' events for pid: ' + this.project.pid);
+          this.projectEvents = events;
+        });
       }
-      this.es.findEvents(project.eids).subscribe(events => {
-        this.projectEvents = events;
-      });
+
     });
   }
 

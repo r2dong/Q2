@@ -36,7 +36,7 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 
 
 import { By } from '@angular/platform-browser';
-import {ProjectService} from "../../projects/project.service";
+import {ProjectService} from '../../projects/project.service';
 
 
 describe('TaskDetailComponent', () => {
@@ -52,7 +52,6 @@ describe('TaskDetailComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-
         AppRoutingModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
