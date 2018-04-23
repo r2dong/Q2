@@ -94,7 +94,8 @@ describe('AddProjectComponent', () => {
     const project: ProjectModel = {
       pid: '',
       name: '',
-      dueDateTime: ''
+      dueDateTime: '',
+      tids: []
     };
     spyService = spyOn(service, 'addProject').and.returnValue('TestAccount');
     service.addProject(project);

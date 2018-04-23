@@ -1,7 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DebugElement } from '@angular/core';
-import { APP_BASE_HREF } from '@angular/common';
+import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import {DebugElement} from '@angular/core';
+import {APP_BASE_HREF} from '@angular/common';
 import {Observable} from 'rxjs/Observable';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Location} from '@angular/common';
 
 import {AngularFireModule} from 'angularfire2';
 import {environment} from '../../environments/environment';
@@ -10,29 +12,30 @@ import {AngularFireStorageModule} from 'angularfire2/storage';
 
 
 // Modules
-import { AppRoutingModule } from '../app-routing.module';
-import { CoreModule } from '../core/core.module';
-import { SharedModule } from '../shared/shared.module';
-import { TasksModule } from './tasks.module';
+import {AppRoutingModule} from '../app-routing.module';
+import {CoreModule} from '../core/core.module';
+import {SharedModule} from '../shared/shared.module';
+import {TasksModule} from './tasks.module';
 import {FormsModule} from '@angular/forms';
-import { FlashMessagesModule } from 'angular2-flash-messages';
+import {FlashMessagesModule} from 'angular2-flash-messages';
 
 import {TaskService} from './task.service';
 import {TaskModel, TaskWeight} from './task.model';
 
 // Components
 import {AppComponent} from '../app.component';
-import { LoginComponent } from '../login/login.component';
-import { HomeComponent } from '../home/home.component';
-import { TasksComponent } from './tasks.component';
-import { WelcomeComponent } from '../welcome/welcome.component';
-import { AuthService } from '../core/auth.service';
-import { NotFoundComponent } from '../not-found/not-found.component';
-import { NavbarComponent } from '../navbar/navbar.component';
+import {LoginComponent} from '../login/login.component';
+import {HomeComponent} from '../home/home.component';
+import {TasksComponent} from './tasks.component';
+import {WelcomeComponent} from '../welcome/welcome.component';
+import {AuthService} from '../core/auth.service';
+import {NotFoundComponent} from '../not-found/not-found.component';
+import {NavbarComponent} from '../navbar/navbar.component';
 
 
-import { By } from '@angular/platform-browser';
+import {By} from '@angular/platform-browser';
 import {ProjectService} from '../projects/project.service';
+import {SpyLocation} from '@angular/common/testing';
 
 
 describe('TasksComponent', () => {
@@ -42,8 +45,11 @@ describe('TasksComponent', () => {
   let de: DebugElement;
   let spy: jasmine.Spy;
   let spyService: jasmine.Spy;
+  let router: Router;
+  let location: SpyLocation;
 
-   beforeEach(() => {
+
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         AppRoutingModule,
@@ -54,7 +60,8 @@ describe('TasksComponent', () => {
         FormsModule,
         SharedModule,
         TasksModule,
-        CoreModule, ],
+        CoreModule,
+      ],
       declarations: [
         AppComponent,
         WelcomeComponent,
@@ -62,9 +69,9 @@ describe('TasksComponent', () => {
         LoginComponent,
         NotFoundComponent,
         NavbarComponent
-         ],
+      ],
       providers: [
-         { provide: APP_BASE_HREF, useValue: '/tasks'},
+        {provide: APP_BASE_HREF, useValue: '/tasks'},
         TaskService,
         ProjectService
       ]
@@ -79,7 +86,8 @@ describe('TasksComponent', () => {
     component = fixture.componentInstance;
     de = fixture.debugElement;
     service = de.injector.get(TaskService);
-
+    router = TestBed.get(Router);
+    location = TestBed.get(Location);
     fixture.detectChanges();
   });
 
@@ -98,6 +106,36 @@ describe('TasksComponent', () => {
     expect(spyService).toHaveBeenCalled();
 
   });
+
+  it('navigate to "edit/" takes you to /edit/', fakeAsync(() => {
+
+    router.navigate(['edit']).then(() => {
+      tick(50);
+      expect(location.path()).toEqual('/edit');
+    });
+
+
+  }));
+
+
+  it('navigate to "tasks/add" takes you to /tasks/add', fakeAsync(() => {
+
+    router.navigate(['add']).then(() => {
+      tick(50);
+      expect(location.path()).toEqual('/add');
+    });
+
+
+  }));
+
+  it('navigate to "" takes you to /welcome', fakeAsync(() => {
+
+    router.navigate(['']).then(() => {
+      tick(50);
+      expect(location.path()).toEqual('/welcome');
+    });
+  }));
+
 
 });
 

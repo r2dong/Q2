@@ -1,10 +1,10 @@
-import { TestBed, inject } from '@angular/core/testing';
+import {TestBed, inject} from '@angular/core/testing';
 import {AngularFireModule} from 'angularfire2';
 import {environment} from '../../environments/environment';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {AngularFireStorageModule} from 'angularfire2/storage';
 
-import { TaskService } from './task.service';
+import {TaskService} from './task.service';
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import {AppRoutingModule} from '../app-routing.module';
 import {SharedModule} from '../shared/shared.module';
@@ -17,10 +17,15 @@ import {LoginComponent} from '../login/login.component';
 import {AppComponent} from '../app.component';
 import {NotFoundComponent} from '../not-found/not-found.component';
 import {WelcomeComponent} from '../welcome/welcome.component';
-import {APP_BASE_HREF} from '@angular/common';
+import {APP_BASE_HREF, Location} from '@angular/common';
 import {ProjectService} from '../projects/project.service';
+import {TaskModel, TaskWeight} from './task.model';
 
 describe('TaskService', () => {
+
+  let spyService: jasmine.Spy;
+
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -32,7 +37,7 @@ describe('TaskService', () => {
         FormsModule,
         SharedModule,
         TasksModule,
-        CoreModule, ],
+        CoreModule,],
       declarations: [
         AppComponent,
         WelcomeComponent,
@@ -42,15 +47,37 @@ describe('TaskService', () => {
         NavbarComponent
       ],
       providers: [
-        { provide: APP_BASE_HREF, useValue: '/tasks'},
+        {provide: APP_BASE_HREF, useValue: '/tasks'},
         TaskService,
         ProjectService
       ]
     });
   });
 
+
   it('should be created', inject([TaskService], (service: TaskService) => {
     expect(service).toBeTruthy();
   }));
+
+  it('should create a task', inject([TaskService], (service: TaskService) => {
+    const task: TaskModel = {
+      tid: '',
+      name: '',
+      urgent: true,
+      important: true,
+      dueDateTime: null,
+      isComplete: false,
+      weight: TaskWeight.NONE
+    };
+
+    spyService = spyOn(service, 'addTask').and.returnValue('TestAccount');
+
+    service.addTask(task);
+    // Check internal function
+    expect(spyService).toHaveBeenCalled();
+
+
+  }));
+
 
 });

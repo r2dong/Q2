@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DebugElement } from '@angular/core';
-import { APP_BASE_HREF } from '@angular/common';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {DebugElement} from '@angular/core';
+import {APP_BASE_HREF} from '@angular/common';
 import {Observable} from 'rxjs/Observable';
 
 import {AngularFireModule} from 'angularfire2';
@@ -10,30 +10,29 @@ import {AngularFireStorageModule} from 'angularfire2/storage';
 
 
 // Modules
-import { AppRoutingModule } from '../app-routing.module';
-import { CoreModule } from '../core/core.module';
-import { SharedModule } from '../shared/shared.module';
-import { ProjectsModule } from './projects.module';
+import {AppRoutingModule} from '../app-routing.module';
+import {CoreModule} from '../core/core.module';
+import {SharedModule} from '../shared/shared.module';
+import {ProjectsModule} from './projects.module';
 import {FormsModule} from '@angular/forms';
-import { FlashMessagesModule } from 'angular2-flash-messages';
+import {FlashMessagesModule} from 'angular2-flash-messages';
 
 import {ProjectService} from './project.service';
 import {ProjectModel} from './project.model';
 
 // Components
 import {AppComponent} from '../app.component';
-import { LoginComponent } from '../login/login.component';
-import { HomeComponent } from '../home/home.component';
-import { ProjectsComponent } from './projects.component';
-import { WelcomeComponent } from '../welcome/welcome.component';
-import { AuthService } from '../core/auth.service';
-import { NotFoundComponent } from '../not-found/not-found.component';
-import { NavbarComponent } from '../navbar/navbar.component';
+import {LoginComponent} from '../login/login.component';
+import {HomeComponent} from '../home/home.component';
+import {ProjectsComponent} from './projects.component';
+import {WelcomeComponent} from '../welcome/welcome.component';
+import {AuthService} from '../core/auth.service';
+import {NotFoundComponent} from '../not-found/not-found.component';
+import {NavbarComponent} from '../navbar/navbar.component';
 
-import { By } from '@angular/platform-browser';
-import {TaskService} from "../tasks/task.service";
-import {EventService} from "../events/event.service";
-
+import {By} from '@angular/platform-browser';
+import {TaskService} from '../tasks/task.service';
+import {EventService} from '../events/event.service';
 
 describe('ProjectsComponent', () => {
   let component: ProjectsComponent;
@@ -54,7 +53,8 @@ describe('ProjectsComponent', () => {
         FormsModule,
         SharedModule,
         ProjectsModule,
-        CoreModule, ],
+        CoreModule,
+      ],
       declarations: [
         AppComponent,
         WelcomeComponent,
@@ -64,7 +64,7 @@ describe('ProjectsComponent', () => {
         NavbarComponent
       ],
       providers: [
-        { provide: APP_BASE_HREF, useValue: '/projects'},
+        {provide: APP_BASE_HREF, useValue: '/projects'},
         ProjectService,
         TaskService,
         EventService,
@@ -96,7 +96,8 @@ describe('ProjectsComponent', () => {
     const project: ProjectModel = {
       pid: '',
       name: '',
-      dueDateTime: ''
+      dueDateTime: '',
+      tids: []
     };
     spyService = spyOn(service, 'addProject').and.returnValue('TestAccount');
     service.addProject(project);
