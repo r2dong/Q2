@@ -32,12 +32,6 @@ import { NotFoundComponent } from '../../not-found/not-found.component';
 import { NavbarComponent } from '../../navbar/navbar.component';
 
 
-import { ActivatedRoute, Router, Params } from '@angular/router';
-
-
-import { By } from '@angular/platform-browser';
-import {ProjectService} from '../../projects/project.service';
-
 
 describe('GoalDetailComponent', () => {
   let component: GoalDetailComponent;
@@ -72,9 +66,8 @@ describe('GoalDetailComponent', () => {
         NavbarComponent
       ],
       providers: [
-        { provide: APP_BASE_HREF, useValue: '/gole-detail'},
+        { provide: APP_BASE_HREF, useValue: '/goal-detail'},
         GoalService,
-        ProjectService,
         FlashMessagesService
       ]
     })

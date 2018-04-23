@@ -11,7 +11,6 @@ import {GoalModel} from './goal.model';
 })
 export class GoalsComponent implements OnInit {
   @Input() goals: GoalModel[];
-  @Input() pid: string;
   constructor(private gs: GoalService, private router: Router) { }
 
   ngOnInit() {
@@ -19,7 +18,6 @@ export class GoalsComponent implements OnInit {
       this.gs.getGoals().subscribe(goals => {
         this.goals = goals;
       });
-      this.pid = undefined;
     }
   }
 

@@ -13,7 +13,6 @@ import {TaskService} from '../../tasks/task.service';
   styleUrls: ['./add-goal.component.css']
 })
 export class AddGoalComponent implements OnInit {
-  pid: string;
   goal: GoalModel = {
     gid: '',
     name: '',
@@ -24,11 +23,10 @@ export class AddGoalComponent implements OnInit {
                   private goalService: GoalService,
                   private router: Router,
                   private location: Location,
-                  private route: ActivatedRoute,) { }
+                  private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.pid = this.route.snapshot.params['pid'];
-    console.log('add: pid: ' + this.pid);
+
   }
   onSubmit({value, valid}: {value: GoalModel, valid: boolean}) {
     if (!valid) {
@@ -38,7 +36,7 @@ export class AddGoalComponent implements OnInit {
       });
     } else {
       // Add new client
-      this.goalService.addGoal(value, this.pid);
+      this.goalService.addGoal(value);
       // Show message
       this.flashMessage.show('New client added', {
         cssClass: 'alert-success', timeout: 11000

@@ -3,7 +3,7 @@ import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} 
 import {AuthService} from '../core/auth.service';
 import {Observable} from 'rxjs/Observable';
 import {GoalModel} from './goal.model';
-import {ProjectService} from '../projects/project.service';
+
 
 @Injectable()
 export class GoalService {
@@ -13,7 +13,7 @@ export class GoalService {
   goals: Observable<GoalModel[]>;
   singleGoal: Observable<GoalModel>;
 
-  constructor(private db: AngularFirestore , private ps: ProjectService) {
+  constructor(private db: AngularFirestore) {
     if (AuthService.isLoggedIn()) {
       console.log('User ID: ' + AuthService.currentUserId());
       this.goalsRef = this.db.collection('users').doc(AuthService.currentUserId()).collection('goals');
@@ -24,14 +24,11 @@ export class GoalService {
     }
   }
 
-  addGoal(goal: GoalModel, pid?: string) {
+  addGoal(goal: GoalModel) {
     // this.db.collection('finishedExercises').add(event);
     goal.createdAt = new Date();
     this.goalsRef.add(goal)
       .then(item => {
-        if (pid !== undefined) {
-          this.ps.addEventToProject(pid, item.id);
-        }
       })
       .catch(function() {
         console.log('Error Adding');

@@ -33,8 +33,6 @@ import { NavbarComponent } from '../../navbar/navbar.component';
 
 
 import { By } from '@angular/platform-browser';
-import {ProjectService} from '../../projects/project.service';
-import {GoalService} from '../goal.service';
 
 
 describe('AddGoalComponent', () => {
@@ -69,7 +67,6 @@ describe('AddGoalComponent', () => {
       providers: [
         { provide: APP_BASE_HREF, useValue: '/goals'},
         GoalService,
-        ProjectService,
         FlashMessagesService
       ]
     })

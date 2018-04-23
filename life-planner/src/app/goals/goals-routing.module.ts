@@ -12,9 +12,9 @@ export const routes: Routes = [
   { path: '', component: GoalsComponent, canActivate: [AuthGuard] },
   { path: 'add', component: AddGoalComponent, canActivate: [AuthGuard] },
   { path: ':gid', component: GoalDetailComponent, canActivate: [AuthGuard] },
-  { path: 'edit/:gid', component: EditGoalComponent, canActivate: [AuthGuard] },
-  { path: 'add/:pid', component: AddGoalComponent, canActivate: [AuthGuard] },
-  { path: ':gid/:pid', component: GoalDetailComponent, canActivate: [AuthGuard] },
+  { path: 'edit/:gid', component: EditGoalComponent, canActivate: [AuthGuard] }
+  // { path: 'add/:pid', component: AddGoalComponent, canActivate: [AuthGuard] },
+ // { path: ':gid/:pid', component: GoalDetailComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

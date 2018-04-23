@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
- import {GoalsRoutingModule} from './goals-routing.module';
+import {GoalsRoutingModule} from './goals-routing.module';
 import {GoalsComponent} from './goals.component';
-// import {GoalDetailComponent}
-// import {EditGoalComponent}
 import {EditGoalComponent} from './edit-goal/edit-goal.component';
 import {SharedModule} from '../shared/shared.module';
 import {GoalService} from './goal.service';
