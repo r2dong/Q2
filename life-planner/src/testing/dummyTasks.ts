@@ -102,3 +102,38 @@ export const dummyTasks: DummyTaskModel[] = [
         weight: 5
     },
 ]
+
+export const pushRightTest: DummyTaskModel[] = [
+    {
+        name: "rob a bank",
+        urgent: true,
+        important: true,
+        due: new Date(2018, 3, 5, 9, 0),
+        isComplete: false,
+        weight: 10
+    },
+    {
+        name: "pass this course",
+        urgent: true,
+        important: true,
+        due: new Date(2018, 3, 10, 9, 0),
+        isComplete: false,
+        weight: 6
+    },
+    {
+        name: "go to the gym",
+        urgent: true,
+        important: true,
+        due: new Date(2018, 3, 15, 9, 0),
+        isComplete: false,
+        weight: 5
+    },
+    {
+        name: "eat tacos",
+        urgent: true,
+        important: true,
+        due: new Date(2018, 3, 20, 9, 0),
+        isComplete: false,
+        weight: 1
+    },
+]
