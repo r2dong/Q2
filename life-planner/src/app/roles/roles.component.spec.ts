@@ -34,7 +34,8 @@ import { ScheduleComponent } from '../schedule/schedule.component'
 import { By } from '@angular/platform-browser';
 import {ProjectService} from '../projects/project.service';
 import {TaskService} from '../tasks/task.service';
-
+import { NgFullcalendarComponent } from '../ng-fullcalendar/ng-fullcalendar.component'
+import { CalendarComponent } from 'ng-fullcalendar'
 
 describe('RolesComponent', () => {
   let component: RolesComponent;
@@ -55,7 +56,8 @@ describe('RolesComponent', () => {
         FormsModule,
         SharedModule,
         RolesModule,
-        CoreModule, ],
+        CoreModule,
+      ],
       declarations: [
         AppComponent,
         WelcomeComponent,
@@ -63,10 +65,12 @@ describe('RolesComponent', () => {
         LoginComponent,
         NotFoundComponent,
         NavbarComponent,
-        ScheduleComponent
-         ],
+        ScheduleComponent,
+        NgFullcalendarComponent,
+        CalendarComponent
+      ],
       providers: [
-         { provide: APP_BASE_HREF, useValue: '/roles'},
+        { provide: APP_BASE_HREF, useValue: '/roles'},
         TaskService,
         ProjectService,
         RoleService,

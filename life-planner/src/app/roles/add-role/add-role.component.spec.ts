@@ -23,7 +23,6 @@ import {RoleModel} from '../role.model';
 
 // Components
 import {AppComponent} from '../../app.component';
-<<<<<<< HEAD
 import { LoginComponent } from '../../login/login.component';
 import { HomeComponent } from '../../home/home.component';
 import { AddRoleComponent } from './add-role.component';
@@ -32,19 +31,12 @@ import { AuthService } from '../../core/auth.service';
 import { NotFoundComponent } from '../../not-found/not-found.component';
 import { NavbarComponent } from '../../navbar/navbar.component';
 import { ScheduleComponent } from '../../schedule/schedule.component'
-=======
-import {LoginComponent} from '../../login/login.component';
-import {HomeComponent} from '../../home/home.component';
-import {AddRoleComponent} from './add-role.component';
-import {WelcomeComponent} from '../../welcome/welcome.component';
-import {AuthService} from '../../core/auth.service';
-import {NotFoundComponent} from '../../not-found/not-found.component';
-import {NavbarComponent} from '../../navbar/navbar.component';
->>>>>>> master
 
 import {By} from '@angular/platform-browser';
 import {TaskService} from '../../tasks/task.service';
 import {ProjectService} from '../../projects/project.service';
+import { NgFullcalendarComponent } from '../../ng-fullcalendar/ng-fullcalendar.component'
+import { CalendarComponent } from 'ng-fullcalendar'
 
 
 describe('AddRoleComponent', () => {
@@ -75,7 +67,9 @@ describe('AddRoleComponent', () => {
         LoginComponent,
         NotFoundComponent,
         NavbarComponent,
-        ScheduleComponent
+        ScheduleComponent,
+        NgFullcalendarComponent,
+        CalendarComponent
       ],
       providers: [
         {provide: APP_BASE_HREF, useValue: '/roles'},

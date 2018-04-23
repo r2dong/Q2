@@ -19,11 +19,10 @@ import {NotFoundComponent} from '../not-found/not-found.component';
 import {WelcomeComponent} from '../welcome/welcome.component';
 import {APP_BASE_HREF, Location} from '@angular/common';
 import {ProjectService} from '../projects/project.service';
-<<<<<<< HEAD
 import { ScheduleComponent } from '../schedule/schedule.component'
-=======
 import {TaskModel, TaskWeight} from './task.model';
->>>>>>> master
+import { NgFullcalendarComponent } from '../ng-fullcalendar/ng-fullcalendar.component'
+import { CalendarComponent } from 'ng-fullcalendar'
 
 describe('TaskService', () => {
 
@@ -49,7 +48,9 @@ describe('TaskService', () => {
         LoginComponent,
         NotFoundComponent,
         NavbarComponent,
-        ScheduleComponent
+        ScheduleComponent,
+        NgFullcalendarComponent,
+        CalendarComponent
       ],
       providers: [
         {provide: APP_BASE_HREF, useValue: '/tasks'},

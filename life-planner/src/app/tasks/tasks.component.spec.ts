@@ -24,7 +24,6 @@ import {TaskModel, TaskWeight} from './task.model';
 
 // Components
 import {AppComponent} from '../app.component';
-<<<<<<< HEAD
 import { LoginComponent } from '../login/login.component';
 import { HomeComponent } from '../home/home.component';
 import { TasksComponent } from './tasks.component';
@@ -33,15 +32,8 @@ import { AuthService } from '../core/auth.service';
 import { NotFoundComponent } from '../not-found/not-found.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { ScheduleComponent } from '../schedule/schedule.component'
-=======
-import {LoginComponent} from '../login/login.component';
-import {HomeComponent} from '../home/home.component';
-import {TasksComponent} from './tasks.component';
-import {WelcomeComponent} from '../welcome/welcome.component';
-import {AuthService} from '../core/auth.service';
-import {NotFoundComponent} from '../not-found/not-found.component';
-import {NavbarComponent} from '../navbar/navbar.component';
->>>>>>> master
+import { NgFullcalendarComponent } from '../ng-fullcalendar/ng-fullcalendar.component'
+import { CalendarComponent } from 'ng-fullcalendar'
 
 
 import {By} from '@angular/platform-browser';
@@ -79,14 +71,11 @@ describe('TasksComponent', () => {
         HomeComponent,
         LoginComponent,
         NotFoundComponent,
-<<<<<<< HEAD
         NavbarComponent,
-        ScheduleComponent
-         ],
-=======
-        NavbarComponent
+        ScheduleComponent,
+        NgFullcalendarComponent,
+        CalendarComponent
       ],
->>>>>>> master
       providers: [
         {provide: APP_BASE_HREF, useValue: '/tasks'},
         TaskService,

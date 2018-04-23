@@ -32,6 +32,8 @@ import { EventsComponent } from './events.component';
 import { By } from '@angular/platform-browser'
 import { ProjectService } from "../projects/project.service";
 import { ScheduleComponent } from '../schedule/schedule.component'
+import { NgFullcalendarComponent } from '../ng-fullcalendar/ng-fullcalendar.component'
+import { CalendarComponent } from 'ng-fullcalendar'
 
 describe('EventsComponent', () => {
   let component: EventsComponent;
@@ -49,7 +51,9 @@ describe('EventsComponent', () => {
       LoginComponent,
       NotFoundComponent,
       NavbarComponent,
-      ScheduleComponent
+      ScheduleComponent,
+      NgFullcalendarComponent,
+      CalendarComponent
     ],
       imports:[
         AppRoutingModule,

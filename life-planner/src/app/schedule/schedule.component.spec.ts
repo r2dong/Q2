@@ -31,10 +31,13 @@ import { NotFoundComponent } from '../not-found/not-found.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { ScheduleComponent } from '../schedule/schedule.component'
 
+import { NgFullcalendarComponent } from '../ng-fullcalendar/ng-fullcalendar.component'
+import { CalendarComponent } from 'ng-fullcalendar'
 import { By } from '@angular/platform-browser';
+import { TaskService } from '../tasks/task.service';
+import { ProjectService } from '../projects/project.service';
 
-
-describe('RolesComponent', () => {
+describe('ScheduleComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -55,11 +58,15 @@ describe('RolesComponent', () => {
         LoginComponent,
         NotFoundComponent,
         NavbarComponent,
-        ScheduleComponent
+        ScheduleComponent,
+        NgFullcalendarComponent,
+        CalendarComponent
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/roles' },
         RoleService,
+        TaskService,
+        ProjectService,
       ]
     })
       .compileComponents();

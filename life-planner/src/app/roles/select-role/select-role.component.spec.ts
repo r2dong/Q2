@@ -21,6 +21,9 @@ import {AppComponent} from '../../app.component';
 import {NavbarComponent} from '../../navbar/navbar.component';
 import {APP_BASE_HREF} from '@angular/common';
 import {RolesModule} from '../roles.module';
+import { NgFullcalendarComponent } from '../../ng-fullcalendar/ng-fullcalendar.component'
+import { CalendarComponent } from 'ng-fullcalendar'
+import { ScheduleComponent } from '../../schedule/schedule.component'
 
 describe('SelectRoleComponent', () => {
   let component: SelectRoleComponent;
@@ -46,7 +49,10 @@ describe('SelectRoleComponent', () => {
         HomeComponent,
         LoginComponent,
         NotFoundComponent,
-        NavbarComponent
+        NavbarComponent,
+        NgFullcalendarComponent,
+        CalendarComponent,
+        ScheduleComponent
       ],
       providers: [
         {provide: APP_BASE_HREF, useValue: '/role-detail'},

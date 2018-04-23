@@ -19,6 +19,8 @@ import { NotFoundComponent } from '../not-found/not-found.component'
 import { NavbarComponent } from '../navbar/navbar.component'
 import { Observable } from 'rxjs/Observable'
 import { ScheduleComponent } from '../schedule/schedule.component'
+import { CalendarComponent } from 'ng-fullcalendar';
+import { NgFullcalendarComponent } from '../ng-fullcalendar/ng-fullcalendar.component'
 
 class RouterStub {
   navigate() {}
@@ -44,7 +46,9 @@ describe('AuthService', () => {
         LoginComponent,
         NotFoundComponent,
         NavbarComponent,
-        ScheduleComponent
+        ScheduleComponent,
+        CalendarComponent,
+        NgFullcalendarComponent
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/core'},

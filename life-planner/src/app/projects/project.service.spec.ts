@@ -19,6 +19,8 @@ import {NotFoundComponent} from '../not-found/not-found.component';
 import {WelcomeComponent} from '../welcome/welcome.component';
 import {APP_BASE_HREF} from '@angular/common';
 import { ScheduleComponent } from '../schedule/schedule.component'
+import { NgFullcalendarComponent } from '../ng-fullcalendar/ng-fullcalendar.component'
+import { CalendarComponent } from 'ng-fullcalendar'
 
 describe('ProjectService', () => {
   beforeEach(() => {
@@ -32,7 +34,8 @@ describe('ProjectService', () => {
         FormsModule,
         SharedModule,
         ProjectsModule,
-        CoreModule, ],
+        CoreModule, 
+      ],
       declarations: [
         AppComponent,
         WelcomeComponent,
@@ -40,7 +43,9 @@ describe('ProjectService', () => {
         LoginComponent,
         NotFoundComponent,
         NavbarComponent,
-        ScheduleComponent
+        ScheduleComponent,
+        NgFullcalendarComponent,
+        CalendarComponent
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/tasks'},

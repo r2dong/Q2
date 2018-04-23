@@ -1,6 +1,11 @@
 // import { Role } from '../roles/role.model';
 // import { Tags } from '../tags/tag.model';
 
+export interface TimeSlot {
+  start: Date
+  end: Date
+}
+
 export interface TaskModel {
   tid?: string;
   rid?: string; // Role.id;
@@ -11,6 +16,7 @@ export interface TaskModel {
   dueDateTime?: Date;
   isComplete: boolean;
   weight?: TaskWeight;
+  schedule?: TimeSlot[]
 //  tagIDs?: string[];
   createdAt?: Date;
   updatedAt?: Date;

@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { CalendarComponent } from 'ng-fullcalendar';
 import { Options } from 'fullcalendar';
-import { DummyTaskModel, TimeSlot } from '../../testing/dummyTasks'
 import { SchedulingService } from '../core/scheduling.service'
+import { TimeSlot, TaskModel } from '../tasks/task.model'
 
 interface Item {
   title: String
@@ -26,9 +26,12 @@ const defaultWeight: number = 1 / 6
 })
 export class NgFullcalendarComponent implements OnInit {
   
-  items: DummyTaskModel[]
+  items: TaskModel[]
   calendarOptions: Options
   @ViewChild(CalendarComponent) ucCalendar: CalendarComponent
+
+  /* to fix testing issue "can't bind to ..." */
+  @Input("options") options: Options;
   
   constructor(private scheduling: SchedulingService) { }
   
@@ -70,7 +73,7 @@ export class NgFullcalendarComponent implements OnInit {
 
   updateCalendar() {
     this.getSchedule()
-    this.items.forEach((task: DummyTaskModel) => {
+    this.items.forEach((task: TaskModel) => {
       task.schedule.forEach((slot: TimeSlot) => {
         this.ucCalendar.fullCalendar('renderEvent', {
           title: task.name,

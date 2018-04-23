@@ -31,6 +31,9 @@ import {ShowTasksComponent} from './show-tasks.component';
 
 import {ProjectService} from '../../projects/project.service';
 import {RolesModule} from "../../roles/roles.module";
+import { NgFullcalendarComponent } from '../../ng-fullcalendar/ng-fullcalendar.component'
+import { CalendarComponent } from 'ng-fullcalendar'
+import { ScheduleComponent } from '../../schedule/schedule.component'
 
 
 describe('ShowTasksComponent', () => {
@@ -59,10 +62,13 @@ describe('ShowTasksComponent', () => {
         HomeComponent,
         LoginComponent,
         NotFoundComponent,
-        NavbarComponent
+        NavbarComponent,
+        CalendarComponent,
+        NgFullcalendarComponent,
+        ScheduleComponent
       ],
       providers: [
-        {provide: APP_BASE_HREF, useValue: '/role-detail'},
+        {provide: APP_BASE_HREF, useValue: '/show-tasks'},
         TaskService,
         ProjectService,
         FlashMessagesService

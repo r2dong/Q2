@@ -1,6 +1,7 @@
 import { Injectable, TRANSLATIONS } from '@angular/core'
 import { Observable } from 'rxjs'
-import { DummyTaskModel, dummyTasks, TimeSlot } from '../../testing/dummyTasks'
+import { TaskService } from '../tasks/task.service'
+import { TaskModel, TimeSlot } from '../tasks/task.model'
 
 /*
 Stuff to add
@@ -60,17 +61,17 @@ export class SchedulingService {
 
   currentDate: Date;
 
-  constructor() { }
+  constructor(private taskService: TaskService) { }
 
   /*
   - shcedule - should contain only scheduled tasks
   - tasks - tasks to be stuffed into the schedule
   */
-  private interleave(schedule: DummyTaskModel[], tasks: DummyTaskModel[]): DummyTaskModel[] {
+  private interleave(schedule: TaskModel[], tasks: TaskModel[]): TaskModel[] {
 
     /* get occupied time slot from given schedule */
     let allScheduledSlots: TimeSlot[] = []
-    schedule.forEach((task: DummyTaskModel) => {
+    schedule.forEach((task: TaskModel) => {
       task.schedule.forEach((slot: TimeSlot) => {
         allScheduledSlots.push(slot)
       })
@@ -108,7 +109,7 @@ export class SchedulingService {
     let start: Date
     let end: Date
     let preEnd: Date
-    let curTask: IteratorResult<DummyTaskModel> = {
+    let curTask: IteratorResult<TaskModel> = {
       value: undefined,
       done: false
     }
@@ -118,7 +119,7 @@ export class SchedulingService {
     }
     let timeRemain: number = 0
     let slotIterator: Iterator<TimeSlot> = timeSlots[Symbol.iterator]()
-    let taskIterator: Iterator<DummyTaskModel> = tasks[Symbol.iterator]()
+    let taskIterator: Iterator<TaskModel> = tasks[Symbol.iterator]()
 
     while (true) {
 
@@ -275,7 +276,7 @@ export class SchedulingService {
   current task, due of previous task) as basis of pushing previous task to
   right.
   */
-  private pushRight(tasks: DummyTaskModel[]): DummyTaskModel[] {
+  private pushRight(tasks: TaskModel[]): TaskModel[] {
 
     // do this by a slot basis similar to interleaving
     let basis: Date
@@ -283,11 +284,11 @@ export class SchedulingService {
     let curDayStart: Date
     let curDayEnd: Date
     let timeRemain: number
-    let taskIterator: Iterator<DummyTaskModel>
-    let task: IteratorResult<DummyTaskModel>
+    let taskIterator: Iterator<TaskModel>
+    let task: IteratorResult<TaskModel>
 
     // intialization
-    basis = this.roundToEndOfDay(tasks[tasks.length - 1].due)
+    basis = this.roundToEndOfDay(tasks[tasks.length - 1].dueDateTime )
     curDayEnd = basis // probably can refactor into one variable
     curDayStart = this.copyDate(basis)
     curDayStart.setHours(9)
@@ -314,7 +315,7 @@ export class SchedulingService {
           if (task.value.schedule === undefined)
             task.value.schedule = []
           // update basis
-          basis = task.value.due.valueOf() < basis.valueOf() ? task.value.due : basis
+          basis = task.value.dueDateTime .valueOf() < basis.valueOf() ? task.value.dueDateTime  : basis
           basis = this.roundToEndOfDay(basis)
           curDayStart.setDate(basis.getDate())
           curDayEnd.setDate(basis.getDate())
@@ -458,11 +459,11 @@ export class SchedulingService {
   }
 
   /* filter tasks into the four quadrants */
-  private filter(tasks: DummyTaskModel[]): Map<number, DummyTaskModel[]> {
-    let q1: DummyTaskModel[] = []
-    let q2: DummyTaskModel[] = []
-    let q3: DummyTaskModel[] = []
-    let q4: DummyTaskModel[] = []
+  private filter(tasks: TaskModel[]): Map<number, TaskModel[]> {
+    let q1: TaskModel[] = []
+    let q2: TaskModel[] = []
+    let q3: TaskModel[] = []
+    let q4: TaskModel[] = []
 
     // characterize all tasks
     for (let i: number = 0; i < tasks.length; i++) {
@@ -476,8 +477,8 @@ export class SchedulingService {
         q4.push(tasks[i]);
     }
 
-    let quadrants: Map<number, DummyTaskModel[]>
-    quadrants = new Map<number, DummyTaskModel[]>()
+    let quadrants: Map<number, TaskModel[]>
+    quadrants = new Map<number, TaskModel[]>()
     quadrants.set(1, q1)
     quadrants.set(2, q2)
     quadrants.set(3, q3)
@@ -486,45 +487,48 @@ export class SchedulingService {
     return quadrants
   }
 
-  createSchedule(): Observable<DummyTaskModel[]> {
+  createSchedule(): Observable<TaskModel[]> {
 
     // divide tasks into according quadrants
-    let quadrants: Map<number, DummyTaskModel[]> = this.filter(dummyTasks)
-    let q1: DummyTaskModel[] = quadrants.get(1)
-    let q2: DummyTaskModel[] = quadrants.get(2)
-    let q3: DummyTaskModel[] = quadrants.get(3)
-    let q4: DummyTaskModel[] = quadrants.get(4)
-    let urgentTasks: DummyTaskModel[]
+    let quadrants: Map<number, TaskModel[]>
+    this.taskService.getTasks().subscribe(tasks => {
+      quadrants = this.filter(tasks)
+    })
+    let q1: TaskModel[] = quadrants.get(1)
+    let q2: TaskModel[] = quadrants.get(2)
+    let q3: TaskModel[] = quadrants.get(3)
+    let q4: TaskModel[] = quadrants.get(4)
+    let urgentTasks: TaskModel[]
     urgentTasks = q1.concat(q3)
 
     // sort urgent tasks by increasing deadline (greedy algorithm)
     urgentTasks.sort((t1, t2) => {
-      if (t1.due && t2.due === undefined)
+      if (t1.dueDateTime  && t2.dueDateTime  === undefined)
         return 0
-      else if (t1.due === undefined)
+      else if (t1.dueDateTime  === undefined)
         return Number.MAX_SAFE_INTEGER
-      else if (t1.due === undefined)
+      else if (t1.dueDateTime  === undefined)
         return Number.MIN_SAFE_INTEGER
       else
-        return t1.due.valueOf() - t2.due.valueOf()
+        return t1.dueDateTime .valueOf() - t2.dueDateTime .valueOf()
     })
 
-    // remove urgent tasks with no due date
+    // remove urgent tasks with no dueDateTime  date
     let noDueNum: number = 0
-    let noDues: DummyTaskModel[]
+    let noDues: TaskModel[]
     for (let i: number = urgentTasks.length - 1; i >= 0; i--) {
-      if (urgentTasks[i].due !== undefined)
+      if (urgentTasks[i].dueDateTime  !== undefined)
         break
       noDueNum++
     }
     noDues = urgentTasks.splice(urgentTasks.length - noDueNum, noDueNum)
 
     // make space for interleaving
-    let pushRightSchedule: DummyTaskModel[] = this.pushRight(urgentTasks)
+    let pushRightSchedule: TaskModel[] = this.pushRight(urgentTasks)
     // urgent tasks with no due date interleaveb first
-    let urgentInt: DummyTaskModel[] = this.interleave(pushRightSchedule, noDues)
-    let addq2: DummyTaskModel[] = this.interleave(urgentInt, q2)
-    let addq4: DummyTaskModel[] = this.interleave(pushRightSchedule, q4)
+    let urgentInt: TaskModel[] = this.interleave(pushRightSchedule, noDues)
+    let addq2: TaskModel[] = this.interleave(urgentInt, q2)
+    let addq4: TaskModel[] = this.interleave(pushRightSchedule, q4)
     return Observable.of(addq4)
   }
   

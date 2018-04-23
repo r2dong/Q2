@@ -29,6 +29,7 @@ import { ScheduleComponent } from './schedule/schedule.component';
 //calendar
 import { FullCalendarModule } from 'ng-fullcalendar';
 import { NgFullcalendarComponent } from './ng-fullcalendar/ng-fullcalendar.component'
+import { CalendarComponent } from 'ng-fullcalendar'
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { NgFullcalendarComponent } from './ng-fullcalendar/ng-fullcalendar.compo
     NavbarComponent,
     ScheduleComponent,
     NgFullcalendarComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,

@@ -7,7 +7,6 @@ import { HttpClientModule } from '@angular/common/http'
 import { FlashMessagesModule } from 'angular2-flash-messages'
 
 // Modules and Services
-<<<<<<< HEAD
 import { AppRoutingModule } from './app-routing.module'
 import { CoreModule } from './core/core.module'
 import { SharedModule } from './shared/shared.module'
@@ -15,15 +14,6 @@ import { TaskService } from './tasks/task.service'
 import { TasksModule } from './tasks/tasks.module'
 import { EventService } from "./events/event.service"
 import { EventsModule } from "./events/events.module"
-=======
-import { AppRoutingModule } from './app-routing.module';
-import { CoreModule } from './core/core.module';
-import { SharedModule } from './shared/shared.module';
-import { TaskService } from './tasks/task.service';
-import { TasksModule } from './tasks/tasks.module';
-import{EventService} from './events/event.service';
-import {EventsModule} from './events/events.module';
->>>>>>> master
 // Components
 import { AppComponent } from './app.component'
 import { RouterModule, Router } from '@angular/router'
@@ -46,6 +36,8 @@ import { NotFoundComponent } from './not-found/not-found.component'
 import { NavbarComponent } from './navbar/navbar.component'
 import { ProjectsModule } from "./projects/projects.module"
 import { ScheduleComponent } from "./schedule/schedule.component"
+import { NgFullcalendarComponent } from '../app/ng-fullcalendar/ng-fullcalendar.component'
+import { CalendarComponent } from 'ng-fullcalendar';
 
 describe('AppComponent', () => {
   beforeEach(() => {
@@ -57,7 +49,9 @@ describe('AppComponent', () => {
         WelcomeComponent,
         NotFoundComponent,
         NavbarComponent,
-        ScheduleComponent
+        ScheduleComponent,
+        NgFullcalendarComponent,
+        CalendarComponent,
       ],
       imports: [
         BrowserModule,
@@ -69,7 +63,7 @@ describe('AppComponent', () => {
         SharedModule,
         TasksModule,
         ProjectsModule,
-        EventsModule
+        EventsModule,
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue : '/' },

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { SchedulingService } from '../core/scheduling.service'
-import { DummyTaskModel } from '../../testing/dummyTasks'
 import { TasksModule } from '../tasks/tasks.module'
 import { Observable } from 'rxjs'
+import { TaskModel, TimeSlot } from '../tasks/task.model'
 
 @Component({
   selector: 'app-schedule',
@@ -11,7 +11,7 @@ import { Observable } from 'rxjs'
 })
 export class ScheduleComponent implements OnInit {
 
-  private schedule: DummyTaskModel[]
+  private schedule: TaskModel[]
   // manualy split as ngFor cannot handle Maps
   // private times: Date[]
   // private tasks: DummyTaskModel[]
@@ -21,7 +21,7 @@ export class ScheduleComponent implements OnInit {
   ngOnInit() {}
 
   getSchedule() {
-    let s: Observable<DummyTaskModel[]> = this.schedulingService.createSchedule();
+    let s: Observable<TaskModel[]> = this.schedulingService.createSchedule();
     s.subscribe(p => {
       this.schedule = p
     })

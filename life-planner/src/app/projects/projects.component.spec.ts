@@ -34,6 +34,8 @@ import { ScheduleComponent } from '../schedule/schedule.component'
 import { By } from '@angular/platform-browser';
 import {TaskService} from "../tasks/task.service";
 import {EventService} from "../events/event.service";
+import { NgFullcalendarComponent } from '../ng-fullcalendar/ng-fullcalendar.component'
+import { CalendarComponent } from 'ng-fullcalendar'
 
 describe('ProjectsComponent', () => {
   let component: ProjectsComponent;
@@ -63,7 +65,9 @@ describe('ProjectsComponent', () => {
         LoginComponent,
         NotFoundComponent,
         NavbarComponent,
-        ScheduleComponent
+        ScheduleComponent,
+        NgFullcalendarComponent,
+        CalendarComponent
       ],
       providers: [
         {provide: APP_BASE_HREF, useValue: '/projects'},

@@ -32,9 +32,11 @@ import {ProjectService} from '../../projects/project.service';
 import {RolesModule} from '../roles.module';
 import {ShowRolesComponent} from './show-roles.component';
 import {RoleService} from '../role.service';
+import { NgFullcalendarComponent } from '../../ng-fullcalendar/ng-fullcalendar.component'
+import { CalendarComponent } from 'ng-fullcalendar'
+import { ScheduleComponent } from '../../schedule/schedule.component'
 
-
-describe('ShowTasksComponent', () => {
+describe('ShowRolesComponent', () => {
   let component: ShowRolesComponent;
   let fixture: ComponentFixture<ShowRolesComponent>;
   let service: RoleService;
@@ -61,7 +63,10 @@ describe('ShowTasksComponent', () => {
         HomeComponent,
         LoginComponent,
         NotFoundComponent,
-        NavbarComponent
+        NavbarComponent,
+        NgFullcalendarComponent,
+        CalendarComponent,
+        ScheduleComponent
       ],
       providers: [
         {provide: APP_BASE_HREF, useValue: '/role-detail'},

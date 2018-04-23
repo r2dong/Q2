@@ -32,7 +32,8 @@ import { NotFoundComponent } from '../../not-found/not-found.component';
 import { NavbarComponent } from '../../navbar/navbar.component';
 import { By } from '@angular/platform-browser';
 import { ScheduleComponent } from '../../schedule/schedule.component'
-
+import { NgFullcalendarComponent } from '../../ng-fullcalendar/ng-fullcalendar.component'
+import { CalendarComponent } from 'ng-fullcalendar'
 
 describe('AddProjectComponent', () => {
   let component: AddProjectComponent;
@@ -62,7 +63,9 @@ describe('AddProjectComponent', () => {
         LoginComponent,
         NotFoundComponent,
         NavbarComponent,
-        ScheduleComponent
+        ScheduleComponent,
+        NgFullcalendarComponent,
+        CalendarComponent
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/projects'},

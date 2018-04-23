@@ -1,3 +1,5 @@
+import { TimeSlot, TaskModel } from '../app/tasks/task.model'
+
 // internal value of time
 const hourVal: number =
     new Date(2018, 3, 8, 10).valueOf() -
@@ -8,30 +10,14 @@ const minuteVal: number =
 // ten minutes (1 / 6 of an hour)
 const defaultWeight: number = 1 / 6
 
-export interface TimeSlot {
-    start: Date
-    end: Date
-}
-
-// stubbing interface, use imported interface when actual one completed
-export interface DummyTaskModel {
-    name: string
-    urgent: boolean
-    important: boolean
-    due?: Date
-    isComplete: boolean
-    weight?: number
-    schedule?: TimeSlot[] // start/end of time slots assigned
-}
-
 // dummy tasks for testing algorithms
 // year month day hour minute second millisecond
-export const dummyTasks: DummyTaskModel[] = [
+export const dummyTasks: TaskModel[] = [
     {
         name: "rob a bank",
         urgent: true,
         important: true,
-        due: new Date(2018, 3, 5, 9, 0),
+        dueDateTime: new Date(2018, 3, 5, 9, 0),
         isComplete: false,
         weight: 10
     },
@@ -39,7 +25,7 @@ export const dummyTasks: DummyTaskModel[] = [
         name: "pass this course",
         urgent: true,
         important: true,
-        due: new Date(2018, 3, 10, 9, 0),
+        dueDateTime: new Date(2018, 3, 10, 9, 0),
         isComplete: false,
         weight: 6
     },
@@ -47,7 +33,7 @@ export const dummyTasks: DummyTaskModel[] = [
         name: "go to the gym",
         urgent: true,
         important: true,
-        due: new Date(2018, 3, 15, 9, 0),
+        dueDateTime: new Date(2018, 3, 15, 9, 0),
         isComplete: false,
         weight: 5
     },
@@ -55,7 +41,7 @@ export const dummyTasks: DummyTaskModel[] = [
         name: "eat tacos",
         urgent: true,
         important: true,
-        due: new Date(2018, 3, 20, 9, 0),
+        dueDateTime: new Date(2018, 3, 20, 9, 0),
         isComplete: false,
         weight: 1
     },
@@ -103,12 +89,12 @@ export const dummyTasks: DummyTaskModel[] = [
     },
 ]
 
-export const pushRightTest: DummyTaskModel[] = [
+export const pushRightTest: TaskModel[] = [
     {
         name: "rob a bank",
         urgent: true,
         important: true,
-        due: new Date(2018, 3, 5, 9, 0),
+        dueDateTime: new Date(2018, 3, 5, 9, 0),
         isComplete: false,
         weight: 10
     },
@@ -116,7 +102,7 @@ export const pushRightTest: DummyTaskModel[] = [
         name: "pass this course",
         urgent: true,
         important: true,
-        due: new Date(2018, 3, 10, 9, 0),
+        dueDateTime: new Date(2018, 3, 10, 9, 0),
         isComplete: false,
         weight: 6
     },
@@ -124,7 +110,7 @@ export const pushRightTest: DummyTaskModel[] = [
         name: "go to the gym",
         urgent: true,
         important: true,
-        due: new Date(2018, 3, 15, 9, 0),
+        dueDateTime: new Date(2018, 3, 15, 9, 0),
         isComplete: false,
         weight: 5
     },
@@ -132,7 +118,7 @@ export const pushRightTest: DummyTaskModel[] = [
         name: "eat tacos",
         urgent: true,
         important: true,
-        due: new Date(2018, 3, 20, 9, 0),
+        dueDateTime: new Date(2018, 3, 20, 9, 0),
         isComplete: false,
         weight: 1
     },
