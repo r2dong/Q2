@@ -1,11 +1,10 @@
 import { Injectable, TRANSLATIONS } from '@angular/core'
 import { Observable } from 'rxjs'
 import { DummyTaskModel, dummyTasks, TimeSlot } from '../../testing/dummyTasks'
-import { Time } from '@angular/common';
 
 /*
 Stuff to add
-1. restrict shcedule to daytime (9am - 5pm)
+1. (done) restrict shcedule to daytime (9am - 5pm)
 2. add breaks
 3. add lunch time, etc
 4. put some transition time between tasks
@@ -95,11 +94,6 @@ export class SchedulingService {
       startTime = slot.end
     })
     timeSlots = this.findValidSlots(timeSlots)
-    timeSlots.forEach((t) => {
-      //console.log("a new valid time Slot")
-      //console.log("starts at: " + t.start.toLocaleString())
-      //console.log("ends at: " + t.end.toLocaleString())
-    })
 
     // sort tasks to interleave with duration
     tasks.sort((t1, t2) => {
@@ -192,7 +186,6 @@ export class SchedulingService {
     }
     /* then schedule all remaining tasks back to back */
     while (!curTask.done) {
-      console.log("not done")
       let curWeight: number
       curWeight = curTask.value.weight != undefined ? curTask.value.weight : defaultWeight
       end = new Date(start.valueOf() + curWeight * hourVal)
@@ -230,19 +223,16 @@ export class SchedulingService {
     /* find all valid slots */
     /* the for loops can be optimized, does not have to start form beginning every time */
     while (curEnd.valueOf() < lastEnd.valueOf()) {
-      //console.log(" ")
       flag1 = false
       flag2 = false
       for (let i = 0; i < raw.length; i++) {
         if (curStart.valueOf() > raw[i].start.valueOf() && curStart.valueOf() < raw[i].end.valueOf()) {
           flag1 = true
           ind1 = i
-          //console.log("flag1 ind: " + ind1)
         }
         if (raw[i].start.valueOf() > curStart.valueOf() && raw[i].start.valueOf() < curEnd.valueOf()) {
           flag2 = true
           ind2 = i
-          //console.log('flag2 ind: ' + ind2)
         }
       }
 
@@ -256,32 +246,22 @@ export class SchedulingService {
         nextSlot.start = curStart
         nextSlot.end = curEnd.valueOf() < raw[ind1].end.valueOf() ? curEnd : raw[ind1].end
         out.push(nextSlot)
-        //console.log("flag1: nextSlot starts at: " + nextSlot.start.toLocaleString())
-        //console.log("flag1: nextSlot ends at: " + nextSlot.end.toLocaleString())
-        //console.log("flag1: rawEnd: " + raw[ind1].end.toLocaleString())
       }
       /* start time of one of the raw slots contained in current valid slot */
       else if (flag2) {
         nextSlot.start = raw[ind2].start
         nextSlot.end = curEnd.valueOf() < raw[ind2].end.valueOf() ? curEnd : raw[ind2].end
         out.push(nextSlot)
-        //console.log("flag2: nextSlot: " + nextSlot.end.toLocaleString())
       }
       /* no raw slot overlap with the current valid slot */
       else {
         nextSlot.end = curEnd
-        //console.log("flag3: nextSlot: " + nextSlot.end.toLocaleString())
       }
       curStart = nextSlot.end
-      //console.log("curStart updated to:" + curStart.toLocaleString())
-      //console.log("last end is: " + lastEnd.toLocaleString())
       if (curStart.valueOf() == curEnd.valueOf()) {
         curStart = this.addDay(curStart)
         curStart.setHours(9)
         curEnd = this.addDay(curEnd)
-        console.log("moving to a new valid interval")
-        console.log("start: " + curStart.toLocaleString())
-        console.log("end: " + curEnd.toLocaleString())
       }
     }
     return out
@@ -308,13 +288,11 @@ export class SchedulingService {
 
     // intialization
     basis = this.roundToEndOfDay(tasks[tasks.length - 1].due)
-    //console.log("basis is " + basis.toLocaleString())
     curDayEnd = basis // probably can refactor into one variable
     curDayStart = this.copyDate(basis)
     curDayStart.setHours(9)
-    //console.log("curDayStart initialized to " + curDayStart.toLocaleString())
-    //console.log("curDayEnd initialized to " + curDayEnd.toLocaleString())
     timeRemain = 0
+
     // we want reversed iteration order
     tasks = tasks.reverse()
     taskIterator = tasks[Symbol.iterator]()
@@ -325,14 +303,11 @@ export class SchedulingService {
 
     let flag: boolean = true
     while (flag) {
-      //console.log("while iteration")
      
       // if finished scheduling current task, continue to next one
       if (timeRemain == 0) {
-        //console.log("finshed scheduling current task")
         task = taskIterator.next()
         if (task.done) {
-          //console.log("break, iterator done")
           break
         }
         else {
@@ -343,10 +318,6 @@ export class SchedulingService {
           basis = this.roundToEndOfDay(basis)
           curDayStart.setDate(basis.getDate())
           curDayEnd.setDate(basis.getDate())
-          //console.log("iterator returned a new task: " + task.value.name + ", duration: " + task.value.weight + ", due: " + task.value.due.toLocaleString())
-          //console.log("basis updated to: " + basis.toLocaleString())
-          //console.log("curDayStart updated to: " + curDayStart.toLocaleString())
-          //console.log("curDayEnd updated to: " + curDayEnd.toLocaleString() )
           timeRemain = task.value.weight === undefined ? defaultWeight : task.value.weight
           timeRemain *= hourVal
         }
@@ -358,32 +329,25 @@ export class SchedulingService {
         curDayEnd = this.subtractDay(curDayEnd)
         curDayStart = this.subtractDay(curDayStart)
         basis = curDayEnd
-        //console.log("new end of day" + curDayEnd.toLocaleString())
-        //console.log("new start of day " + curDayStart.toLocaleString())
       }
 
       // if remaining day not enough for remainder of task
       if (basis.valueOf() - curDayStart.valueOf() < timeRemain) {
-        //console.log("remaining day not enough for remaining task")
         task.value.schedule.push({
           start: curDayStart,
           end: basis
         })
-        //console.log("amount to be subtracted: " +  (basis.valueOf() - curDayStart.valueOf()))
         timeRemain -= basis.valueOf() - curDayStart.valueOf()
-        //console.log("timeRemain reduced to: " + timeRemain)
         basis = curDayStart
       }
       // if remaining day enough for remainder of task
       else {
-        //console.log("remaining day enough for remaining task")
         let newStart: Date = new Date(basis.valueOf() - timeRemain)
         task.value.schedule.push({
           start: newStart,
           end: basis
         })
         timeRemain = 0
-        //console.log("timeRemain reduced to " + timeRemain)
         basis = newStart
       }
     }
@@ -394,9 +358,7 @@ export class SchedulingService {
   /* round a due to the neareast end of day, if it dues at night.
   we don't want to modify the orignal due */
   private roundToEndOfDay(dueDate: Date): Date {
-    //console.log("input due date: " + dueDate.toLocaleString())
     let newDue: Date = this.copyDate(dueDate)
-    //console.log("newDue: " + newDue.toLocaleString())
     if (dueDate.getHours() > 17 ||
       dueDate.getHours() == 17 && dueDate.getMinutes() > 0) {
       newDue.setHours(17)
@@ -406,18 +368,15 @@ export class SchedulingService {
       newDue = new Date(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate(), 17)
       newDue = this.subtractDay(newDue)
     }
-    //console.log("returning: " + newDue.toLocaleString())
     return newDue
   }
 
   private roundToStartOfDay(startDay: Date): Date {
     let newStart: Date = this.copyDate(startDay)
-    //console.log("newStart: " + newStart.toLocaleString())
     if (startDay.getHours() < 9)
       newStart = this.subtractDay(newStart)
     newStart.setHours(9)
     newStart.setMinutes(0)
-    //console.log("returning: " + newStart.toLocaleString())
     return newStart
   }
 
@@ -498,7 +457,7 @@ export class SchedulingService {
         return 29
   }
 
-  // filter tasks into the four quadrants
+  /* filter tasks into the four quadrants */
   private filter(tasks: DummyTaskModel[]): Map<number, DummyTaskModel[]> {
     let q1: DummyTaskModel[] = []
     let q2: DummyTaskModel[] = []
@@ -527,10 +486,6 @@ export class SchedulingService {
     return quadrants
   }
 
-  private updateCurrentTime() {
-    this.currentDate = new Date(Date.now());
-  }
-
   createSchedule(): Observable<DummyTaskModel[]> {
 
     // divide tasks into according quadrants
@@ -540,7 +495,7 @@ export class SchedulingService {
     let q3: DummyTaskModel[] = quadrants.get(3)
     let q4: DummyTaskModel[] = quadrants.get(4)
     let urgentTasks: DummyTaskModel[]
-    urgentTasks = quadrants.get(1).concat(quadrants.get(3))
+    urgentTasks = q1.concat(q3)
 
     // sort urgent tasks by increasing deadline (greedy algorithm)
     urgentTasks.sort((t1, t2) => {
@@ -568,8 +523,9 @@ export class SchedulingService {
     let pushRightSchedule: DummyTaskModel[] = this.pushRight(urgentTasks)
     // urgent tasks with no due date interleaveb first
     let urgentInt: DummyTaskModel[] = this.interleave(pushRightSchedule, noDues)
-    //let addq2: DummyTaskModel[] = this.interleave(urgentInt, q2)
+    let addq2: DummyTaskModel[] = this.interleave(urgentInt, q2)
     let addq4: DummyTaskModel[] = this.interleave(pushRightSchedule, q4)
     return Observable.of(addq4)
   }
+  
 }
