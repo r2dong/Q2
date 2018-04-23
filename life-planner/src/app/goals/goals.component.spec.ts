@@ -24,7 +24,6 @@ import {GoalModel} from './goal.model';
 import {AppComponent} from '../app.component';
 import { LoginComponent } from '../login/login.component';
 import { HomeComponent } from '../home/home.component';
-import {GoalsComponent} from './goals.component';
 import { WelcomeComponent } from '../welcome/welcome.component';
 import { AuthService } from '../core/auth.service';
 import { NotFoundComponent } from '../not-found/not-found.component';
