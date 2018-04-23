@@ -41,6 +41,11 @@ const routes: Routes = [
     loadChildren: 'app/roles/roles.module#RolesModule',
     canActivate: [AuthGuard]
   },
+  {
+    path: 'goals',
+    loadChildren: 'app/goals/goals.module#GoalsModule',
+    canActivate: [AuthGuard]
+  },
   {path: '**', component: NotFoundComponent},
 ];
 

@@ -24,6 +24,10 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import {EventsModule} from './events/events.module';
 import {RolesModule} from './roles/roles.module';
+import { GoalsComponent } from './goals/goals.component';
+import { AddGoalComponent } from './goals/add-goal/add-goal.component';
+import { EditGoalComponent } from './goals/edit-goal/edit-goal.component';
+import { GoalDetailComponent } from './goals/goal-detail/goal-detail.component';
 
 
 
@@ -35,7 +39,7 @@ import {RolesModule} from './roles/roles.module';
     HomeComponent,
     WelcomeComponent,
     NotFoundComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +52,7 @@ import {RolesModule} from './roles/roles.module';
     TasksModule,
     ProjectsModule,
     EventsModule,
-    RolesModule
+    RolesModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

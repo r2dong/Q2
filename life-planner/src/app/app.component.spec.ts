@@ -12,8 +12,10 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { TaskService } from './tasks/task.service';
 import { TasksModule } from './tasks/tasks.module';
-import{EventService} from './events/event.service';
+import {EventService} from './events/event.service';
 import {EventsModule} from './events/events.module';
+import {GoalService} from './goals/goal.service';
+import {GoalsModule} from './goals/goals.module';
 // Components
 import { AppComponent } from './app.component';
 import { RouterModule, Router } from '@angular/router';
@@ -34,7 +36,7 @@ import { HomeComponent } from './home/home.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import {ProjectsModule} from "./projects/projects.module";
+import {ProjectsModule} from './projects/projects.module';
 
 
 describe('AppComponent', () => {
@@ -57,13 +59,15 @@ describe('AppComponent', () => {
         CoreModule,
         SharedModule,
         TasksModule,
+        GoalsModule,
         ProjectsModule,
         EventsModule
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue : '/' },
         TaskService,
-        EventService
+        EventService,
+        GoalService
       ]
     }).compileComponents();
   });
