@@ -40,7 +40,7 @@ export class GoalDetailComponent implements OnInit {
   onDeleteClick() {
     if (confirm('Are you sure?')) {
       this.goalService.deleteGoal(this.goal);
-      this.flashMessage.show('Task removed', {
+      this.flashMessage.show('Goal removed', {
         cssClass: 'alert-success', timeout: 1100
       });
       this.goBack();
