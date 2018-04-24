@@ -2,12 +2,12 @@
 // import { Tags } from '../tags/tag.model';
 
 
-
 export interface TaskModel {
   tid?: string;
   rid?: string; // Role.id;
   name: string;
   pid?: string;
+  hours: number;
   urgent: boolean;
   important: boolean;
   dueDateTime?: Date;
@@ -27,13 +27,13 @@ export enum TaskWeight {
 }
 
 export namespace TaskWeight {
-/*
-  export function keys() {
-    return Object.keys(TaskWeight).filter(
-      (type) => isNaN(<any>type) && type !== 'keys'
-    );
-  }
-*/
+  /*
+    export function keys() {
+      return Object.keys(TaskWeight).filter(
+        (type) => isNaN(<any>type) && type !== 'keys'
+      );
+    }
+  */
   export function values() {
     return Object.keys(TaskWeight).filter(
       (type) => isNaN(<any>type) && type !== 'values' && type !== 'defaultVal'

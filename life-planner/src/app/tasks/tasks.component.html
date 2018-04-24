@@ -12,7 +12,8 @@
           <th>Name</th>
           <th>Urgent?</th>
           <th>Important?</th>
-          <th>Weight</th>
+          <th>Complexity</th>
+          <th>Hours</th>
           <th>Date Due</th>
           <th>Is Complete?</th>
           <th></th>
@@ -20,7 +21,7 @@
         </thead>
         <tbody>
         <tr>
-          <td colspan="6"></td>
+          <td colspan="7"></td>
           <td><a routerLink="/tasks/add/{{ pid }}" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
         </tr>
         <tr *ngFor="let task of tasks">
@@ -29,6 +30,7 @@
         <td>{{ task.urgent | yesNoPipe }}</td>
         <td>{{ task.important | yesNoPipe }}</td>
         <td>{{ task.weight }}</td>
+        <td>{{ task.hours }}</td>
         <td>{{ task.dueDateTime }}</td>
         <td>{{ task.isComplete | yesNoPipe }}</td>
         <td><a routerLink="/tasks/{{ task.tid }}/{{ pid }}" class="btn btn-secondary btn-sm"><i class="material-icons">edit</i></a></td>
@@ -54,7 +56,7 @@
    </thead>
    <tbody>
    <tr>
-     <td colspan="6">There are no tasks in the system for this user.</td>
+     <td colspan="7">There are no tasks in the system for this user.</td>
      <td><a routerLink="/tasks/add/{{ pid }}" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
    </tr>
 

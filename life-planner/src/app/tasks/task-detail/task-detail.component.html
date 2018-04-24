@@ -9,27 +9,29 @@
     <h3 class="card-title">{{ task.name }}</h3>
     <div class="card-body">
       <ul class="list-group">
-       <!-- <li class="list-group-item">Task ID: {{ task.tid }}</li> -->
+        <!-- <li class="list-group-item">Task ID: {{ task.tid }}</li> -->
         <li class="list-group-item">Task Name: {{ task.name }}</li>
-        <li class="list-group-item">Task Weight: {{ task.weight }}</li>
+        <li class="list-group-item">Task Complexity: {{ task.weight }}</li>
+        <li class="list-group-item">Task Hours: {{ task.hours }}</li>
         <li class="list-group-item">Task Due Date: {{ task.dueDateTime }}</li>
         <li class="list-group-item">Task Added On: {{ task.createdAt }}</li>
         <li class="list-group-item">Task Last Updated On: {{ task.updatedAt }}</li>
       </ul>
       <hr>
       <ul class="list-group">
-        <li class="list-group-item">IsImportant: {{ task.important | yesNoPipe }} </li>
-        <li class="list-group-item">IsUrgent: {{ task.urgent | yesNoPipe }} </li>
-        <li class="list-group-item">IsComplete: {{ task.isComplete | yesNoPipe }} </li>
-        <li class="list-group-item">Associated to: {{ task.pid }} </li>
-        <li class="list-group-item">Assigned to Roles: {{ task.rid }} </li>
+        <li class="list-group-item">IsImportant: {{ task.important | yesNoPipe }}</li>
+        <li class="list-group-item">IsUrgent: {{ task.urgent | yesNoPipe }}</li>
+        <li class="list-group-item">IsComplete: {{ task.isComplete | yesNoPipe }}</li>
+        <li class="list-group-item">Associated to: {{ task.pid }}</li>
+        <li class="list-group-item">Assigned to Roles: {{ task.rid }}</li>
       </ul>
     </div>
     <div class="card-action card-content grey lighten-4">
       <a routerLink="/tasks/edit/{{ tid }}" class="btn btn-dark">Edit</a>
-      <button (click)="onDeleteClick()" class="btn btn-danger">Delete</button>
+      <button name="btn-complete" (click)="onCompleteClick($event)" class="btn btn-dark {{btnCompleteStyle}}">{{btnCompleteText}}</button>
+      <button (click)="onDeleteClick()" class="btn btn-danger" style="clear:both; float: right;">Delete</button>
     </div>
   </div>
 </div>
-<app-show-roles [roles] = taskRoles [tid]=tid></app-show-roles>
+<app-show-roles [roles]=taskRoles [tid]=tid></app-show-roles>
 

@@ -1,7 +1,6 @@
-import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {DebugElement} from '@angular/core';
 import {APP_BASE_HREF} from '@angular/common';
-import {Observable} from 'rxjs/Observable';
 import {Location} from '@angular/common';
 
 
@@ -17,8 +16,7 @@ import {CoreModule} from '../../core/core.module';
 import {SharedModule} from '../../shared/shared.module';
 import {TasksModule} from '../tasks.module';
 import {FormsModule} from '@angular/forms';
-import {FlashMessagesModule} from 'angular2-flash-messages';
-import {FlashMessagesService} from 'angular2-flash-messages';
+import {FlashMessagesModule, FlashMessagesService} from 'angular2-flash-messages';
 
 import {TaskService} from '../task.service';
 import {TaskModel, TaskWeight} from '../task.model';
@@ -105,8 +103,9 @@ describe('AddTaskComponent', () => {
     const task: TaskModel = {
       tid: '',
       name: '',
-      urgent: true,
-      important: true,
+      hours: 0,
+      urgent: false,
+      important: false,
       dueDateTime: null,
       isComplete: false,
       weight: TaskWeight.NONE

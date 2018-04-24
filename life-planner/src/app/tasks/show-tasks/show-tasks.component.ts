@@ -16,6 +16,9 @@ export class ShowTasksComponent implements OnInit {
   @Input() tasks: TaskModel[];
   @Input() pid: string;
 
+  selectedTask: TaskModel;
+  isCompletedIcon: string;
+
   constructor(
     private taskService: TaskService,
     private projectService: ProjectService,
@@ -32,6 +35,27 @@ export class ShowTasksComponent implements OnInit {
       });
       this.pid = undefined;
     }
+  }
+
+  onToggleCompleteClick(task: TaskModel) {
+    console.log('onToggleCompleteClick: ' + task.isComplete);
+    task.isComplete = !task.isComplete;
+    this.selectedTask = task;
+    console.log('onToggleCompleteClick: new selectedTask isComplete value is ' + task.isComplete);
+    if (task.isComplete) {
+      this.taskService.completeTask(this.selectedTask);
+      this.flashMessage.show('Task completed', {
+        cssClass: 'alert-success', timeout: 4000
+      });
+
+    } else {
+      this.taskService.openCompletedTask(this.selectedTask);
+      this.flashMessage.show('Task opened', {
+        cssClass: 'alert-success', timeout: 4000
+      });
+
+    }
+
   }
 
   onRemoveClick(task: TaskModel) {
