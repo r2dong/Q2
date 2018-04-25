@@ -61,4 +61,32 @@ describe('SchedulingService', () => {
     expect(service).toBeTruthy();
   }));
 
+  it('should not break with empty task litst', inject([SchedulingService], (service: SchedulingService) => {
+    expect(service).toBeTruthy();
+  }));
+
+  it('should not break if all tasks have no due date', inject([SchedulingService], (service: SchedulingService) => {
+    expect(service).toBeTruthy();
+  }));
+
+  it('should not break if all tasks have no weight', inject([SchedulingService], (service: SchedulingService) => {
+    expect(service).toBeTruthy();
+  }));
+
+  it('should schedule urgent and important tasks to finish right on time', inject([SchedulingService], (service: SchedulingService) => {
+    expect(service).toBeTruthy();
+  }));
+
+  it('should schedule all tasks', inject([SchedulingService], (service: SchedulingService) => {
+    expect(service).toBeTruthy();
+  }));
+
+  it('should schedule tasks only during daytime', inject([SchedulingService], (service: SchedulingService) => {
+    expect(service).toBeTruthy();
+  }));
+
+  it('should allow no multi-tasking', inject([SchedulingService], (service: SchedulingService) => {
+    expect(service).toBeTruthy();
+  }));
+
 });
