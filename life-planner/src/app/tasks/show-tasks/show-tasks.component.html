@@ -6,6 +6,11 @@
     <table *ngIf="tasks?.length > 0;else noTasks" class="bordered striped">
       <thead class="thead-inverse">
       <tr>
+        <td colspan="6"></td>
+        <td colspan="2"><a routerLink="/tasks/select/{{ pid }}" class="btn btn-secondary btn-sm"><i
+          class="material-icons right">send</i> Assign Tasks</a></td>
+      </tr>
+      <tr>
         <th>Name</th>
         <th>Urgent?</th>
         <th>Important?</th>
@@ -17,11 +22,6 @@
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td colspan="5"></td>
-        <td colspan="2"><a routerLink="/tasks/select/{{ pid }}" class="btn btn-secondary btn-sm"><i
-          class="material-icons right">send</i> Assign Tasks</a></td>
-      </tr>
       <tr *ngFor="let task of tasks">
         <td>{{ task.name }}</td>
         <td>{{ task.urgent | yesNoPipe }}</td>
@@ -54,7 +54,7 @@
 
       <tbody>
       <tr>
-        <td colspan="5">There are no tasks in the system for this user.</td>
+        <td colspan="6">There are no tasks in the system for this user.</td>
         <td colspan="2"><a routerLink="/tasks/select/{{ pid }}" class="btn btn-secondary btn-sm"><i
           class="material-icons right">send</i> Assign Tasks</a></td>
       </tr>

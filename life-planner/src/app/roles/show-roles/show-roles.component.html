@@ -6,6 +6,11 @@
     <table *ngIf="roles?.length > 0;else noroles" class="bordered striped">
       <thead class="thead-inverse">
       <tr>
+        <td colspan="2"></td>
+        <td></td>
+        <td colspan="3"><a routerLink="/roles/select/{{ tid }}" class="btn btn-secondary btn-sm"><i class="material-icons right">send</i> Assign roles</a></td>
+      </tr>
+      <tr>
         <th>Name</th>
         <th>Color</th>
         <th></th>
@@ -13,11 +18,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td colspan="2"></td>
-        <td></td>
-        <td colspan="3"><a routerLink="/roles/select/{{ tid }}" class="btn btn-secondary btn-sm"><i class="material-icons right">send</i> Assign roles</a></td>
-      </tr>
+
       <tr *ngFor="let role of roles">
         <td>{{ role.name }}</td>
         <td class="{{ role.color }} lighten-1">&nbsp;</td>
