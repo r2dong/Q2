@@ -26,7 +26,7 @@ import { CalendarComponent } from 'ng-fullcalendar'
 describe('EventService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports:[
+      imports: [
         AppRoutingModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
@@ -37,7 +37,7 @@ describe('EventService', () => {
         EventsModule,
         CoreModule
       ],
-      declarations:[
+      declarations: [
         AppComponent,
         WelcomeComponent,
         HomeComponent,

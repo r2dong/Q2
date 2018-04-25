@@ -40,7 +40,8 @@ describe('TaskService', () => {
         FormsModule,
         SharedModule,
         TasksModule,
-        CoreModule,],
+        CoreModule,
+      ],
       declarations: [
         AppComponent,
         WelcomeComponent,
@@ -69,8 +70,9 @@ describe('TaskService', () => {
     const task: TaskModel = {
       tid: '',
       name: '',
-      urgent: true,
-      important: true,
+      hours: 0,
+      urgent: false,
+      important: false,
       dueDateTime: null,
       isComplete: false,
       weight: TaskWeight.NONE
@@ -84,6 +86,11 @@ describe('TaskService', () => {
 
 
   }));
+
+  it('should return all tasks', inject([TaskService], (service: TaskService) => {
+    service.getTasks().subscribe(result => expect(result.length).toBeGreaterThan(0));
+  }));
+
 
 
 });

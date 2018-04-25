@@ -6,29 +6,41 @@
     <table *ngIf="tasks?.length > 0;else noTasks" class="bordered striped">
       <thead class="thead-inverse">
       <tr>
+        <td colspan="6"></td>
+        <td colspan="2"><a routerLink="/tasks/select/{{ pid }}" class="btn btn-secondary btn-sm"><i
+          class="material-icons right">send</i> Assign Tasks</a></td>
+      </tr>
+      <tr>
         <th>Name</th>
         <th>Urgent?</th>
         <th>Important?</th>
-        <th>Weight</th>
+        <th>Complexity</th>
+        <th>Hours</th>
         <th>Date Due</th>
         <th>Is Complete?</th>
         <th></th>
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td colspan="5"></td>
-        <td colspan="2"><a routerLink="/tasks/select/{{ pid }}" class="btn btn-secondary btn-sm"><i class="material-icons right">send</i> Assign Tasks</a></td>
-      </tr>
       <tr *ngFor="let task of tasks">
         <td>{{ task.name }}</td>
         <td>{{ task.urgent | yesNoPipe }}</td>
         <td>{{ task.important | yesNoPipe }}</td>
         <td>{{ task.weight }}</td>
+        <td>{{ task.hours }}</td>
         <td>{{ task.dueDateTime }}</td>
-        <td>{{ task.isComplete | yesNoPipe }}</td>
+        <td><button (click)="onToggleCompleteClick(task)"
+                    [ngClass]="task.isComplete ? 'btn tooltipped grey lighten-1': 'btn tooltipped'"
+                    data-position="top"
+                    data-delay="50"
+                    data-tooltip="Click to complete"
+
+        ><i class="material-icons"><div *ngIf="task.isComplete">done</div><div *ngIf="!task.isComplete">blur_circular</div></i></button></td>
         <td>
-          <button (click)="onRemoveClick(task)" class="btn btn-danger"><i class="material-icons">remove_circle</i></button>
+
+
+          <button (click)="onRemoveClick(task)" class="btn btn-danger"><i class="material-icons">remove_circle</i>
+          </button>
           <button (click)="onDeleteClick(task)" class="btn btn-danger red"><i class="material-icons">clear</i></button>
         </td>
       </tr>
@@ -42,8 +54,9 @@
 
       <tbody>
       <tr>
-        <td colspan="5">There are no tasks in the system for this user.</td>
-        <td colspan="2"><a routerLink="/tasks/select/{{ pid }}" class="btn btn-secondary btn-sm"><i class="material-icons right">send</i> Assign Tasks</a></td>
+        <td colspan="6">There are no tasks in the system for this user.</td>
+        <td colspan="2"><a routerLink="/tasks/select/{{ pid }}" class="btn btn-secondary btn-sm"><i
+          class="material-icons right">send</i> Assign Tasks</a></td>
       </tr>
 
       </tbody>

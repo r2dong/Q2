@@ -40,38 +40,39 @@ export class SelectTaskComponent implements OnInit, OnDestroy {
     console.log('current pid: ' + this.pid);
     if (this.pid !== undefined) {
 
-       this.projectService.getProject(this.pid)
-         .takeUntil(this.ngUnsubscribe)
-         .subscribe(project => {
-        if (project.pid !== undefined) {
-          console.log('project found for pid: ' + this.pid);
-          this.singleProject = project;
+      this.projectService.getProject(this.pid)
+        .takeUntil(this.ngUnsubscribe)
+        .subscribe(project => {
+          if (project.pid !== undefined) {
+            console.log('project found for pid: ' + this.pid);
+            this.singleProject = project;
 
-          this.taskService.getTasks()
-            .subscribe(tasks => {
-              console.log('select-task (no filter):: found ' + tasks.length.toString() + ' tasks for pid: ' + this.pid);
-              this.allTasks = tasks;
+            this.taskService.getTasks()
+              .subscribe(tasks => {
+                console.log('select-task (no filter):: found ' + tasks.length.toString() + ' tasks for pid: ' + this.pid);
+                this.allTasks = tasks;
 
-              console.log('before loop');
-              for (const sTask of this.allTasks) {
-                console.log('for tid: ' + sTask.tid + ' the sTask.pid is: ' + sTask.pid); // 1, "string", false
-              }
-            });
-
-
-          this.taskService.getTasks()
-            .map(epics => epics.filter(epic => epic.pid === undefined || epic.pid.length === 0))
-            .subscribe(tasks => {
-              console.log('select-task:: found ' + tasks.length.toString() + ' tasks for pid: ' + this.pid);
-              this.tasks = tasks;
-            });
+                console.log('before loop');
+                for (const sTask of this.allTasks) {
+                  console.log('for tid: ' + sTask.tid + ' the sTask.pid is: ' + sTask.pid); // 1, "string", false
+                }
+              });
 
 
-        }
-      });
+            this.taskService.getTasks()
+              .map(epics => epics.filter(epic => epic.pid === undefined || epic.pid.length === 0))
+              .subscribe(tasks => {
+                console.log('select-task:: found ' + tasks.length.toString() + ' tasks for pid: ' + this.pid);
+                this.tasks = tasks;
+              });
+
+
+          }
+        });
     }
 
   }
+
   ngOnDestroy() {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();

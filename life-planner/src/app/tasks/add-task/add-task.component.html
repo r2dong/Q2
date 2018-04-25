@@ -5,91 +5,116 @@
       <i class="fa fa-arrow-circle-o-left"></i> Back
     </a>
   </div>
-<div class="card">
-  <div class="card-body">
-    <form #taskForm="ngForm" (ngSubmit)="onSubmit(taskForm)">
+  <div class="card">
+    <div class="card-body">
+      <form #taskForm="ngForm" (ngSubmit)="onSubmit(taskForm)">
 
-      <div class="form-group">
-        <label class="form-control-label" for="name">Task Name</label>
-        <input
+        <div class="form-group">
+          <label class="form-control-label" for="name">Task Name</label>
+          <input
             type="text"
             class="form-control"
             id="name"
             #taskName="ngModel"
-            [ngClass]="{'is-invalid':taskName.errors && taskName.touched}"
+            [ngClass]="{'is-invalid':taskName.errors && (taskName.dirty || taskName.touched || !isValidFormSubmitted)}"
             [(ngModel)]="task.name"
             name="name"
             minlength="2"
             required
-        >
-        <div *ngIf="taskName.errors && (taskName.dirty || taskName.touched)">
-          <div [hidden]="!taskName.errors?.required" class="invalid-feedback red-text darken-4">
-            Task name required
-          </div>
+          >
+          <div *ngIf="taskName.errors && (taskName.dirty || taskName.touched || !isValidFormSubmitted)">
+            <div [hidden]="!taskName.errors?.required" class="invalid-feedback red-text darken-4">
+              Task name required
+            </div>
 
-          <div [hidden]="!taskName.errors?.minlength" class="invalid-feedback red-text darken-4">
-            Must be at least 2 characters
+            <div [hidden]="!taskName.errors?.minlength" class="invalid-feedback red-text darken-4">
+              Must be at least 2 characters
             </div>
           </div>
         </div>
 
-      <div class="form-group">
-        <input
-          class="form-control"
-          type="checkbox"
-          id="urgent"
-          #taskUrgent
-          [(ngModel)]="task.urgent"
-          name="urgent"
-        />
-        <label class="form-control-label" for="urgent">Urgent</label>
+        <div class="form-group">
+          <input
+            class="form-control"
+            type="checkbox"
+            id="urgent"
+            #taskUrgent="ngModel"
+            [(ngModel)]="task.urgent"
+            name="urgent"
+          />
+          <label class="form-control-label" for="urgent">Urgent&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 
-        <input
-          class="form-control"
-          type="checkbox"
-          id="important"
-          #taskUrgent
-          [(ngModel)]="task.important"
-          name="important"
-        />
-        <label class="form-control-label" for="important">Important</label>
-      </div>
+          <input
+            class="form-control"
+            type="checkbox"
+            id="important"
+            #taskImportant="ngModel"
+            [(ngModel)]="task.important"
+            name="important"
+          />
+          <label class="form-control-label" for="important">Important</label>
+        </div>
 
-      <div class="form-group">
-        <label class="form-control-label" for="name">Task Weight</label>
-        <select class="form-control browser-default" [(ngModel)]="task.weight" name="weight">
-          <option *ngFor="let weight of TaskWeight.values();"
-                  [attr.selected]="TaskWeight[TaskWeight.NONE]===weight ? true : null">{{weight}}</option>
-        </select>
-      </div>
+        <div class="form-group">&nbsp;</div>
 
-
-      <div class="form-group">
-        <label class="form-control-label" for="name">Task Due Date</label>
-        <input
-          type="date"
-          class="form-control"
-          id="dueDateTime"
-          #taskDueDateTime="ngModel"
-          [ngClass]="{'is-invalid':taskDueDateTime.errors && taskDueDateTime.touched}"
-          [(ngModel)]="task.dueDateTime"
-          name="dueDateTime"
-        >
-        <div *ngIf="taskDueDateTime.errors && (taskDueDateTime.dirty || taskDueDateTime.touched)">
-          <div [hidden]="!taskDueDateTime.errors?.required" class="invalid-feedback red-text darken-4">
-            Task due date required
+        <div class="form-group">
+          <label class="form-control-label" for="name">Hours to Complete</label>
+          <input
+            type="number"
+            step="0.01"
+            class="form-control"
+            id="hours"
+            [ngClass]="{'is-invalid':taskHours.errors && (taskHours.dirty || taskHours.touched || !isValidFormSubmitted)}"
+            [(ngModel)]="task.hours"
+            name="hours"
+            required
+            [appCustomMinValidator]="minTaskHours"
+            min="0"
+            #taskHours="ngModel"
+            value="this.minTaskHours"
+          >
+          <div *ngIf="taskHours.errors && (taskHours.dirty || taskHours.touched || !isValidFormSubmitted)">
+            <div [hidden]="!taskHours.errors?.required" class="invalid-feedback red-text darken-4">
+              Task hours are required
+            </div>
+            <div [hidden]="!taskHours.errors?.appCustomMinValidator" class="invalid-feedback red-text darken-4">
+              Task hours must be greater than or equal to 0
+            </div>
           </div>
         </div>
-      </div>
-      <div class="form-group">
 
-        <div class="card-action card-content grey lighten-4">
-          <input type="submit" value="Submit" class="btn btn-primary btn-block">
+        <div class="form-group">
+          <label class="form-control-label" for="name">Task Complexity</label>
+          <select class="form-control browser-default" [(ngModel)]="task.weight" name="weight" #taskWeight="ngModel">
+            <option *ngFor="let weight of TaskWeight.values();"
+                    [attr.selected]="TaskWeight[TaskWeight.NONE]===weight ? true : null">{{weight}}
+            </option>
+          </select>
         </div>
 
 
-      </div>
-    </form>
+        <div class="form-group">
+          <label class="form-control-label" for="name">Task Due Date</label>
+          <input
+            type="date"
+            class="form-control"
+            id="dueDateTime"
+            #taskDueDateTime="ngModel"
+            [ngClass]="{'is-invalid':taskDueDateTime.errors && taskDueDateTime.touched}"
+            [(ngModel)]="task.dueDateTime"
+            name="dueDateTime"
+          >
+
+        </div>
+        <div class="form-group">
+
+          <div class="card-action card-content grey lighten-4">
+            <input type="submit" value="Submit" class="btn btn-primary btn-block">
+          </div>
+
+
+        </div>
+      </form>
+    </div>
   </div>
-</div>
 </div>

@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-md-6">
+    <h4 class="col s12 center-align">Goal Detail</h4>
+    <a (click)="goBack()" class="btn btn-link">
+      <i class="fa fa-arrow-circle-o-left"></i> Back
+    </a>
+  </div>
+  <div *ngIf="goal" class="card">
+    <h3 class="card-title">{{ goal.name }}</h3>
+    <div class="card-body">
+      <ul class="list-group">
+        <!-- <li class="list-group-item">Goal ID: {{ goal.gid }}</li> -->
+        <li class="list-group-item">Goal Name: {{ goal.name }}</li>
+        <li class="list-group-item">Goal Due Date: {{ goal.endDate }}</li>
+        <li class="list-group-item">Goal Added On: {{ goal.createdAt }}</li>
+        <li class="list-group-item">Goal Last Updated On: {{ goal.updatedAt }}</li>
+      </ul>
+    </div>
+    <div class="card-action card-content grey lighten-4">
+      <a routerLink="/goals/edit/{{ gid }}" class="btn btn-dark">Edit</a>
+      <button (click)="onDeleteClick()" class="btn btn-danger">Delete</button>
+    </div>
+  </div>
+</div>
+

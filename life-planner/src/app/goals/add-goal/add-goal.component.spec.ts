@@ -1,8 +1,7 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {DebugElement} from '@angular/core';
-import {APP_BASE_HREF} from '@angular/common';
-import {Location} from '@angular/common';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { DebugElement } from '@angular/core';
+import { APP_BASE_HREF } from '@angular/common';
+import {Observable} from 'rxjs/Observable';
 
 import {AngularFireModule} from 'angularfire2';
 import {environment} from '../../../environments/environment';
@@ -11,43 +10,38 @@ import {AngularFireStorageModule} from 'angularfire2/storage';
 
 
 // Modules
-import {AppRoutingModule} from '../../app-routing.module';
-import {CoreModule} from '../../core/core.module';
-import {SharedModule} from '../../shared/shared.module';
-import {TasksModule} from '../tasks.module';
+import { AppRoutingModule } from '../../app-routing.module';
+import { CoreModule } from '../../core/core.module';
+import { SharedModule } from '../../shared/shared.module';
+import {GoalsModule} from '../goals.module';
 import {FormsModule} from '@angular/forms';
-import {FlashMessagesModule, FlashMessagesService} from 'angular2-flash-messages';
+import { FlashMessagesModule } from 'angular2-flash-messages';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
-import {TaskService} from '../task.service';
-import {TaskModel, TaskWeight} from '../task.model';
+import {GoalService} from '../goal.service';
+import {GoalModel} from '../goal.model';
 
 // Components
 import {AppComponent} from '../../app.component';
 import { LoginComponent } from '../../login/login.component';
 import { HomeComponent } from '../../home/home.component';
-import { AddTaskComponent } from './add-task.component';
+import {AddGoalComponent} from './add-goal.component';
 import { WelcomeComponent } from '../../welcome/welcome.component';
 import { AuthService } from '../../core/auth.service';
 import { NotFoundComponent } from '../../not-found/not-found.component';
 import { NavbarComponent } from '../../navbar/navbar.component';
-import { ScheduleComponent } from '../../schedule/schedule.component'
-import { NgFullcalendarComponent } from '../../ng-fullcalendar/ng-fullcalendar.component'
-import { CalendarComponent } from 'ng-fullcalendar'
 
 
-import {By} from '@angular/platform-browser';
-import {ProjectService} from '../../projects/project.service';
+import { By } from '@angular/platform-browser';
 
 
-describe('AddTaskComponent', () => {
-  let component: AddTaskComponent;
-  let service: TaskService;
-  let fixture: ComponentFixture<AddTaskComponent>;
+describe('AddGoalComponent', () => {
+  let component: AddGoalComponent;
+  let service: GoalService;
+  let fixture: ComponentFixture<AddGoalComponent>;
   let de: DebugElement;
   let spy: jasmine.Spy;
   let spyService: jasmine.Spy;
-  let loc: Location;
-
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -59,7 +53,7 @@ describe('AddTaskComponent', () => {
         FlashMessagesModule,
         FormsModule,
         SharedModule,
-        TasksModule,
+        GoalsModule,
         CoreModule,
       ],
       declarations: [
@@ -68,30 +62,24 @@ describe('AddTaskComponent', () => {
         HomeComponent,
         LoginComponent,
         NotFoundComponent,
-        NavbarComponent,
-        ScheduleComponent,
-        NgFullcalendarComponent,
-        CalendarComponent
+        NavbarComponent
       ],
       providers: [
-        {provide: APP_BASE_HREF, useValue: '/tasks'},
-        TaskService,
-        ProjectService,
+        { provide: APP_BASE_HREF, useValue: '/goals'},
+        GoalService,
         FlashMessagesService
       ]
     })
       .compileComponents();
   });
 
-
   beforeEach(() => {
 
     spy = spyOn(AuthService, 'currentUserId').and.returnValue('TestAccount');
-    fixture = TestBed.createComponent(AddTaskComponent);
+    fixture = TestBed.createComponent(AddGoalComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;
-    service = de.injector.get(TaskService);
-    loc = TestBed.get(Location);
+    service = de.injector.get(GoalService);
 
     fixture.detectChanges();
   });
@@ -104,25 +92,19 @@ describe('AddTaskComponent', () => {
     expect(AuthService.currentUserId()).toBe('TestAccount');
   });
 
-  it('should create a task', () => {
-    const location = fixture.debugElement.injector.get(Location);
-    const task: TaskModel = {
-      tid: '',
+  it('should create a goal', () => {
+    const goal: GoalModel = {
+      gid: '',
       name: '',
-      hours: 0,
-      urgent: false,
-      important: false,
-      dueDateTime: null,
-      isComplete: false,
-      weight: TaskWeight.NONE
+      endDate: null,
     };
-    spyService = spyOn(service, 'addTask').and.returnValue('TestAccount');
-    service.addTask(task);
+    spyService = spyOn(service, 'addGoal').and.returnValue('TestAccount');
+    service.addGoal(goal);
     // Check internal function
     expect(spyService).toHaveBeenCalled();
 
-
   });
+
 
 
 });

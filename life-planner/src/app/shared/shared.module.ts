@@ -1,12 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireStorageModule } from 'angularfire2/storage';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {AngularFireAuthModule} from 'angularfire2/auth';
+import {AngularFirestoreModule} from 'angularfire2/firestore';
+import {AngularFireModule} from 'angularfire2';
+import {AngularFireStorageModule} from 'angularfire2/storage';
 import {environment} from '../../environments/environment';
 import {YesNoPipe} from './YesNoPipe';
+import {CustomMinValidatorDirective} from './custom-min-validator.directive';
 
 
 // should not contain any services
@@ -35,7 +36,21 @@ import {YesNoPipe} from './YesNoPipe';
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
   ],
-  declarations: [YesNoPipe],
-  exports: [ CommonModule, AngularFireModule, AngularFireStorageModule, AngularFireAuthModule, AngularFirestoreModule, FormsModule, YesNoPipe ]
+  declarations: [
+    YesNoPipe,
+    CustomMinValidatorDirective,
+
+  ],
+  exports: [
+    CommonModule,
+    AngularFireModule,
+    AngularFireStorageModule,
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    FormsModule,
+    YesNoPipe,
+    CustomMinValidatorDirective
+  ]
 })
-export class SharedModule { }
+export class SharedModule {
+}

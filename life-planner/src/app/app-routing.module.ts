@@ -53,7 +53,13 @@ const routes: Routes = [
   {
     path: '**', 
     component: NotFoundComponent
-  }
+  },
+  {
+    path: 'goals',
+    loadChildren: 'app/goals/goals.module#GoalsModule',
+    canActivate: [AuthGuard]
+  },
+  {path: '**', component: NotFoundComponent},
 ];
 
 @NgModule({
