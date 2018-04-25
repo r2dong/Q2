@@ -30,6 +30,9 @@ import { WelcomeComponent } from '../../welcome/welcome.component';
 import { AuthService } from '../../core/auth.service';
 import { NotFoundComponent } from '../../not-found/not-found.component';
 import { NavbarComponent } from '../../navbar/navbar.component';
+import { NgFullcalendarComponent } from '../../ng-fullcalendar/ng-fullcalendar.component'
+import { CalendarComponent } from 'ng-fullcalendar';
+import { ScheduleComponent } from '../../schedule/schedule.component'
 
 
 import { By } from '@angular/platform-browser';
@@ -62,7 +65,10 @@ describe('AddGoalComponent', () => {
         HomeComponent,
         LoginComponent,
         NotFoundComponent,
-        NavbarComponent
+        NavbarComponent,
+        NgFullcalendarComponent,
+        CalendarComponent,
+        ScheduleComponent
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/goals'},

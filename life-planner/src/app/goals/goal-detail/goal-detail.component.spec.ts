@@ -30,6 +30,8 @@ import { WelcomeComponent } from '../../welcome/welcome.component';
 import { AuthService } from '../../core/auth.service';
 import { NotFoundComponent } from '../../not-found/not-found.component';
 import { NavbarComponent } from '../../navbar/navbar.component';
+import { NgFullcalendarComponent } from '../../ng-fullcalendar/ng-fullcalendar.component'
+import { CalendarComponent } from 'ng-fullcalendar';
 
 
 
@@ -63,7 +65,9 @@ describe('GoalDetailComponent', () => {
         HomeComponent,
         LoginComponent,
         NotFoundComponent,
-        NavbarComponent
+        NavbarComponent,
+        NgFullcalendarComponent,
+        CalendarComponent
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/goal-detail'},
