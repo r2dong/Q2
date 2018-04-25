@@ -70,6 +70,34 @@ export class EventService {
     });
     return this.events;
   }
+  completeEvent(event: EventModel) {
+    event.updatedAt = new Date();
+    this.eventDoc = this.eventsRef.doc(event.eid);
+    event.complete = true;
+    console.log('ES: completing event for: ' + event.name);
+    this.eventDoc.update(event);
+  }
+  removeEventFromProject(event: EventModel) {
+    console.log('ES: removeEventFromProject pid: ' + event.pid);
+    console.log('ES: removeEventFromProject eid: ' + event.eid);
+    this.eventDoc = this.eventsRef.doc(event.eid);
+    if (event.pid !== undefined) {
+      this.ps.removeEventFromProject(event.pid, event.eid);
+    }
+    event.pid = '';
+    this.updateEvent(event);
+  }
+  addEventToProject(pid: string, event: EventModel) {
+    console.log('ES addEventToProject: beginning string pid: ' + pid);
+    event.pid = pid;
+    this.eventDoc = this.eventsRef.doc(event.eid);
+    console.log('ES addEventToProject: adding PID to event: ' + event.name);
+    this.eventDoc.update(event);
+    if (event.pid !== undefined) {
+      console.log('ES calling PS addEventToProject for pid: ' + event.pid);
+      this.ps.addEventToProject(event.pid, event.eid);
+    }
+  }
 
   updateEvent(event: EventModel) {
     event.updatedAt = new Date();

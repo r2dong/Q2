@@ -6,7 +6,8 @@ import { AddEventComponent } from './add-event/add-event.component';
 import { EditEventComponent } from './edit-event/edit-event.component';
 import { SharedModule } from '../shared/shared.module';
 import { EventService } from './event.service';
-
+import {SelectEventComponent} from './select-event/select-event.component';
+import {ShowEventsComponent} from './show-events/show-events.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,9 @@ import { EventService } from './event.service';
     EventsComponent,
     EventDetailComponent,
     AddEventComponent,
-    EditEventComponent
+    EditEventComponent,
+    SelectEventComponent,
+    ShowEventsComponent
   ],
   providers: [
     EventService
@@ -26,7 +29,9 @@ import { EventService } from './event.service';
     EventsComponent,
     EventDetailComponent,
     AddEventComponent,
-    EditEventComponent
+    EditEventComponent,
+    SelectEventComponent,
+    ShowEventsComponent
   ]
 })
 export class EventsModule {

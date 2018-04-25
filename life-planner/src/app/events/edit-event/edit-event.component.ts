@@ -23,8 +23,8 @@ export class EditEventComponent implements OnInit {
   ngOnInit() {
     this.eid = this.route.snapshot.params['eid'];
     // get client
-    this.eventService.getEvent(this.eid).subscribe(event =>{
-      if(event != null){
+    this.eventService.getEvent(this.eid).subscribe(event => {
+      if (event != null) {
         console.log('event found for eid: ' + this.eid);
       }
       this.event = event;
