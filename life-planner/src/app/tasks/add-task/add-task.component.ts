@@ -1,4 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
+import {NgForm} from '@angular/forms';
 import {TaskService} from '../task.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FlashMessagesService} from 'angular2-flash-messages';
@@ -13,10 +14,13 @@ import {Location} from '@angular/common';
 })
 
 export class AddTaskComponent implements OnInit {
+  isValidFormSubmitted = true;
+  minTaskHours = 0;
   pid: string;
   task: TaskModel = {
     tid: '',
     name: '',
+    hours: 0,
     urgent: false,
     important: false,
     dueDateTime: null,
@@ -46,20 +50,27 @@ export class AddTaskComponent implements OnInit {
     console.log('Tadd: pid: ' + this.pid);
   }
 
-  onSubmit({value, valid}: { value: TaskModel, valid: boolean }) {
-    if (!valid) {
+  onSubmit(form: NgForm) {
+    this.isValidFormSubmitted = false;
+
+    if (form.invalid) {
       // Show error
       this.flashMessage.show('Please fill out the form correctly', {
         cssClass: 'alert-danger', timeout: 4000
       });
+      return;
     } else {
-      console.log('Tadd: weight after submit: ' + value.weight);
+      this.isValidFormSubmitted = true;
+      this.task = form.value;
+      this.task.isComplete = false; // need to seed value
+      console.log('Tadd: weight after submit: ' + this.task.weight);
       // Add new client
-      this.taskService.addTask(value, this.pid);
+      this.taskService.addTask(this.task, this.pid);
       // Show message
       this.flashMessage.show('New task added', {
         cssClass: 'alert-success', timeout: 4000
       });
+      form.resetForm();
       // Redirect to tasks
       this.location.back();
     }

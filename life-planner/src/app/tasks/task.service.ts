@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
 import {AuthService} from '../core/auth.service';
 import {Observable} from 'rxjs/Observable';
-import {TaskModel, TaskWeight} from './task.model';
+import {TaskModel} from './task.model';
 import {ProjectService} from '../projects/project.service';
 
 
@@ -87,6 +87,14 @@ export class TaskService {
     this.taskDoc = this.tasksRef.doc(task.tid);
     task.isComplete = true;
     console.log('TS: completing task for: ' + task.name);
+    this.taskDoc.update(task);
+  }
+
+  openCompletedTask(task: TaskModel) {
+    task.updatedAt = new Date();
+    this.taskDoc = this.tasksRef.doc(task.tid);
+    task.isComplete = false;
+    console.log('TS: un-completing task for: ' + task.name);
     this.taskDoc.update(task);
   }
 
