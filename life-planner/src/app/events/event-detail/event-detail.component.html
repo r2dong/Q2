@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" xmlns:clear="http://www.w3.org/1999/xhtml">
   <div class="col-md-6">
     <h4 class="col s12 center-align">Event Detail</h4>
     <a (click)="goBack()" class="btn btn-link">
@@ -26,7 +26,8 @@
     </div>
     <div class="card-action card-content grey lighten-4">
       <a routerLink="/events/edit/{{event.eid}}" class="btn btn-dark">Edit</a>
-      <button (click)="onDeleteClick()" class="btn btn-danger">Delete</button>
+      <button name="btn-complete" (click) = "onCompleteClick($event)" class ="btn btn-dark {{btnCompleteStyle}}">{{btnCompleteText}}</button>
+      <button (click)="onDeleteClick()" class="btn btn-danger" style="clear:both; float: right;">Delete</button>
     </div>
   </div>
 </div>

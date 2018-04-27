@@ -8,7 +8,10 @@
     <table *ngIf="events?.length > 0; else noEvents" class="bordered striped">
       <thead class="thead-inverse">
       <tr>
-        <th>ID</th>
+        <td colspan="8"></td>
+        <td colspan="2"><a routerLink="/events/select/{{ pid }}" class="btn btn-secondary btn-sm"><i class="material-icons right">send</i> Assign Events</a></td>
+      </tr>
+      <tr>
         <th>Name</th>
         <th>Start Date</th>
         <th>Start Time</th>
@@ -20,10 +23,6 @@
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td colspan="5"></td>
-        <td colspan="2"><a routerLink="/events/select/{{ pid }}" class="btn btn-secondary btn-sm"><i class="material-icons right">send</i> Assign Events</a></td>
-      </tr>
       <tr *ngFor="let event of events">
         <td>{{ event.name }}</td>
         <td>{{ event.sdate }}</td>
@@ -31,7 +30,14 @@
         <td>{{event.edate}}</td>
         <td>{{event.etime}}</td>
         <td>{{event.important|yesNoPipe}}</td>
-        <td>{{event.complete|yesNoPipe}}</td>
+        <td><button (click) = "onToggleCompleteClick(event)"
+                    [ngClass]= "event.complete ?'btn tooltipped grey lighten-1': 'btn tooltipped'"
+                    data-position = "top"
+                    data-dealy ="50"
+                    data-tooltip = "Click to Complete">
+          <i class = "material-icons"><div *ngIf="event.complete">done</div>
+            <div *ngIf = "!event.complete">blur_circular</div></i></button></td>
+        <td></td>
         <td>
           <button (click)="onRemoveClick(event)" class="btn btn-danger"><i class="material-icons">remove_circle</i></button>
           <button (click)="onDeleteClick(event)" class="btn btn-danger red"><i class="material-icons">clear</i></button>

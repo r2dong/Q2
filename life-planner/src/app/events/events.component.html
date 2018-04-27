@@ -8,7 +8,6 @@
     <table *ngIf="events?.length > 0; else noEvents" class="bordered striped">
       <thead class="thead-inverse">
       <tr>
-        <th>ID</th>
         <th>Name</th>
         <th>Start Date</th>
         <th>Start Time</th>
@@ -21,11 +20,10 @@
       </thead>
       <tbody>
       <tr>
-        <td colspan="10"></td>
-        <td colspan ="10"><a routerLink="/events/add/{{pid}}" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
+        <td colspan="8"></td>
+        <td colspan ="9"><a routerLink="/events/add/{{pid}}" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
       </tr>
       <tr *ngFor="let event of events">
-        <td>{{ event.eid }}</td>
         <td>{{ event.name }}</td>
         <td>{{ event.sdate }}</td>
         <td>{{event.stime}}</td>
@@ -33,7 +31,7 @@
         <td>{{event.etime}}</td>
         <td>{{event.important|yesNoPipe}}</td>
         <td>{{event.complete|yesNoPipe}}</td>
-        <td colspan = "3" ><a routerLink="/events/{{ event.eid }}/{{pid}}" class="btn btn-secondary btn-sm"><i class="material-icons">edit</i></a></td>
+        <td colspan = "9" ><a routerLink="/events/{{ event.eid }}/{{pid}}" class="btn btn-secondary btn-sm"><i class="material-icons">edit</i></a></td>
       </tr>
       </tbody>
     </table>
@@ -55,7 +53,7 @@
       </thead>
       <tbody>
       <tr>
-        <td colspan="3">There are no events in the system for this user.</td>
+        <td colspan="8">There are no events in the system for this user.</td>
         <td><a routerLink="/events/add/{{pid}}" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
       </tr>
       </tbody>

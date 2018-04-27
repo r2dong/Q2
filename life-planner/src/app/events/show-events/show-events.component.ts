@@ -13,6 +13,8 @@ import {Location} from '@angular/common';
 export class ShowEventsComponent implements OnInit {
   @Input() events: EventModel[];
   @Input() pid: string;
+  selectedEvent: EventModel;
+  isCompleteIcon: string;
   constructor(    private eventService: EventService,
                   private projectService: ProjectService,
                   private router: Router,
@@ -26,6 +28,21 @@ export class ShowEventsComponent implements OnInit {
         this.events = events;
       });
       this.pid = undefined;
+    }
+  }
+  onToggleCompleteClick(event: EventModel) {
+    event.complete = !event.complete;
+    this.selectedEvent = event;
+    if (event.complete){
+      this.eventService.completeEvent(this.selectedEvent);
+      this.flashMessage.show('Event completed', {
+        cssClass: 'alert-success', timeout: 4000
+      });
+    } else {
+      this.eventService.openCompletedEvent(this.selectedEvent);
+      this.flashMessage.show('Event is Open', {
+        cssClass: 'alert-success', timeout: 4000
+      });
     }
   }
   onRemoveClick(event: EventModel) {

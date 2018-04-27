@@ -15,8 +15,8 @@ export const routes: Routes = [
 
   { path: 'edit/:eid', component: EditEventComponent, canActivate: [AuthGuard] },
   { path: 'add/:pid', component: AddEventComponent, canActivate: [AuthGuard] },
-  { path: ':eid/:pid', component: EventDetailComponent, canActivate: [AuthGuard] },
   {path: 'select/:pid', component: SelectEventComponent, canActivate: [AuthGuard]},
+  { path: ':eid/:pid', component: EventDetailComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
