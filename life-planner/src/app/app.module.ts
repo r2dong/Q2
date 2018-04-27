@@ -26,7 +26,7 @@ import {RolesModule} from './roles/roles.module';
 import { ScheduleComponent } from './schedule/schedule.component';
 
 //calendar
-import { FullCalendarModule } from 'ng-fullcalendar';
+//import { FullCalendarModule } from 'ng-fullcalendar';
 import { NgFullcalendarComponent } from './ng-fullcalendar/ng-fullcalendar.component'
 import { CalendarComponent } from 'ng-fullcalendar'
 import { GoalsComponent } from './goals/goals.component';
@@ -49,7 +49,7 @@ import { GoalDetailComponent } from './goals/goal-detail/goal-detail.component';
   ],
   imports: [
     BrowserModule,
-    FullCalendarModule,
+    //FullCalendarModule,
     HttpClientModule,
     AppRoutingModule,
     FlashMessagesModule.forRoot(),
