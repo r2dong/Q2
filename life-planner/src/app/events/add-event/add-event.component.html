@@ -41,7 +41,7 @@
               [(ngModel)] = "event.important"
               name ="important"
             />
-            <label class="form-control-label" for="important">Important</label>
+            <label class="form-control-label" for="important">Attending</label>
           </div>
 
         </div>
@@ -57,6 +57,7 @@
             [ngClass]="{'is-invalid':eventStartDate.errors && eventStartDate.touched}"
             [(ngModel)]="event.sdate"
             name="sdate"
+             min ="2018-04-26"
             required
             />
             <div *ngIf="eventStartDate.errors && (eventStartDate.dirty || eventStartDate.touched)">
@@ -95,6 +96,8 @@
             [ngClass]="{'is-invalid':eventEndDate.errors && eventEndDate.touched}"
             [(ngModel)]="event.edate"
             name="edate"
+            min ="2018-04-26"
+            required
           >
           <div *ngIf="eventEndDate.errors && (eventEndDate.dirty || eventEndDate.touched)">
             <div [hidden]="!eventEndDate.errors?.required" class="invalid-feedback red-text darken-4">
@@ -114,6 +117,7 @@
               [ngClass]="{'is-invalid':eventEndTime.errors && eventEndTime.touched}"
               [(ngModel)]="event.etime"
             name="etime"
+              required
           >
           <div *ngIf="eventEndTime.errors && (eventEndTime.dirty || eventEndTime.touched)">
             <div [hidden]="!eventEndTime.errors?.required" class="invalid-feedback red-text darken-4">

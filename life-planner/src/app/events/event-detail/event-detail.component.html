@@ -9,7 +9,7 @@
     <h3 class="card-title">{{ event.name }}</h3>
     <div class="card-body">
       <ul class="list-group">
-        <li class="list-group-item">Event:            {{ event.eid }}</li>
+        <!--<li class="list-group-item">Event:            {{ event.eid }}</li>-->
         <li class="list-group-item">Event Name:       {{ event.name }}</li>
         <li class="list-group-item">Event Start Date: {{ event.sdate }}</li>
         <li class="list-group-item">Event Start time: {{ event.stime }}</li>
@@ -21,7 +21,7 @@
       <hr>
       <ul class="list-group">
         <li class="list-group-item">IsComplete: {{event.complete|yesNoPipe}}</li>
-        <li class="list-group-item">IsImportant: {{event.important|yesNoPipe}} </li>
+        <li class="list-group-item">Attending: {{event.important|yesNoPipe}} </li>
       </ul>
     </div>
     <div class="card-action card-content grey lighten-4">
