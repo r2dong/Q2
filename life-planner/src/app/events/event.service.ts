@@ -77,6 +77,13 @@ export class EventService {
     console.log('ES: completing event for: ' + event.name);
     this.eventDoc.update(event);
   }
+  openCompletedEvent (event: EventModel) {
+    event.updatedAt = new Date();
+    this.eventDoc = this.eventsRef.doc(event.eid);
+    event.complete = false;
+    console.log('ES: un-completing event for: ' + event.name);
+    this.eventDoc.update(event);
+  }
   removeEventFromProject(event: EventModel) {
     console.log('ES: removeEventFromProject pid: ' + event.pid);
     console.log('ES: removeEventFromProject eid: ' + event.eid);

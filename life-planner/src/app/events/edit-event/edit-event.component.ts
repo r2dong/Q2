@@ -26,8 +26,8 @@ export class EditEventComponent implements OnInit {
     this.eventService.getEvent(this.eid).subscribe(event => {
       if (event != null) {
         console.log('event found for eid: ' + this.eid);
+        this.event = event;
       }
-      this.event = event;
     });
   }
   onSubmit({value, valid}: {value: EventModel, valid: boolean}) {
