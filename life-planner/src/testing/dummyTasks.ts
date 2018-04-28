@@ -198,3 +198,66 @@ export const noDueTaskList: TaskModel[] = [
         hours: 5
     }
 ]
+
+export const allSortsOfTasks: TaskModel[] = [
+    {
+        name: "rob a bank",
+        urgent: true,
+        important: true,
+        isComplete: false,
+        hours: 10
+    },
+    {
+        name: "pass this course",
+        urgent: true,
+        important: false,
+        isComplete: false,
+        hours: 6
+    },
+    {
+        name: "go to the gym",
+        urgent: false,
+        important: true,
+        isComplete: false,
+        hours: 5
+    },
+    {
+        name: "eat tacos",
+        urgent: false,
+        important: false,
+        isComplete: false,
+        hours: 1
+    },
+    {
+        name: "sleep for 3 days",
+        urgent: true,
+        important: true,
+        isComplete: false,
+        dueDateTime: new Date(2018, 10, 10, 10),
+        hours: 10
+    },
+    {
+        name: "buy Rahsin a cheese cake",
+        urgent: true,
+        important: false,
+        isComplete: false,
+        dueDateTime: new Date(2018, 10, 11, 16),
+        hours: 6
+    },
+    {
+        name: "bash head against computer",
+        urgent: false,
+        important: true,
+        isComplete: false,
+        dueDateTime: new Date(2018, 10, 12, 13),
+        hours: 5
+    },
+    {
+        name: "learn how to python",
+        urgent: false,
+        important: false,
+        isComplete: false,
+        dueDateTime: new Date(2018, 10, 13, 14),
+        hours: 1
+    },
+]

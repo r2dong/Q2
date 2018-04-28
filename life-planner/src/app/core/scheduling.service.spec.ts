@@ -61,10 +61,10 @@ let isValidSchedule = function (input: TaskModel[], output: TaskModel[]): boolea
   /* implement check of no overlapping, keep a list of all time slots, check new time
   slots with ones already in there, and the append the new one */
   if (input.length != output.length)
-    throw "length of input and output task lists do not match!"
+    throw "not all tasks scheduled, should have: " + input.length + ", but got " + output.length
   let errThresh = .01
   let allSlots: TimeSlot[] = []
-  input.forEach((task, tInd, tArr) => {
+  output.forEach((task, tInd, tArr) => {
     let sum = 0
     task.schedule.forEach((slot, sInd, sArr) => {
       if (slot.end <= slot.start)
@@ -131,21 +131,21 @@ describe('SchedulingService', () => {
   fit('original dummyTasks', inject([SchedulingService], (service: SchedulingService) => {
     spyOn(taskService, "getTasks").and.returnValue(Observable.of(taskLists.dummyTasks))
     service.createSchedule().subscribe((schedule) => {
-      expect(isValidSchedule(schedule, taskLists.dummyTasks)).toBeTruthy()
+      expect(isValidSchedule(taskLists.dummyTasks, schedule)).toBeTruthy()
     })
   }));
 
-  fit('empty task litst', inject([SchedulingService], (service: SchedulingService) => {
+  fit('empty task list', inject([SchedulingService], (service: SchedulingService) => {
     spyOn(taskService, "getTasks").and.returnValue(Observable.of(taskLists.emptyTaskList))
     service.createSchedule().subscribe((schedule) => {
-      expect(isValidSchedule(schedule, taskLists.emptyTaskList)).toBeTruthy()
+      expect(isValidSchedule(taskLists.emptyTaskList, schedule)).toBeTruthy()
     })
   }));
 
   fit('all tasks have no due date', inject([SchedulingService], (service: SchedulingService) => {
     spyOn(taskService, "getTasks").and.returnValue(Observable.of(taskLists.noDueTaskList))
     service.createSchedule().subscribe((schedule) => {
-      expect(isValidSchedule(schedule, taskLists.noDueTaskList)).toBeTruthy()
+      expect(isValidSchedule(taskLists.noDueTaskList, schedule)).toBeTruthy()
     })
   }));
 });

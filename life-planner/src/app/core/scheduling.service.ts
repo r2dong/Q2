@@ -3,6 +3,7 @@ import { Observable } from 'rxjs'
 import { TaskService } from '../tasks/task.service'
 import { TaskModel, TimeSlot } from '../tasks/task.model'
 import * as stubTaskLists from '../../testing/dummyTasks'
+import { Timespan } from 'fullcalendar';
 
 /*
 Stuff to add
@@ -98,7 +99,9 @@ export class SchedulingService {
     allScheduledSlots.forEach((slot: TimeSlot) => {
       endTime = slot.start
       if (!(startTime === undefined) && 
-          !(startTime.valueOf() == endTime.valueOf())) { /* skip 0 lenght slots */
+          !(startTime.valueOf() == endTime.valueOf()) && /* skip 0 lenght slots */
+          !(startTime.getHours() == 17 && endTime.getHours() == 9)
+         ) {
         timeSlots.push({
           start: startTime,
           end: endTime
@@ -106,14 +109,27 @@ export class SchedulingService {
       }
       startTime = slot.end
     })
-    timeSlots = this.findValidSlots(timeSlots)
-    
-    console.log("valid time slots:")
-    timeSlots.forEach((s: TimeSlot) => {
-      console.log("start: " + s.start.toLocaleString())
-      console.log("end: " + s.end.toLocaleString() + "\n")
+    console.log('all scheudled slots')
+    allScheduledSlots.forEach((s: TimeSlot) => {
+      console.log(s.start.toLocaleString())
+      console.log(s.end.toLocaleString())
+      console.log("\n")
     })
 
+    console.log("all raw slots")
+    timeSlots.forEach((s: TimeSlot) => {
+      console.log(s.start.toLocaleString())
+      console.log(s.end.toLocaleString())
+      console.log("\n")
+    })
+    timeSlots = this.findValidSlots(timeSlots)
+    console.log("all valid slots")
+    timeSlots.forEach((s: TimeSlot) => {
+      console.log(s.start.toLocaleString())
+      console.log(s.end.toLocaleString())
+      console.log("\n")
+    })
+    
     // sort tasks to interleave with duration
     tasks.sort((t1, t2) => {
       let hours1: number = t1.hours === undefined ? defaulthours : t1.hours
@@ -137,28 +153,41 @@ export class SchedulingService {
     let taskIterator: Iterator<TaskModel> = tasks[Symbol.iterator]()
 
     while (true) {
-      console.log('interleaving')
+      //console.log("roudn to interleave")
       // retrieve next time slot if current one is completely filled
       while (start == end) { //skip length-0 slots
-        if (start != undefined && end != undefined)
-          console.log("skipping 0 length slot, start: " + start.toLocaleString() + ", end: " + end.toLocaleString())
+        //console.log('skipping 0 - length slot')
         preEnd = end
         curSlot = slotIterator.next()
         if (curSlot.done) {
-          /* edge case of nothing scheduled earlier, preEnd = undefined
-          use time left for current day
-          */
           if (preEnd == undefined)
-            start = this.roundUpToStartOfDay(new Date())
+            /* edge case of nothing scheduled earlier, preEnd = undefined
+            use time left for current day
+            */
+            if (schedule.length == 0)
+              start = this.roundUpToStartOfDay(new Date())
+            /* edge case of stuff scheduled with no time slots in between */
+            else {
+              start = this.roundUpToStartOfDay(allScheduledSlots[allScheduledSlots.length - 1].end)
+            }
           else {
-            start = this.addDay(preEnd)
-            console.log("adding day to preEnd: " + preEnd.toLocaleString())
-            console.log("addition result = " + start.toLocaleString())
-            start.setHours(9)
-            console.log("after setting hours, start = " + start.toLocaleString())
+            /* BUG HERE, IF LAST SLOT IN BETWEEN BUNCH OF TASKS, ALL LATER TASKS WILL BE
+            SCHEDULED OVERLAPPING, SHOULD USE LAST SCHEDULED SLOT INSTEAD */
+            /* BUG 2, newly scheduled slots may end later than the last slot */
+            console.log("out of valid slots!")
+            let start1: Date = new Date(1000, 10)
+            if (allScheduledSlots.length - 1 > 0) 
+              start1 = this.roundUpToStartOfDay(allScheduledSlots[allScheduledSlots.length - 1].end)
+            let start2: Date = this.roundUpToStartOfDay(preEnd) /* probably do not need this line, as preEnd is always inside one of valid slots, which is before endTime of last already scheduled task */
+            console.log("choosing between: " + start1.toLocaleString() + " and " + start2.toLocaleString())
+            start = start1 > start2 ? start1 : start2
+            console.log(start.toLocaleString() + " chosen")
+            //start.setHours(9)
           }
           end = this.copyDate(start)
           end.setHours(17)
+          end.setMinutes(0)
+          end = this.trimDate(end)
         }
         else {
           start = curSlot.value.start
@@ -166,11 +195,27 @@ export class SchedulingService {
         }
       }
 
+      if (curSlot.value != undefined) {
+        console.log("current slot start: " + curSlot.value.start.toLocaleString())
+        console.log("current slot end: " + curSlot.value.end.toLocaleString())
+      }
+
+      console.log("start: " + start.toLocaleString())
+      console.log("end: " + end.toLocaleString())
+
       // if finished with interleaving previous task, continue to next one
       if (timeRemain == 0) {
         curTask = taskIterator.next()
-        if (curTask.done)
+        console.log("finished iterleaving previous task")
+        if (curTask.value != undefined) {
+          console.log("moving on to: " + curTask.value.name)
+          console.log("with duration: " + curTask.value.hours)
+          console.log("with dueDate: " + curTask.value.dueDateTime)
+        }
+        if (curTask.done) {
+          console.log("finished iterleaving all tasks, breaking")
           break
+        }
         if (curTask.value.schedule === undefined)
           curTask.value.schedule = []
         timeRemain = curTask.value.hours === undefined ? defaulthours : curTask.value.hours
@@ -180,20 +225,31 @@ export class SchedulingService {
       // interleave tasks
       // current slot not/just enough for the task
       if (timeRemain >= end.valueOf() - start.valueOf()) {
+        console.log("current slot not/just enough")
+        console.log("add slot start: " + start.toLocaleString())
+        console.log("add slot end: " + end.toLocaleString())
         curTask.value.schedule.push({
           start: start,
           end: end
         })
         timeRemain -= end.valueOf() - start.valueOf()
         start = end
+        console.log("updating timeRemain to: " + timeRemain)
+        console.log("updating start to: " + start.toLocaleString())
+        console.log("\n")
       }
       // current task not enough for the slot
       else if (timeRemain < end.valueOf() - start.valueOf()) {
+        console.log("current task shorter than slot")
         curTask.value.schedule.push({
           start: start,
           end: new Date(start.valueOf() + timeRemain)
         })
+        console.log("add slot start: " + start.toLocaleString())
+        console.log("add slot end: " + new Date(start.valueOf() + timeRemain).toLocaleString())
         start = new Date(start.valueOf() + timeRemain)
+        console.log("updating start to: " + start.toLocaleString())
+        console.log("\n")
         timeRemain = 0
       }
     }
@@ -226,7 +282,10 @@ export class SchedulingService {
     /* find all valid slots */
     /* the for loops can be optimized, does not have to start form beginning every time */
     while (curEnd < lastEnd) {
-      console.log("find valid slot")
+
+      //console.log("last end: " + lastEnd.toLocaleString())
+      //console.log("current end: " + curEnd.toLocaleString())
+
       flag1 = false
       flag2 = false
       for (let i = 0; i < raw.length; i++) {
@@ -239,6 +298,9 @@ export class SchedulingService {
           ind2 = i
         }
       }
+
+      //console.log("flag1: " + flag1)
+      //console.log("flag2: " + flag2)
 
       let nextSlot: TimeSlot = {
         start: curStart,
@@ -255,8 +317,13 @@ export class SchedulingService {
       }
       /* start time of one of the raw slots contained in current valid slot */
       else if (flag2) {
+        //console.log("start of raw slot in current valid slot")
         nextSlot.start = raw[ind2].start
+        //console.log("start of next slot set to: " + nextSlot.start.toLocaleString())
         nextSlot.end = curEnd < raw[ind2].end ? curEnd : raw[ind2].end
+        //console.log("current end is: " + curEnd.toLocaleString())
+        //console.log("raw slot end is: " + raw[ind2].end.toLocaleString())
+        //console.log("end of next time slot set to: " + nextSlot.end.toLocaleString())
         /* avoid 0 - length slots */
         if (nextSlot.start.valueOf() != nextSlot.end.valueOf())
           out.push(nextSlot)
@@ -270,6 +337,9 @@ export class SchedulingService {
         curStart = this.addDay(curStart)
         curStart.setHours(9)
         curEnd = this.addDay(curEnd)
+        //console.log("reached end of day")
+        //console.log("start of day incremented to " + curStart.toLocaleString())
+        //console.log("end of day updated to: " + curEnd.toLocaleString())
       }
     }
     return out
@@ -315,7 +385,7 @@ export class SchedulingService {
 
     let flag: boolean = true
     while (flag) {
-     
+      console.log('push right')
       // if finished scheduling current task, continue to next one
       if (timeRemain == 0) {
         task = taskIterator.next()
@@ -337,7 +407,6 @@ export class SchedulingService {
 
       // if current day fully filled, continue to previous day
       if (basis == curDayStart) {
-        //console.log("current day filled")
         curDayEnd = this.subtractDay(curDayEnd)
         curDayStart = this.subtractDay(curDayStart)
         basis = curDayEnd
@@ -397,14 +466,13 @@ export class SchedulingService {
   private roundUpToStartOfDay(date: Date): Date {
     let newDate: Date = this.copyDate(date)
     if (date.getHours() > 9)
-      if (date.getHours() < 16 ||
+      /*if (date.getHours() < 16 ||
           date.getHours() == 17 &&
-            (
-              date.getMinutes() == 0 ||
-              date.getSeconds() == 0 ||
-              date.getMilliseconds() == 0
-            )
-         ) 
+          date.getMinutes() == 0 &&
+          date.getSeconds() == 0 &&
+          date.getMilliseconds() == 0
+         )*/
+      if (date.getHours() < 17) 
         return newDate
     newDate = this.addDay(newDate)
     newDate = this.trimDate(newDate)
@@ -478,11 +546,11 @@ export class SchedulingService {
     // divide tasks into according quadrants
     let quadrants: Map<number, TaskModel[]>
     
-    //this.taskService.getTasks().subscribe(tasks => {
-    //  quadrants = this.filter(tasks)
-    //})
+    this.taskService.getTasks().subscribe(tasks => {
+      quadrants = this.filter(tasks)
+    })
     
-    quadrants = this.filter(stubTaskLists.dummyTasks)
+    //quadrants = this.filter(stubTaskLists.noDueTaskList)
     let q1: TaskModel[] = quadrants.get(1)
     let q2: TaskModel[] = quadrants.get(2)
     let q3: TaskModel[] = quadrants.get(3)
@@ -513,16 +581,24 @@ export class SchedulingService {
     noDues = urgentTasks.splice(urgentTasks.length - noDueNum, noDueNum)
 
     // make space for interleaving
-    console.log("\npushing right\n")
     let pushRightSchedule: TaskModel[] = this.pushRight(urgentTasks)
     // urgent tasks with no due date interleaveb first
-    console.log("\nadding no dues\n")
+    console.log("before adding urgent important without due")
     let urgentInt: TaskModel[] = this.interleave(pushRightSchedule, noDues)
-    console.log("\nadding q2\n")
-    let addq2: TaskModel[] = this.interleave(urgentInt, q2)
-    console.log("\nadding q4\n")
+
+    console.log("before adding q2")
+    let addq2: TaskModel[] = this.interleave(urgentInt, q2) /* had duplicate time slots in here */
+    console.log("finished adding q2")
+    console.log("scheduled slots in q2. total: " + addq2.length)
+    addq2.forEach((t: TaskModel) => {
+      t.schedule.forEach((s: TimeSlot) => {
+        console.log(s.start.toLocaleString())
+        console.log(s.end.toLocaleString())
+        console.log("\n")
+      })
+    })
     let addq4: TaskModel[] = this.interleave(addq2, q4)
+    console.log("finished adding q4")
     return Observable.of(addq4)
-  }
-  
+  } 
 }
