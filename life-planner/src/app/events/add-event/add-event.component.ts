@@ -39,10 +39,10 @@ export class AddEventComponent implements OnInit {
         cssClass: 'alert-danger', timeout: 4000
       });
     } else {
-      // Add new client
+      // Add new event
       this.eventService.addEvent(value, this.pid);
       // Show message
-      this.flashMessage.show('New client added', {
+      this.flashMessage.show('New event added', {
         cssClass: 'alert-success', timeout: 4000
       });
       // Redirect to previous page
