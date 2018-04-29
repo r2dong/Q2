@@ -1,13 +1,14 @@
 <!-- Event List -->
-
 <div class= "row" >
   <div class = "col s12">
-    <h4  class="col s12 center-align">Events</h4>
+    <h5  class="col s12 center-align">Available Events To Add</h5>
     <hr>
+    <a (click)="goBack()" class ="btn btn-link"><i class ="fa fa-arrow-circle-o-left"></i>Back</a>
     <br>
     <table *ngIf="events?.length > 0; else noEvents" class="bordered striped">
       <thead class="thead-inverse">
       <tr>
+        <!-- <th>ID</th>-->
         <th>Name</th>
         <th>Start Date</th>
         <th>Start Time</th>
@@ -20,10 +21,11 @@
       </thead>
       <tbody>
       <tr>
-        <td colspan="8"></td>
-        <td colspan ="9"><a routerLink="/events/add/{{pid}}" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
+        <td colspan="6"></td>
+        <td><a routerLink="/events/add/{{pid}}" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
       </tr>
       <tr *ngFor="let event of events">
+        <!--<td>{{ event.eid }}</td>-->
         <td>{{ event.name }}</td>
         <td>{{ event.sdate }}</td>
         <td>{{event.stime}}</td>
@@ -31,29 +33,16 @@
         <td>{{event.etime}}</td>
         <td>{{event.important|yesNoPipe}}</td>
         <td>{{event.complete|yesNoPipe}}</td>
-        <td colspan = "9" ><a routerLink="/events/{{ event.eid }}/{{pid}}" class="btn btn-secondary btn-sm"><i class="material-icons">edit</i></a></td>
+        <td><button (click) ="onAddClick(event)" class ="btn btn-danger"><i class="material-icons">add_box</i></button></td>
       </tr>
       </tbody>
     </table>
   </div>
   <ng-template #noEvents>
     <table class="bordered striped">
-      <thead class="thead-inverse">
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Start Date</th>
-        <th>Start Time</th>
-        <th>End Date</th>
-        <th>End Time</th>
-        <th>Attending</th>
-        <th>Is Complete?</th>
-        <th></th>
-      </tr>
-      </thead>
       <tbody>
       <tr>
-        <td colspan="8">There are no events in the system for this user.</td>
+        <td colspan="6">There are no events in the system for this user.</td>
         <td><a routerLink="/events/add/{{pid}}" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
       </tr>
       </tbody>

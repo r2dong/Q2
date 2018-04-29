@@ -42,7 +42,7 @@ export class ProjectDetailComponent implements OnInit {
         this.project = project;
 
         console.log('PDC: ngOnInit: looking for tasks for pid: ' + this.project.pid);
-        console.log('PDC: ngOnInit: tids count??: ' + project.tids.length);
+       // console.log('PDC: ngOnInit: tids count??: ' + project.tids.toString());
         this.ts.findTasks(project.tids).subscribe(tasks => {
           console.log('PDC: ngOnInit: found ' + tasks.length.toString() + ' tasks for pid: ' + this.project.pid);
           this.projectTasks = tasks;
