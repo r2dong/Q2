@@ -4,7 +4,8 @@ import { TaskService } from '../tasks/task.service'
 import { TaskModel, TimeSlot } from '../tasks/task.model'
 import * as stubTaskLists from '../../testing/dummyTasks'
 import { Timespan } from 'fullcalendar';
-
+import { pipe } from 'rxjs/util/pipe';
+import { map } from 'rxjs/operators/map';
 /*
 Stuff to add
 1. (done) restrict shcedule to daytime (9am - 5pm)
@@ -79,7 +80,7 @@ export class SchedulingService {
   - shcedule - should contain only scheduled tasks
   - tasks - tasks to be stuffed into the schedule
   */
-  private interleave(schedule: TaskModel[], tasks: TaskModel[]): TaskModel[] {
+  private static interleave(schedule: TaskModel[], tasks: TaskModel[]): TaskModel[] {
     
     /* get occupied time slot from given schedule */
     let allScheduledSlots: TimeSlot[] = []
@@ -122,7 +123,7 @@ export class SchedulingService {
       console.log(s.end.toLocaleString())
       console.log("\n")
     })
-    timeSlots = this.findValidSlots(timeSlots)
+    timeSlots = SchedulingService.findValidSlots(timeSlots)
     console.log("all valid slots")
     timeSlots.forEach((s: TimeSlot) => {
       console.log(s.start.toLocaleString())
@@ -165,10 +166,10 @@ export class SchedulingService {
             use time left for current day
             */
             if (schedule.length == 0)
-              start = this.roundUpToStartOfDay(new Date())
+              start = SchedulingService.roundUpToStartOfDay(new Date())
             /* edge case of stuff scheduled with no time slots in between */
             else {
-              start = this.roundUpToStartOfDay(allScheduledSlots[allScheduledSlots.length - 1].end)
+              start = SchedulingService.roundUpToStartOfDay(allScheduledSlots[allScheduledSlots.length - 1].end)
             }
           else {
             /* BUG HERE, IF LAST SLOT IN BETWEEN BUNCH OF TASKS, ALL LATER TASKS WILL BE
@@ -177,17 +178,17 @@ export class SchedulingService {
             console.log("out of valid slots!")
             let start1: Date = new Date(1000, 10)
             if (allScheduledSlots.length - 1 > 0) 
-              start1 = this.roundUpToStartOfDay(allScheduledSlots[allScheduledSlots.length - 1].end)
-            let start2: Date = this.roundUpToStartOfDay(preEnd) /* probably do not need this line, as preEnd is always inside one of valid slots, which is before endTime of last already scheduled task */
+              start1 = SchedulingService.roundUpToStartOfDay(allScheduledSlots[allScheduledSlots.length - 1].end)
+            let start2: Date = SchedulingService.roundUpToStartOfDay(preEnd) /* probably do not need this line, as preEnd is always inside one of valid slots, which is before endTime of last already scheduled task */
             console.log("choosing between: " + start1.toLocaleString() + " and " + start2.toLocaleString())
             start = start1 > start2 ? start1 : start2
             console.log(start.toLocaleString() + " chosen")
             //start.setHours(9)
           }
-          end = this.copyDate(start)
+          end = SchedulingService.copyDate(start)
           end.setHours(17)
           end.setMinutes(0)
-          end = this.trimDate(end)
+          end = SchedulingService.trimDate(end)
         }
         else {
           start = curSlot.value.start
@@ -258,7 +259,7 @@ export class SchedulingService {
   }
 
   /* return a list of valid time slots (9am - 5pm) */
-  private findValidSlots(raw: TimeSlot[]): TimeSlot[] {
+  private static findValidSlots(raw: TimeSlot[]): TimeSlot[] {
 
     /* edge case of raw length = 0 (i.e, nothing scheduled yet) */
     if (raw.length == 0)
@@ -269,10 +270,10 @@ export class SchedulingService {
       return s1.start.valueOf() - s2.start.valueOf()
     })
     /* TODO, optimize with a method that subtracts various amounts of days */
-    let curStart: Date = this.roundToStartOfDay(this.subtractDay(this.subtractDay(raw[0].start)))
-    let curEnd: Date = this.copyDate(curStart)
+    let curStart: Date = SchedulingService.roundToStartOfDay(SchedulingService.subtractDay(SchedulingService.subtractDay(raw[0].start)))
+    let curEnd: Date = SchedulingService.copyDate(curStart)
     curEnd.setHours(17)
-    const lastEnd: Date = this.addDay(raw[raw.length - 1].end)
+    const lastEnd: Date = SchedulingService.addDay(raw[raw.length - 1].end)
     let flag1: boolean
     let ind1: number
     let flag2: boolean
@@ -334,9 +335,9 @@ export class SchedulingService {
       }
       curStart = nextSlot.end
       if (curStart.valueOf() == curEnd.valueOf()) {
-        curStart = this.addDay(curStart)
+        curStart = SchedulingService.addDay(curStart)
         curStart.setHours(9)
-        curEnd = this.addDay(curEnd)
+        curEnd = SchedulingService.addDay(curEnd)
         //console.log("reached end of day")
         //console.log("start of day incremented to " + curStart.toLocaleString())
         //console.log("end of day updated to: " + curEnd.toLocaleString())
@@ -353,7 +354,7 @@ export class SchedulingService {
   current task, due of previous task) as basis of pushing previous task to
   right.
   */
-  private pushRight(tasks: TaskModel[]): TaskModel[] {
+  private static pushRight(tasks: TaskModel[]): TaskModel[] {
 
     // edge case of empty task list
     if (tasks.length == 0)
@@ -369,9 +370,9 @@ export class SchedulingService {
     let task: IteratorResult<TaskModel>
 
     // intialization
-    basis = this.roundToEndOfDay(tasks[tasks.length - 1].dueDateTime )
+    basis = SchedulingService.roundToEndOfDay(tasks[tasks.length - 1].dueDateTime )
     curDayEnd = basis // probably can refactor into one variable
-    curDayStart = this.copyDate(basis)
+    curDayStart = SchedulingService.copyDate(basis)
     curDayStart.setHours(9)
     timeRemain = 0
 
@@ -397,7 +398,7 @@ export class SchedulingService {
             task.value.schedule = []
           // update basis
           basis = task.value.dueDateTime < basis ? task.value.dueDateTime  : basis
-          basis = this.roundToEndOfDay(basis)
+          basis = SchedulingService.roundToEndOfDay(basis)
           curDayStart.setDate(basis.getDate())
           curDayEnd.setDate(basis.getDate())
           timeRemain = task.value.hours === undefined ? defaulthours : task.value.hours
@@ -407,8 +408,8 @@ export class SchedulingService {
 
       // if current day fully filled, continue to previous day
       if (basis == curDayStart) {
-        curDayEnd = this.subtractDay(curDayEnd)
-        curDayStart = this.subtractDay(curDayStart)
+        curDayEnd = SchedulingService.subtractDay(curDayEnd)
+        curDayStart = SchedulingService.subtractDay(curDayStart)
         basis = curDayEnd
       }
 
@@ -438,8 +439,8 @@ export class SchedulingService {
 
   /* round a due to the neareast end of day, if it dues at night.
   we don't want to modify the orignal due */
-  private roundToEndOfDay(dueDate: Date): Date {
-    let newDue: Date = this.copyDate(dueDate)
+  private static roundToEndOfDay(dueDate: Date): Date {
+    let newDue: Date = SchedulingService.copyDate(dueDate)
     if (dueDate.getHours() > 17 ||
       dueDate.getHours() == 17 && dueDate.getMinutes() > 0) {
       newDue.setHours(17)
@@ -447,24 +448,24 @@ export class SchedulingService {
     }
     else if (dueDate.getHours() <= 9) {
       newDue = new Date(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate(), 17)
-      newDue = this.subtractDay(newDue)
+      newDue = SchedulingService.subtractDay(newDue)
     }
     return newDue
   }
   
   /* round DOWN to the nearest start of day */
-  private roundToStartOfDay(startDay: Date): Date {
-    let newStart: Date = this.copyDate(startDay)
+  private static roundToStartOfDay(startDay: Date): Date {
+    let newStart: Date = SchedulingService.copyDate(startDay)
     if (startDay.getHours() < 9)
-      newStart = this.subtractDay(newStart)
+      newStart = SchedulingService.subtractDay(newStart)
     newStart.setHours(9)
     newStart.setMinutes(0)
     return newStart
   }
 
   /* round UP to a nearest valid time point for scheduling */
-  private roundUpToStartOfDay(date: Date): Date {
-    let newDate: Date = this.copyDate(date)
+  private static roundUpToStartOfDay(date: Date): Date {
+    let newDate: Date = SchedulingService.copyDate(date)
     if (date.getHours() > 9)
       /*if (date.getHours() < 16 ||
           date.getHours() == 17 &&
@@ -474,35 +475,35 @@ export class SchedulingService {
          )*/
       if (date.getHours() < 17) 
         return newDate
-    newDate = this.addDay(newDate)
-    newDate = this.trimDate(newDate)
+    newDate = SchedulingService.addDay(newDate)
+    newDate = SchedulingService.trimDate(newDate)
     newDate.setHours(9)
     newDate.setMinutes(0)
     return newDate
   }
 
   /* remove the second and milli-second part of a date */
-  private trimDate(date: Date): Date {
-    let newDate: Date = this.copyDate(date)
+  private static trimDate(date: Date): Date {
+    let newDate: Date = SchedulingService.copyDate(date)
     newDate.setSeconds(0)
     newDate.setMilliseconds(0)
     return newDate
   }
 
-  private copyDate(date: Date): Date {
+  private static copyDate(date: Date): Date {
     return new Date(date.valueOf())
   }
 
-  private subtractDay(date: Date): Date {
+  private static subtractDay(date: Date): Date {
     return new Date(date.valueOf() - dayVal)
   }
 
-  private addDay(date: Date) {
+  private static addDay(date: Date) {
     return new Date(date.valueOf() + dayVal)
   }
 
   /* month is 0 based */
-  private getNumDaysInMonth(year: number, month: number): number {
+  private static getNumDaysInMonth(year: number, month: number): number {
     if (month != 1)
       return dayInMonth.get(month)
     else
@@ -513,7 +514,7 @@ export class SchedulingService {
   }
 
   /* filter tasks into the four quadrants */
-  private filter(tasks: TaskModel[]): Map<number, TaskModel[]> {
+  private static filter(tasks: TaskModel[]): Map<number, TaskModel[]> {
     let q1: TaskModel[] = []
     let q2: TaskModel[] = []
     let q3: TaskModel[] = []
@@ -541,16 +542,16 @@ export class SchedulingService {
     return quadrants
   }
 
-  createSchedule(): Observable<TaskModel[]> {
+  static createScheduleHelper(tasks: TaskModel[]): TaskModel[] {
 
     // divide tasks into according quadrants
-    let quadrants: Map<number, TaskModel[]>
+    let quadrants: Map<number, TaskModel[]> = SchedulingService.filter(tasks)
     
-    this.taskService.getTasks().subscribe(tasks => {
-      quadrants = this.filter(tasks)
-    })
+    //SchedulingService.taskService.getTasks().subscribe(tasks => {
+    //  quadrants = SchedulingService.filter(tasks)
+    //})
     
-    //quadrants = this.filter(stubTaskLists.noDueTaskList)
+    // quadrants = SchedulingService.filter(stubTaskLists.dummyTasks)
     let q1: TaskModel[] = quadrants.get(1)
     let q2: TaskModel[] = quadrants.get(2)
     let q3: TaskModel[] = quadrants.get(3)
@@ -581,13 +582,13 @@ export class SchedulingService {
     noDues = urgentTasks.splice(urgentTasks.length - noDueNum, noDueNum)
 
     // make space for interleaving
-    let pushRightSchedule: TaskModel[] = this.pushRight(urgentTasks)
+    let pushRightSchedule: TaskModel[] = SchedulingService.pushRight(urgentTasks)
     // urgent tasks with no due date interleaveb first
     console.log("before adding urgent important without due")
-    let urgentInt: TaskModel[] = this.interleave(pushRightSchedule, noDues)
+    let urgentInt: TaskModel[] = SchedulingService.interleave(pushRightSchedule, noDues)
 
     console.log("before adding q2")
-    let addq2: TaskModel[] = this.interleave(urgentInt, q2) /* had duplicate time slots in here */
+    let addq2: TaskModel[] = SchedulingService.interleave(urgentInt, q2) /* had duplicate time slots in here */
     console.log("finished adding q2")
     console.log("scheduled slots in q2. total: " + addq2.length)
     addq2.forEach((t: TaskModel) => {
@@ -597,8 +598,12 @@ export class SchedulingService {
         console.log("\n")
       })
     })
-    let addq4: TaskModel[] = this.interleave(addq2, q4)
+    let addq4: TaskModel[] = SchedulingService.interleave(addq2, q4)
     console.log("finished adding q4")
-    return Observable.of(addq4)
-  } 
+    return addq4
+  }
+
+  createSchedule(): Observable<TaskModel[]> {
+    return this.taskService.getTasks().pipe(map(SchedulingService.createScheduleHelper))
+  }
 }
