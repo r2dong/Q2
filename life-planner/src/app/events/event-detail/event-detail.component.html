@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" xmlns:clear="http://www.w3.org/1999/xhtml">
   <div class="col-md-6">
     <h4 class="col s12 center-align">Event Detail</h4>
     <a (click)="goBack()" class="btn btn-link">
@@ -9,7 +9,7 @@
     <h3 class="card-title">{{ event.name }}</h3>
     <div class="card-body">
       <ul class="list-group">
-        <li class="list-group-item">Event:            {{ event.eid }}</li>
+        <!--<li class="list-group-item">Event:            {{ event.eid }}</li>-->
         <li class="list-group-item">Event Name:       {{ event.name }}</li>
         <li class="list-group-item">Event Start Date: {{ event.sdate }}</li>
         <li class="list-group-item">Event Start time: {{ event.stime }}</li>
@@ -21,12 +21,13 @@
       <hr>
       <ul class="list-group">
         <li class="list-group-item">IsComplete: {{event.complete|yesNoPipe}}</li>
-        <li class="list-group-item">IsImportant: {{event.important|yesNoPipe}} </li>
+        <li class="list-group-item">Attending: {{event.important|yesNoPipe}} </li>
       </ul>
     </div>
     <div class="card-action card-content grey lighten-4">
       <a routerLink="/events/edit/{{event.eid}}" class="btn btn-dark">Edit</a>
-      <button (click)="onDeleteClick()" class="btn btn-danger">Delete</button>
+      <button name="btn-complete" (click) = "onCompleteClick($event)" class ="btn btn-dark {{btnCompleteStyle}}">{{btnCompleteText}}</button>
+      <button (click)="onDeleteClick()" class="btn btn-danger" style="clear:both; float: right;">Delete</button>
     </div>
   </div>
 </div>

@@ -30,7 +30,7 @@ export class TaskService {
     // this.db.collection('finishedExercises').add(task);
     task.createdAt = new Date();
     if (pid !== undefined) {
-      task.pid = pid;
+      task.pid = '';
     }
     this.tasksRef.add(task)
       .catch(function () {

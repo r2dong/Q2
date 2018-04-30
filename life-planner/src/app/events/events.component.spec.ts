@@ -44,18 +44,23 @@ describe('EventsComponent', () => {
   let spyService: jasmine.Spy;
   beforeEach((() => {
     TestBed.configureTestingModule({
-      declarations: [ //EventsComponent,
+      declarations: [
       AppComponent,
       WelcomeComponent,
       HomeComponent,
       LoginComponent,
       NotFoundComponent,
+<<<<<<< HEAD
       NavbarComponent,
       ScheduleComponent,
       NgFullcalendarComponent,
       CalendarComponent
     ],
       imports:[
+=======
+      NavbarComponent],
+      imports: [
+>>>>>>> master
         AppRoutingModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireStorageModule,
@@ -65,8 +70,8 @@ describe('EventsComponent', () => {
         EventsModule,
         CoreModule
       ],
-      providers:[
-        {provide: APP_BASE_HREF, useValue:'/events'},
+      providers: [
+        {provide: APP_BASE_HREF, useValue: '/events'},
         EventService,
         ProjectService,
       ]
