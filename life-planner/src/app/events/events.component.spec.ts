@@ -50,17 +50,12 @@ describe('EventsComponent', () => {
       HomeComponent,
       LoginComponent,
       NotFoundComponent,
-<<<<<<< HEAD
       NavbarComponent,
       ScheduleComponent,
       NgFullcalendarComponent,
       CalendarComponent
     ],
       imports:[
-=======
-      NavbarComponent],
-      imports: [
->>>>>>> master
         AppRoutingModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireStorageModule,
