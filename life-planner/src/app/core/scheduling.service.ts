@@ -370,7 +370,7 @@ export class SchedulingService {
     let task: IteratorResult<TaskModel>
 
     // intialization
-    basis = SchedulingService.roundToEndOfDay(tasks[tasks.length - 1].dueDateTime )
+    basis = SchedulingService.roundToEndOfDay(tasks[tasks.length - 1].dueDateTime)
     curDayEnd = basis // probably can refactor into one variable
     curDayStart = SchedulingService.copyDate(basis)
     curDayStart.setHours(9)
@@ -544,6 +544,16 @@ export class SchedulingService {
 
   static createScheduleHelper(tasks: TaskModel[]): TaskModel[] {
 
+    console.log("creating schedule from the following tasks")
+
+    // temporary fix (convert null to undefined since shceudling algortihm
+    // checks only for undefined)
+    tasks.forEach((t: TaskModel) => {
+      console.log(t.name)
+      if (t.dueDateTime == null)
+        t.dueDateTime = undefined
+      console.log("with due date " + t.dueDateTime)
+    })
     // divide tasks into according quadrants
     let quadrants: Map<number, TaskModel[]> = SchedulingService.filter(tasks)
     

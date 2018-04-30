@@ -4,6 +4,7 @@ import {AuthService} from '../core/auth.service';
 import {Observable} from 'rxjs/Observable';
 import {TaskModel} from './task.model';
 import {ProjectService} from '../projects/project.service';
+import * as taskStub from '../../testing/dummyTasks'
 
 
 @Injectable()
@@ -64,6 +65,7 @@ export class TaskService {
   }
 
   getTasks(): Observable<TaskModel[]> {
+    
     this.tasks = this.tasksRef.snapshotChanges().map(changes => {
       return changes.map(action => {
         const data = action.payload.doc.data() as TaskModel;
@@ -73,6 +75,8 @@ export class TaskService {
     });
 
     return this.tasks;
+    
+    // return Observable.of(taskStub.dummyTasks)
   }
 
   updateTask(task: TaskModel) {
