@@ -10,23 +10,21 @@ interface Item {
   end: String
 }
 
-// internal value of time
-const hourVal: number =
-  new Date(2018, 3, 8, 10).valueOf() -
-  new Date(2018, 3, 8, 9).valueOf()
-const minuteVal: number =
-  new Date(2018, 3, 8, 10, 2).valueOf() -
-  new Date(2018, 3, 8, 10, 1).valueOf()
-// ten minutes (1 / 6 of an hour)
-const defaultWeight: number = 1 / 6
+interface CalendarSlot {
+  title: String
+  start: String
+  end: String
+}
 
 @Component({
   selector: 'app-ng-fullcalendar',
   templateUrl: './ng-fullcalendar.component.html',
 })
+
 export class NgFullcalendarComponent implements OnInit {
 
-  items: TaskModel[]
+  schedule: TaskModel[]
+  calendarSlots: CalendarSlot[]
   calendarOptions: Options
   @ViewChild(CalendarComponent) ucCalendar: CalendarComponent
 
@@ -36,66 +34,51 @@ export class NgFullcalendarComponent implements OnInit {
   constructor(private scheduling: SchedulingService) { }
 
   ngOnInit() {
+    this.calendarSlots = []
     this.calendarOptions = {
-      editable: true,
+      editable: false,
       eventLimit: false,
+      lazyFetching: false,
       header: {
-        left: 'prev,next today',
+        left: 'prev next today',
         center: 'title',
-        right: 'month,agendaWeek,agendaDay,listMonth'
+        right: 'month, agendaWeek, agendaDay, listMonth'
       },
-      events: undefined
+      eventSources: [
+        {
+          events: this.calendarSlots,
+          id: 1
+        }
+      ]
     };
   }
 
-  /**
-   * testing interacting with calendar interface, can remove any time
-   */
-  test() {
-    let el = {
-      title: 'New event',
-      start: '2018-04-16',
-      end: '2018-04-18',
-    }
-    this.ucCalendar.fullCalendar('renderEvent', el);
-    this.ucCalendar.fullCalendar('rerenderEvents');
-    console.log("test function is called")
-  }
-
-  /**
-   * get events from scheduling service to display on calendar
-   */
-  /*
-  getSchedule() {
-    this.scheduling.createSchedule().subscribe(schedule => {
-      this.items = schedule
-    })
-  }
-
-  updateCalendar() {
-    this.getSchedule()
-    this.items.forEach((task: TaskModel) => {
-      task.schedule.forEach((slot: TimeSlot) => {
-        this.ucCalendar.fullCalendar('renderEvent', {
-          title: task.name,
-          start: slot.start.toLocaleString(),
-          end: slot.end.toLocaleString()
-        });
-      })
-    })
-  }
-  */
   updateCalendar() {
     this.scheduling.createSchedule().subscribe((schedule: TaskModel[]) => {
-      schedule.forEach((task: TaskModel) => {
+      this.schedule = schedule
+      this.calendarSlots.splice(0, this.calendarSlots.length)
+      this.schedule.forEach((task: TaskModel) => {
         task.schedule.forEach((slot: TimeSlot) => {
-          this.ucCalendar.fullCalendar('renderEvent', {
+          this.calendarSlots.push({
             title: task.name,
             start: slot.start.toLocaleString(),
             end: slot.end.toLocaleString()
-          });
-        })
+          })
+        });
       })
+      this.drawEvents()
     })
+  }
+
+  drawEvents() {
+    this.ucCalendar.fullCalendar('removeEventSource', 1)
+    this.ucCalendar.fullCalendar('addEventSource', { 
+      id: 1, 
+      events: this.calendarSlots 
+    })
+  }
+  
+  clickButton(arg) { 
+    this.drawEvents()
   }
 }
