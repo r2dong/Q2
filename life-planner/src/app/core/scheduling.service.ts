@@ -479,11 +479,6 @@ export class SchedulingService {
 
   static createScheduleHelper(tasks: TaskModel[]): TaskModel[] {
     
-    tasks = stubTaskLists.zeroHoursNoDueTasks
-    tasks.forEach((t: TaskModel) => {
-      console.log(t.hours)
-    })
-
     // temporary fix (convert null to undefined since shceudling algortihm
     // checks only for undefined
     tasks.forEach((t: TaskModel) => {

@@ -148,4 +148,11 @@ describe('SchedulingService', () => {
       expect(isValidSchedule(taskLists.noDueTaskList, schedule)).toBeTruthy()
     })
   }));
+
+  fit('all tasks have zero hours and no due date', inject([SchedulingService], (service: SchedulingService) => {
+    spyOn(taskService, "getTasks").and.returnValue(Observable.of(taskLists.zeroHoursNoDueTasks))
+    service.createSchedule().subscribe((schedule) => {
+      expect(isValidSchedule(taskLists.zeroHoursNoDueTasks, schedule)).toBeTruthy()
+    })
+  }));
 });
