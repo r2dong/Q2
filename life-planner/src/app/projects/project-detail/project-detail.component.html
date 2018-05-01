@@ -10,7 +10,7 @@
     <div class="card-body">
       <ul class="list-group">
         <li class="list-group-item">Project Name: {{ project.name }}</li>
-        <li class="list-group-item">Project Due Date: {{ project.dueDateTime.split('-')[1] }}-{{ project.dueDateTime.split('-')[2] }}-{{ project.dueDateTime.split('-')[0] }}</li>
+        <li class="list-group-item">Project Due Date: {{ project.dueDateTime | date: 'MM/dd/yyyy' }}</li>
         <li class="list-group-item">Project Added On: {{ project.createdAt }}</li>
         <li class="list-group-item">Project Last Updated On: {{ project.updatedAt }}</li>
       </ul>

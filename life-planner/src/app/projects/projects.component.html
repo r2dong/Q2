@@ -22,7 +22,7 @@
       </tr>
       <tr *ngFor="let project of projects">
         <td>{{ project.name }}</td>
-        <td>{{ project.dueDateTime.split('-')[1] }}-{{ project.dueDateTime.split('-')[2] }}-{{ project.dueDateTime.split('-')[0] }}</td>
+        <td>{{ project.dueDateTime | date: 'MM/dd/yyyy' }}</td>
         <td>{{project.urgent | yesNoPipe}}</td>
         <td> {{project.important | yesNoPipe}}</td>
         <td> {{project.complete |yesNoPipe}}</td>
