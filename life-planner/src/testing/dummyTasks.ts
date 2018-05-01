@@ -261,3 +261,34 @@ export const allSortsOfTasks: TaskModel[] = [
         hours: 1
     },
 ]
+
+export const zeroHoursNoDueTasks: TaskModel[] = [
+    {
+        name: "rob a bank",
+        urgent: true,
+        important: false,
+        isComplete: false,
+        hours: 0
+    },
+    {
+        name: "pass this course",
+        urgent: false,
+        important: true,
+        isComplete: false,
+        hours: 0
+    },
+    {
+        name: "go to the gym",
+        urgent: true,
+        important: true,
+        isComplete: false,
+        hours: 0
+    },
+    {
+        name: "eat tacos",
+        urgent: false,
+        important: false,
+        isComplete: false,
+        hours: 0
+    },
+]

@@ -115,8 +115,8 @@ export class SchedulingService {
     
     // sort tasks to interleave with duration
     tasks.sort((t1, t2) => {
-      let hours1: number = t1.hours === undefined ? defaulthours : t1.hours
-      let hours2: number = t2.hours === undefined ? defaulthours : t2.hours
+      let hours1: number = t1.hours === 0 ? defaulthours : t1.hours
+      let hours2: number = t2.hours === 0 ? defaulthours : t2.hours
       return hours1 - hours2
     })
 
@@ -180,7 +180,7 @@ export class SchedulingService {
           break
         if (curTask.value.schedule === undefined)
           curTask.value.schedule = []
-        timeRemain = curTask.value.hours === undefined ? defaulthours : curTask.value.hours
+        timeRemain = curTask.value.hours === 0 ? defaulthours : curTask.value.hours
         timeRemain *= hourVal
       }
 
@@ -336,7 +336,7 @@ export class SchedulingService {
           basis = SchedulingService.roundToEndOfDay(basis)
           curDayStart.setDate(basis.getDate())
           curDayEnd.setDate(basis.getDate())
-          timeRemain = task.value.hours === undefined ? defaulthours : task.value.hours
+          timeRemain = task.value.hours === 0 ? defaulthours : task.value.hours
           timeRemain *= hourVal
         }
       }
@@ -478,10 +478,14 @@ export class SchedulingService {
   }
 
   static createScheduleHelper(tasks: TaskModel[]): TaskModel[] {
+    
+    tasks = stubTaskLists.zeroHoursNoDueTasks
+    tasks.forEach((t: TaskModel) => {
+      console.log(t.hours)
+    })
 
     // temporary fix (convert null to undefined since shceudling algortihm
     // checks only for undefined
-    tasks = stubTaskLists.noDueTaskList
     tasks.forEach((t: TaskModel) => {
       if (t.dueDateTime == null)
         t.dueDateTime = undefined

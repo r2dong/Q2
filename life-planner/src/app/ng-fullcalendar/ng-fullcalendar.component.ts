@@ -3,6 +3,8 @@ import { CalendarComponent } from 'ng-fullcalendar';
 import { Options } from 'fullcalendar';
 import { SchedulingService } from '../core/scheduling.service'
 import { TimeSlot, TaskModel } from '../tasks/task.model'
+import { Router } from '@angular/router'
+import { RoleService } from '../roles/role.service'
 
 interface Item {
   title: String
@@ -12,8 +14,10 @@ interface Item {
 
 interface CalendarSlot {
   title: String
+  id: String
   start: String
   end: String
+  color?: String
 }
 
 @Component({
@@ -31,14 +35,17 @@ export class NgFullcalendarComponent implements OnInit {
   /* to fix testing issue "can't bind to ..." */
   @Input("options") options: Options;
 
-  constructor(private scheduling: SchedulingService) { }
+  constructor(
+    private scheduling: SchedulingService,
+    private router: Router,
+    private roleService: RoleService
+  ) { }
 
   ngOnInit() {
     this.calendarSlots = []
     this.calendarOptions = {
-      editable: false,
+      editable: true,
       eventLimit: false,
-      lazyFetching: false,
       header: {
         left: 'prev next today',
         center: 'title',
@@ -59,14 +66,31 @@ export class NgFullcalendarComponent implements OnInit {
       this.calendarSlots.splice(0, this.calendarSlots.length)
       this.schedule.forEach((task: TaskModel) => {
         task.schedule.forEach((slot: TimeSlot) => {
-          this.calendarSlots.push({
-            title: task.name,
-            start: slot.start.toLocaleString(),
-            end: slot.end.toLocaleString()
-          })
+          if (task.rid != undefined) {
+            this.roleService.getRole(task.rid).subscribe((role) => {
+              this.calendarSlots.push({
+                title: task.name,
+                id: task.tid,
+                start: slot.start.toLocaleString(),
+                end: slot.end.toLocaleString(),
+                color: role.color
+              })
+              this.drawEvents()
+            })
+          }
+          else {
+            this.calendarSlots.push({
+              title: task.name,
+              id: task.tid,
+              start: slot.start.toLocaleString(),
+              end: slot.end.toLocaleString(),
+              color: 'undefined'
+            })
+            this.drawEvents()
+          }
         });
       })
-      this.drawEvents()
+
     })
   }
 
@@ -77,8 +101,12 @@ export class NgFullcalendarComponent implements OnInit {
       events: this.calendarSlots 
     })
   }
-  
-  clickButton(arg) { 
+
+  clickButton(arg) {
     this.drawEvents()
+  }
+
+  eventClick(arg) {
+    this.router.navigateByUrl('/tasks/' + arg.event.id)
   }
 }
