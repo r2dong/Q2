@@ -441,13 +441,13 @@ export class SchedulingService {
   we don't want to modify the orignal due */
   private static roundToEndOfDay(dueDate: Date): Date {
     let newDue: Date = SchedulingService.copyDate(dueDate)
-    if (dueDate.getHours() > 17 ||
-      dueDate.getHours() == 17 && dueDate.getMinutes() > 0) {
+    if (newDue.getHours() > 17 ||
+      newDue.getHours() == 17 && newDue.getMinutes() > 0) {
       newDue.setHours(17)
       newDue.setMinutes(0)
     }
-    else if (dueDate.getHours() <= 9) {
-      newDue = new Date(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate(), 17)
+    else if (newDue.getHours() <= 9) {
+      newDue = new Date(newDue.getFullYear(), newDue.getMonth(), newDue.getDate(), 17)
       newDue = SchedulingService.subtractDay(newDue)
     }
     return newDue
