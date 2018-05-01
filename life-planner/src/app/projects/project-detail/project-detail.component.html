@@ -10,7 +10,7 @@
     <div class="card-body">
       <ul class="list-group">
         <li class="list-group-item">Project Name: {{ project.name }}</li>
-        <li class="list-group-item">Project Due Date: {{ project.dueDateTime }}</li>
+        <li class="list-group-item">Project Due Date: {{ project.dueDateTime.split('-')[1] }}-{{ project.dueDateTime.split('-')[2] }}-{{ project.dueDateTime.split('-')[0] }}</li>
         <li class="list-group-item">Project Added On: {{ project.createdAt }}</li>
         <li class="list-group-item">Project Last Updated On: {{ project.updatedAt }}</li>
       </ul>
@@ -23,6 +23,7 @@
     </div>
     <div class="card-action card-content grey lighten-4">
       <a routerLink="/projects/edit/{{ pid }}" class="btn btn-dark">Edit</a>
+      <button name="btn-complete" (click) = "onCompleteClick($event)" class ="btn btn-dark {{btnCompleteStyle}}">{{btnCompleteText}}</button>
       <button (click)="onDeleteClick()" class="btn btn-danger">Delete</button>
     </div>
   </div>

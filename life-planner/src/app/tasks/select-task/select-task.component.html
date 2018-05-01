@@ -36,7 +36,7 @@
         <td>{{ task.important | yesNoPipe }}</td>
         <td>{{ task.weight }}</td>
         <td>{{ task.hours }}</td>
-        <td>{{ task.dueDateTime }}</td>
+        <td>{{ task.dueDateTime.split('-')[1] }}-{{ task.dueDateTime.split('-')[2] }}-{{ task.dueDateTime.split('-')[0] }}</td>
         <td>{{ task.isComplete | yesNoPipe }}</td>
         <td>
           <button (click)="onAddClick(task)" class="btn btn-danger"><i class="material-icons">add_box</i></button>
