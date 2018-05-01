@@ -16,8 +16,9 @@
       </ul>
       <hr>
       <ul class="list-group">
-        <li class="list-group-item">IsComplete: </li>
-        <li class="list-group-item">IsUrgent: </li>
+        <li class="list-group-item">IsComplete:{{project.complete | yesNoPipe}} </li>
+        <li class="list-group-item">IsUrgent: {{project.urgent| yesNoPipe}} </li>
+        <li class="list-group-item">IsImportant: {{project.important | yesNoPipe}} </li>
       </ul>
     </div>
     <div class="card-action card-content grey lighten-4">
