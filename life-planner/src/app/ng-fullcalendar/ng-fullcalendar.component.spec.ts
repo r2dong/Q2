@@ -24,6 +24,16 @@ import { ProjectService } from '../projects/project.service';
 import { Options } from 'fullcalendar';
 import { RoleService } from '../roles/role.service';
 import { DefaultViewService } from './default-view.service';
+import { TaskModel } from '../tasks/task.model'
+import * as stubTasks from '../../testing/dummyTasks'
+
+// stubs
+class TaskServiceStub {
+  getTasks(): Observable<TaskModel[]> {
+    return Observable.of(stubTasks.dummyTasks)
+  }
+}
+
 
 describe('NgFullcalendarComponent', () => {
   let component: NgFullcalendarComponent;
@@ -49,7 +59,7 @@ describe('NgFullcalendarComponent', () => {
        ],
        providers: [
         { provide: APP_BASE_HREF, useValue: '/ng-fullcalendar'},
-        TaskService,
+        { provide: TaskService, useClass: TaskServiceStub },
         ProjectService,
         RoleService,
         DefaultViewService
