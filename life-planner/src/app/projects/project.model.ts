@@ -8,6 +8,9 @@ export interface ProjectModel {
   name: string;
   description?: string;
   dueDateTime?: string; // Date
+  important?: boolean;
+  urgent?: boolean;
+  complete?: boolean;
   tids: string[];
   eids?: string[];
   tgids?: string[];

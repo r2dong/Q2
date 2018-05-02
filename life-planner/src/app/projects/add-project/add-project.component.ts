@@ -15,6 +15,8 @@ export class AddProjectComponent implements OnInit {
     pid: '',
     name: '',
     dueDateTime: '',
+    important: false,
+    urgent: false,
     tids: []
   };
 

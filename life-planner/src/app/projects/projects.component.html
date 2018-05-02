@@ -9,17 +9,23 @@
       <tr>
         <th>Name</th>
         <th>Date Due</th>
+        <th>Urgent</th>
+        <th>Important</th>
+        <th>Complete?</th>
         <th></th>
       </tr>
       </thead>
       <tbody>
       <tr>
-        <td colspan="2"></td>
+        <td colspan="5"></td>
         <td><a routerLink="/projects/add" class="btn btn-secondary btn-sm"><i class="material-icons">add</i></a></td>
       </tr>
       <tr *ngFor="let project of projects">
         <td>{{ project.name }}</td>
-        <td>{{ project.dueDateTime.split('-')[1] }}-{{ project.dueDateTime.split('-')[2] }}-{{ project.dueDateTime.split('-')[0] }}</td>
+        <td>{{ project.dueDateTime | date: 'MM/dd/yyyy' }}</td>
+        <td>{{project.urgent | yesNoPipe}}</td>
+        <td> {{project.important | yesNoPipe}}</td>
+        <td> {{project.complete |yesNoPipe}}</td>
         <td><a routerLink="/projects/{{ project.pid }}" class="btn btn-secondary btn-sm"><i class="material-icons">edit</i></a></td>
       </tr>
       </tbody>
@@ -31,6 +37,9 @@
       <tr>
         <th>Name</th>
         <th>Date Due</th>
+        <th>Urgent</th>
+        <th>Important</th>
+        <th>Complete?</th>
         <th></th>
       </tr>
       </thead>

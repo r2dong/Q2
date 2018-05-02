@@ -9,20 +9,21 @@
     <h3 class="card-title">{{ project.name }}</h3>
     <div class="card-body">
       <ul class="list-group">
-        <li class="list-group-item">Project ID: {{ project.pid }}</li>
         <li class="list-group-item">Project Name: {{ project.name }}</li>
-        <li class="list-group-item">Project Due Date: {{ project.dueDateTime }}</li>
+        <li class="list-group-item">Project Due Date: {{ project.dueDateTime | date: 'MM/dd/yyyy' }}</li>
         <li class="list-group-item">Project Added On: {{ project.createdAt }}</li>
         <li class="list-group-item">Project Last Updated On: {{ project.updatedAt }}</li>
       </ul>
       <hr>
       <ul class="list-group">
-        <li class="list-group-item">IsComplete: </li>
-        <li class="list-group-item">IsUrgent: </li>
+        <li class="list-group-item">IsComplete:{{project.complete | yesNoPipe}} </li>
+        <li class="list-group-item">IsUrgent: {{project.urgent| yesNoPipe}} </li>
+        <li class="list-group-item">IsImportant: {{project.important | yesNoPipe}} </li>
       </ul>
     </div>
     <div class="card-action card-content grey lighten-4">
       <a routerLink="/projects/edit/{{ pid }}" class="btn btn-dark">Edit</a>
+      <button name="btn-complete" (click) = "onCompleteClick($event)" class ="btn btn-dark {{btnCompleteStyle}}">{{btnCompleteText}}</button>
       <button (click)="onDeleteClick()" class="btn btn-danger">Delete</button>
     </div>
   </div>

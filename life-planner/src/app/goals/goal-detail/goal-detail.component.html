@@ -11,7 +11,7 @@
       <ul class="list-group">
         <!-- <li class="list-group-item">Goal ID: {{ goal.gid }}</li> -->
         <li class="list-group-item">Goal Name: {{ goal.name }}</li>
-        <li class="list-group-item">Goal Due Date: {{ goal.endDate }}</li>
+        <li class="list-group-item">Goal Due Date: {{ goal.endDate | date: 'MM/dd-yyyy' }}</li>
         <li class="list-group-item">Goal Added On: {{ goal.createdAt }}</li>
         <li class="list-group-item">Goal Last Updated On: {{ goal.updatedAt }}</li>
       </ul>

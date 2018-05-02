@@ -4,6 +4,7 @@ import {AuthService} from '../core/auth.service';
 import {Observable} from 'rxjs/Observable';
 import {ProjectModel} from './Project.model';
 import 'rxjs/add/operator/takeUntil';
+import {EventModel} from '../events/event.model';
 
 
 @Injectable()
@@ -129,7 +130,20 @@ export class ProjectService {
       }
     });
   }
-
+  completeProject(project: ProjectModel) {
+    project.updatedAt = new Date();
+    this.projectDoc = this.projectsRef.doc(project.pid);
+    project.complete = true;
+    console.log('PS: completing project for: ' + project.name);
+    this.projectDoc.update(project);
+  }
+  openCompletedProject (project: ProjectModel) {
+    project.updatedAt = new Date();
+    this.projectDoc = this.projectsRef.doc(project.pid);
+    project.complete = false;
+    console.log('PS: un-completing project for: ' + project.name);
+    this.projectDoc.update(project);
+  }
   removeTaskFromProject(pid: string, tid: string) {
     console.log('PS: removing task' + tid + ' for project pid: ' + pid);
     this.getProject(pid).take(1).forEach(proj => {
