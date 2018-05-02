@@ -33,6 +33,7 @@ import { AddGoalComponent } from './goals/add-goal/add-goal.component';
 import { EditGoalComponent } from './goals/edit-goal/edit-goal.component';
 import { GoalDetailComponent } from './goals/goal-detail/goal-detail.component';
 import { DefaultViewService } from './ng-fullcalendar/default-view.service';
+import { NgFullcalendarModule } from './ng-fullcalendar/ng-fullcalendar.module';
 
 
 @NgModule({
@@ -43,12 +44,8 @@ import { DefaultViewService } from './ng-fullcalendar/default-view.service';
     WelcomeComponent,
     NotFoundComponent,
     NavbarComponent,
-    NgFullcalendarComponent,
-    CalendarComponent
   ],
   imports: [
-    BrowserModule,
-    //FullCalendarModule,
     HttpClientModule,
     AppRoutingModule,
     FlashMessagesModule.forRoot(),
@@ -59,11 +56,11 @@ import { DefaultViewService } from './ng-fullcalendar/default-view.service';
     ProjectsModule,
     EventsModule,
     RolesModule,
+    NgFullcalendarModule
   ],
-  providers: [
-    DefaultViewService
-  ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule {
   constructor(public location: Location) {
