@@ -23,7 +23,6 @@ import {NotFoundComponent} from './not-found/not-found.component';
 import {NavbarComponent} from './navbar/navbar.component';
 import {EventsModule} from './events/events.module';
 import {RolesModule} from './roles/roles.module';
-import { ScheduleComponent } from './schedule/schedule.component';
 
 //calendar
 //import { FullCalendarModule } from 'ng-fullcalendar';
@@ -44,7 +43,6 @@ import { DefaultViewService } from './ng-fullcalendar/default-view.service';
     WelcomeComponent,
     NotFoundComponent,
     NavbarComponent,
-    ScheduleComponent,
     NgFullcalendarComponent,
     CalendarComponent
   ],

@@ -35,7 +35,6 @@ import {ProjectService} from '../projects/project.service';
 import {GoalsComponent} from './goals.component';
 import { NgFullcalendarComponent } from '../ng-fullcalendar/ng-fullcalendar.component'
 import { CalendarComponent } from 'ng-fullcalendar';
-import { ScheduleComponent } from '../schedule/schedule.component'
 
 
 describe('GoalsComponent', () => {
@@ -67,7 +66,6 @@ describe('GoalsComponent', () => {
         NavbarComponent,
         NgFullcalendarComponent,
         CalendarComponent,
-        ScheduleComponent
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/goals'},

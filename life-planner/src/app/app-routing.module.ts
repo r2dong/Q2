@@ -7,7 +7,6 @@ import { HomeComponent } from './home/home.component';
 
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuard } from './core/auth.guard';
-import { ScheduleComponent } from './schedule/schedule.component';
 import { NgFullcalendarComponent } from './ng-fullcalendar/ng-fullcalendar.component'
 
 const routes: Routes = [
@@ -45,10 +44,6 @@ const routes: Routes = [
     path: 'roles',
     loadChildren: 'app/roles/roles.module#RolesModule',
     canActivate: [AuthGuard]
-  },
-  {
-    path: 'schedule',
-    component: ScheduleComponent
   },
   {
     path: '**', 

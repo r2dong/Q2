@@ -37,7 +37,6 @@ import { WelcomeComponent } from './welcome/welcome.component'
 import { NotFoundComponent } from './not-found/not-found.component'
 import { NavbarComponent } from './navbar/navbar.component'
 import { ProjectsModule } from "./projects/projects.module"
-import { ScheduleComponent } from "./schedule/schedule.component"
 import { NgFullcalendarComponent } from '../app/ng-fullcalendar/ng-fullcalendar.component'
 import { CalendarComponent } from 'ng-fullcalendar';
 
@@ -51,7 +50,6 @@ describe('AppComponent', () => {
         WelcomeComponent,
         NotFoundComponent,
         NavbarComponent,
-        ScheduleComponent,
         NgFullcalendarComponent,
         CalendarComponent,
       ],

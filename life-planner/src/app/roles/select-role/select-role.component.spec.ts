@@ -23,7 +23,6 @@ import {APP_BASE_HREF} from '@angular/common';
 import {RolesModule} from '../roles.module';
 import { NgFullcalendarComponent } from '../../ng-fullcalendar/ng-fullcalendar.component'
 import { CalendarComponent } from 'ng-fullcalendar'
-import { ScheduleComponent } from '../../schedule/schedule.component'
 
 describe('SelectRoleComponent', () => {
   let component: SelectRoleComponent;
@@ -52,7 +51,6 @@ describe('SelectRoleComponent', () => {
         NavbarComponent,
         NgFullcalendarComponent,
         CalendarComponent,
-        ScheduleComponent
       ],
       providers: [
         {provide: APP_BASE_HREF, useValue: '/role-detail'},

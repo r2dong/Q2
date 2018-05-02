@@ -31,7 +31,6 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { EventsComponent } from './events.component';
 import { By } from '@angular/platform-browser'
 import { ProjectService } from "../projects/project.service";
-import { ScheduleComponent } from '../schedule/schedule.component'
 import { NgFullcalendarComponent } from '../ng-fullcalendar/ng-fullcalendar.component'
 import { CalendarComponent } from 'ng-fullcalendar'
 
@@ -51,7 +50,6 @@ describe('EventsComponent', () => {
       LoginComponent,
       NotFoundComponent,
       NavbarComponent,
-      ScheduleComponent,
       NgFullcalendarComponent,
       CalendarComponent
     ],

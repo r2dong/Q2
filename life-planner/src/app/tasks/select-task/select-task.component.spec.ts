@@ -32,7 +32,6 @@ import {SelectTaskComponent} from './select-task.component';
 import {ProjectService} from '../../projects/project.service';
 import { NgFullcalendarComponent } from '../../ng-fullcalendar/ng-fullcalendar.component'
 import { CalendarComponent } from 'ng-fullcalendar'
-import { ScheduleComponent } from '../../schedule/schedule.component'
 
 
 describe('SelectTaskComponent', () => {
@@ -64,7 +63,6 @@ describe('SelectTaskComponent', () => {
         NavbarComponent,
         CalendarComponent,
         NgFullcalendarComponent,
-        ScheduleComponent
       ],
       providers: [
         {provide: APP_BASE_HREF, useValue: '/role-detail'},

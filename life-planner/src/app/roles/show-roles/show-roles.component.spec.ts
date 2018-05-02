@@ -34,7 +34,6 @@ import {ShowRolesComponent} from './show-roles.component';
 import {RoleService} from '../role.service';
 import { NgFullcalendarComponent } from '../../ng-fullcalendar/ng-fullcalendar.component'
 import { CalendarComponent } from 'ng-fullcalendar'
-import { ScheduleComponent } from '../../schedule/schedule.component'
 
 describe('ShowRolesComponent', () => {
   let component: ShowRolesComponent;
@@ -66,7 +65,6 @@ describe('ShowRolesComponent', () => {
         NavbarComponent,
         NgFullcalendarComponent,
         CalendarComponent,
-        ScheduleComponent
       ],
       providers: [
         {provide: APP_BASE_HREF, useValue: '/role-detail'},

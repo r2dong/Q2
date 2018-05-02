@@ -20,7 +20,6 @@ import {WelcomeComponent} from '../welcome/welcome.component';
 import {APP_BASE_HREF} from '@angular/common';
 import { NgFullcalendarComponent } from '../ng-fullcalendar/ng-fullcalendar.component'
 import { CalendarComponent } from 'ng-fullcalendar';
-import { ScheduleComponent } from '../schedule/schedule.component'
 
 describe('GoalService', () => {
   beforeEach(() => {
@@ -45,7 +44,6 @@ describe('GoalService', () => {
         NavbarComponent,
         NgFullcalendarComponent,
         CalendarComponent,
-        ScheduleComponent
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/goals'},

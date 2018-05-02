@@ -29,7 +29,6 @@ import {AuthService} from '../../core/auth.service';
 import {NotFoundComponent} from '../../not-found/not-found.component';
 import {NavbarComponent} from '../../navbar/navbar.component';
 import { NgFullcalendarComponent } from '../../ng-fullcalendar/ng-fullcalendar.component';
-import { ScheduleComponent } from '../../schedule/schedule.component';
 import { CalendarComponent } from 'ng-fullcalendar'
 
 describe('SelectEventComponent', () => {
@@ -47,7 +46,6 @@ describe('SelectEventComponent', () => {
         NotFoundComponent,
         NavbarComponent,
         NgFullcalendarComponent,
-        ScheduleComponent,
         CalendarComponent
       ],
       imports: [        

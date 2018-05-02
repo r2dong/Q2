@@ -16,14 +16,14 @@ import { WelcomeComponent } from '../welcome/welcome.component';
 import { AuthService } from '../core/auth.service';
 import { NotFoundComponent } from '../not-found/not-found.component';
 import { NavbarComponent } from '../navbar/navbar.component';
-import {Observable} from 'rxjs/Observable';
-import { ScheduleComponent } from '../schedule/schedule.component'
+import { Observable } from 'rxjs/Observable';
 import { NgFullcalendarComponent } from './ng-fullcalendar.component'
 import { CalendarComponent } from 'ng-fullcalendar'
 import { TaskService } from '../tasks/task.service';
 import { ProjectService } from '../projects/project.service';
 import { Options } from 'fullcalendar';
 import { RoleService } from '../roles/role.service';
+import { DefaultViewService } from './default-view.service';
 
 describe('NgFullcalendarComponent', () => {
   let component: NgFullcalendarComponent;
@@ -44,7 +44,6 @@ describe('NgFullcalendarComponent', () => {
         LoginComponent,
         NotFoundComponent,
         NavbarComponent,
-        ScheduleComponent,
         NgFullcalendarComponent,
         CalendarComponent
        ],
@@ -52,7 +51,8 @@ describe('NgFullcalendarComponent', () => {
         { provide: APP_BASE_HREF, useValue: '/ng-fullcalendar'},
         TaskService,
         ProjectService,
-        RoleService
+        RoleService,
+        DefaultViewService
        ]
     })
     .compileComponents();
@@ -64,7 +64,7 @@ describe('NgFullcalendarComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  fit('should create', () => {
     expect(component).toBeTruthy();
   });
 });
