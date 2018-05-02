@@ -33,6 +33,7 @@ import { GoalsComponent } from './goals/goals.component';
 import { AddGoalComponent } from './goals/add-goal/add-goal.component';
 import { EditGoalComponent } from './goals/edit-goal/edit-goal.component';
 import { GoalDetailComponent } from './goals/goal-detail/goal-detail.component';
+import { DefaultViewService } from './ng-fullcalendar/default-view.service';
 
 
 @NgModule({
@@ -61,7 +62,9 @@ import { GoalDetailComponent } from './goals/goal-detail/goal-detail.component';
     EventsModule,
     RolesModule,
   ],
-  providers: [],
+  providers: [
+    DefaultViewService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

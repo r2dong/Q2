@@ -5,6 +5,7 @@ import { SchedulingService } from '../core/scheduling.service'
 import { TimeSlot, TaskModel } from '../tasks/task.model'
 import { Router } from '@angular/router'
 import { RoleService } from '../roles/role.service'
+import { DefaultViewService } from './default-view.service'
 
 interface Item {
   title: String
@@ -30,6 +31,7 @@ export class NgFullcalendarComponent implements OnInit {
   schedule: TaskModel[]
   calendarSlots: CalendarSlot[]
   calendarOptions: Options
+  defaultView: String
   @ViewChild(CalendarComponent) ucCalendar: CalendarComponent
 
   /* to fix testing issue "can't bind to ..." */
@@ -38,7 +40,8 @@ export class NgFullcalendarComponent implements OnInit {
   constructor(
     private scheduling: SchedulingService,
     private router: Router,
-    private roleService: RoleService
+    private roleService: RoleService,
+    private defaultViewService: DefaultViewService
   ) { }
 
   ngOnInit() {
@@ -46,6 +49,8 @@ export class NgFullcalendarComponent implements OnInit {
     this.calendarOptions = {
       editable: true,
       eventLimit: false,
+      defaultView: this.defaultViewService.getDefaultView(),
+      defaultDate: this.defaultViewService.getDefaultDate(),
       header: {
         left: 'prev next today',
         center: 'title',
@@ -109,5 +114,13 @@ export class NgFullcalendarComponent implements OnInit {
 
   eventClick(arg) {
     this.router.navigateByUrl('/tasks/' + arg.event.id)
+  }
+
+  viewRender(arg) {
+    let view = this.ucCalendar.fullCalendar('getView')
+    let date = this.ucCalendar.fullCalendar('getDate')
+    console.log(date)
+    this.defaultViewService.setDefaultView(view.name)
+    this.defaultViewService.setDefaultDate(date)
   }
 }
