@@ -57,7 +57,8 @@ export class NgFullcalendarComponent implements OnInit {
           id: 1
         }
       ]
-    };
+    }
+    this.updateCalendar()
   }
 
   updateCalendar() {
