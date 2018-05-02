@@ -70,6 +70,26 @@ export class EventService {
     });
     return this.events;
   }
+  completeEvents(events: EventModel[]) {
+    console.log('ES: competing all events in Project');
+    let ii: number;
+    for (ii = 0; ii < events.length; ii++) {
+      events[ii].updatedAt = new Date();
+      this.eventDoc = this.eventsRef.doc(events[ii].eid);
+      events[ii].complete = true;
+      this.eventDoc.update(events[ii]);
+    }
+  }
+  openCompletedEvents(events: EventModel[]){
+    console.log('ES: Opening all events in Project');
+    let ii: number;
+    for (ii = 0; ii < events.length; ii++) {
+      events[ii].updatedAt = new Date();
+      this.eventDoc = this.eventsRef.doc(events[ii].eid);
+      events[ii].complete = false;
+      this.eventDoc.update(events[ii]);
+    }
+  }
   completeEvent(event: EventModel) {
     event.updatedAt = new Date();
     this.eventDoc = this.eventsRef.doc(event.eid);

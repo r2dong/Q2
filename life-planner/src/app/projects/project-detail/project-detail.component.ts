@@ -68,12 +68,16 @@ export class ProjectDetailComponent implements OnInit {
   onCompleteClick(event) {
     if (event.srcElement.innerHTML === 'Complete?') {
       this.projectService.completeProject(this.project);
+      this.es.completeEvents(this.projectEvents);
+      this.ts.completeTasks(this.projectTasks);
       this.flashMessage.show('Project Complete', {
         cssClass: 'alert-success', timeout: 4000
       });
       event.srcElement.innerHTML = 'Completed';
     } else if (event.srcElement.innerHTML === 'Completed') {
       this.projectService.openCompletedProject(this.project);
+      this.es.openCompletedEvents(this.projectEvents);
+      this.ts.openCompletedTasks(this.projectTasks);
       this.flashMessage.show('Project opened', {
         cssClass: 'alert-success', timeout: 4000
       });
