@@ -56,21 +56,15 @@ export class NgFullcalendarComponent implements OnInit {
         center: 'title',
         right: 'month, agendaWeek, agendaDay, listMonth'
       },
-      eventSources: [
-        {
-          events: this.calendarSlots,
-          id: 1
-        }
-      ]
+      events: []
     }
     this.updateCalendar()
   }
-
+  
   updateCalendar() {
     this.scheduling.createSchedule().subscribe((schedule: TaskModel[]) => {
-      this.schedule = schedule
-      this.calendarSlots.splice(0, this.calendarSlots.length)
-      this.schedule.forEach((task: TaskModel) => {
+      this.calendarSlots = []
+      schedule.forEach((task: TaskModel) => {
         task.schedule.forEach((slot: TimeSlot) => {
           if (task.rid != undefined) {
             this.roleService.getRole(task.rid).subscribe((role) => {
@@ -81,7 +75,6 @@ export class NgFullcalendarComponent implements OnInit {
                 end: slot.end.toLocaleString(),
                 color: role.color
               })
-              this.drawEvents()
             })
           }
           else {
@@ -92,31 +85,21 @@ export class NgFullcalendarComponent implements OnInit {
               end: slot.end.toLocaleString(),
               color: 'undefined'
             })
-            this.drawEvents()
           }
         });
       })
-
     })
   }
 
-  drawEvents() {
-    this.ucCalendar.fullCalendar('removeEventSource', 1)
-    this.ucCalendar.fullCalendar('addEventSource', { 
-      id: 1, 
-      events: this.calendarSlots 
-    })
+  clickButton(arg): void {
+
   }
 
-  clickButton(arg) {
-    this.drawEvents()
-  }
-
-  eventClick(arg) {
+  eventClick(arg): void {
     this.router.navigateByUrl('/tasks/' + arg.event.id)
   }
 
-  viewRender(arg) {
+  viewRender(arg): void {
     let view = this.ucCalendar.fullCalendar('getView')
     let date = this.ucCalendar.fullCalendar('getDate')
     console.log(date)
