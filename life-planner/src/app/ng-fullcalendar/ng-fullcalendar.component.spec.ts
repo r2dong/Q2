@@ -22,7 +22,8 @@ import { NgFullcalendarComponent } from './ng-fullcalendar.component'
 import { CalendarComponent } from 'ng-fullcalendar'
 import { TaskService } from '../tasks/task.service';
 import { ProjectService } from '../projects/project.service';
-
+import { Options } from 'fullcalendar';
+import { RoleService } from '../roles/role.service';
 
 describe('NgFullcalendarComponent', () => {
   let component: NgFullcalendarComponent;
@@ -50,7 +51,8 @@ describe('NgFullcalendarComponent', () => {
        providers: [
         { provide: APP_BASE_HREF, useValue: '/ng-fullcalendar'},
         TaskService,
-        ProjectService
+        ProjectService,
+        RoleService
        ]
     })
     .compileComponents();

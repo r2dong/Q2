@@ -124,32 +124,32 @@ describe('SchedulingService', () => {
     taskService = TestBed.get(TaskService)
   });
 
-  fit('should be created', inject([SchedulingService], (service: SchedulingService) => {
+  it('should be created', inject([SchedulingService], (service: SchedulingService) => {
     expect(service).toBeTruthy();
   }));
 
-  fit('original dummyTasks', inject([SchedulingService], (service: SchedulingService) => {
+  it('original dummyTasks', inject([SchedulingService], (service: SchedulingService) => {
     spyOn(taskService, "getTasks").and.returnValue(Observable.of(taskLists.dummyTasks))
     service.createSchedule().subscribe((schedule) => {
       expect(isValidSchedule(taskLists.dummyTasks, schedule)).toBeTruthy()
     })
   }));
 
-  fit('empty task list', inject([SchedulingService], (service: SchedulingService) => {
+  it('empty task list', inject([SchedulingService], (service: SchedulingService) => {
     spyOn(taskService, "getTasks").and.returnValue(Observable.of(taskLists.emptyTaskList))
     service.createSchedule().subscribe((schedule) => {
       expect(isValidSchedule(taskLists.emptyTaskList, schedule)).toBeTruthy()
     })
   }));
 
-  fit('all tasks have no due date', inject([SchedulingService], (service: SchedulingService) => {
+  it('all tasks have no due date', inject([SchedulingService], (service: SchedulingService) => {
     spyOn(taskService, "getTasks").and.returnValue(Observable.of(taskLists.noDueTaskList))
     service.createSchedule().subscribe((schedule) => {
       expect(isValidSchedule(taskLists.noDueTaskList, schedule)).toBeTruthy()
     })
   }));
 
-  fit('all tasks have zero hours and no due date', inject([SchedulingService], (service: SchedulingService) => {
+  it('all tasks have zero hours and no due date', inject([SchedulingService], (service: SchedulingService) => {
     spyOn(taskService, "getTasks").and.returnValue(Observable.of(taskLists.zeroHoursNoDueTasks))
     service.createSchedule().subscribe((schedule) => {
       expect(isValidSchedule(taskLists.zeroHoursNoDueTasks, schedule)).toBeTruthy()

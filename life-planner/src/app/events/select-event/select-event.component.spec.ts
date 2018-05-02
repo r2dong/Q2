@@ -28,6 +28,9 @@ import {WelcomeComponent} from '../../welcome/welcome.component';
 import {AuthService} from '../../core/auth.service';
 import {NotFoundComponent} from '../../not-found/not-found.component';
 import {NavbarComponent} from '../../navbar/navbar.component';
+import { NgFullcalendarComponent } from '../../ng-fullcalendar/ng-fullcalendar.component';
+import { ScheduleComponent } from '../../schedule/schedule.component';
+import { CalendarComponent } from 'ng-fullcalendar'
 
 describe('SelectEventComponent', () => {
   let component: SelectEventComponent;
@@ -42,8 +45,13 @@ describe('SelectEventComponent', () => {
         HomeComponent,
         LoginComponent,
         NotFoundComponent,
-        NavbarComponent ],
-      imports: [        AppRoutingModule,
+        NavbarComponent,
+        NgFullcalendarComponent,
+        ScheduleComponent,
+        CalendarComponent
+      ],
+      imports: [        
+        AppRoutingModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
         AngularFireStorageModule,
@@ -51,7 +59,8 @@ describe('SelectEventComponent', () => {
         FormsModule,
         SharedModule,
         EventsModule,
-        CoreModule],
+        CoreModule
+      ],
       providers: [
         {provide: APP_BASE_HREF, useValue: '/role-detail'},
         EventService,

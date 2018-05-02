@@ -488,10 +488,6 @@ export class SchedulingService {
     // divide tasks into according quadrants
     let quadrants: Map<number, TaskModel[]> = SchedulingService.filter(tasks)
     
-    //SchedulingService.taskService.getTasks().subscribe(tasks => {
-    //  quadrants = SchedulingService.filter(tasks)
-    //})
-    
     // quadrants = SchedulingService.filter(stubTaskLists.dummyTasks)
     let q1: TaskModel[] = quadrants.get(1)
     let q2: TaskModel[] = quadrants.get(2)
