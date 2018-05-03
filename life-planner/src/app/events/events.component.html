@@ -25,9 +25,9 @@
       </tr>
       <tr *ngFor="let event of events">
         <td>{{ event.name }}</td>
-        <td>{{ event.sdate }}</td>
+        <td>{{ event.sdate | date: 'MM/dd/yyyy' }} </td>
         <td>{{event.stime}}</td>
-        <td>{{event.edate}}</td>
+        <td>{{ event.edate | date: 'MM/dd/yyyy' }}</td>
         <td>{{event.etime}}</td>
         <td>{{event.important|yesNoPipe}}</td>
         <td>{{event.complete|yesNoPipe}}</td>

@@ -16,7 +16,6 @@ export class EventDetailComponent implements OnInit {
   deletedEventName: string;
   btnCompleteText: string;
   btnCompleteStyle: string;
-  $click: string;
   constructor(
     private eventsService: EventService,
     private router: Router,

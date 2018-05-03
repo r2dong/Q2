@@ -19,7 +19,8 @@ export class ProjectDetailComponent implements OnInit {
   project: ProjectModel;
   projectTasks: TaskModel[];
   projectEvents: EventModel[];
-
+  btnCompleteText: string;
+  btnCompleteStyle: string;
   constructor(
     private projectService: ProjectService,
     private router: Router,
@@ -52,11 +53,37 @@ export class ProjectDetailComponent implements OnInit {
           // console.log('PDC: ngOnInit: found ' + events.length.toString() + ' events for pid: ' + this.project.pid);
           this.projectEvents = events;
         });
+
+        if (project.complete) {
+          this.btnCompleteStyle = 'grey lighten-1';
+          this.btnCompleteText =  'Completed';
+        } else {
+          this.btnCompleteStyle = '';
+          this.btnCompleteText = 'Complete?';
+        }
       }
 
     });
   }
-
+  onCompleteClick(event) {
+    if (event.srcElement.innerHTML === 'Complete?') {
+      this.projectService.completeProject(this.project);
+      this.es.completeEvents(this.projectEvents);
+      this.ts.completeTasks(this.projectTasks);
+      this.flashMessage.show('Project Complete', {
+        cssClass: 'alert-success', timeout: 4000
+      });
+      event.srcElement.innerHTML = 'Completed';
+    } else if (event.srcElement.innerHTML === 'Completed') {
+      this.projectService.openCompletedProject(this.project);
+      this.es.openCompletedEvents(this.projectEvents);
+      this.ts.openCompletedTasks(this.projectTasks);
+      this.flashMessage.show('Project opened', {
+        cssClass: 'alert-success', timeout: 4000
+      });
+      event.srcElement.innerHTML = 'Complete?';
+    }
+  }
   onDeleteClick() {
     if (confirm('Are you sure?')) {
       this.projectService.deleteProject(this.project);

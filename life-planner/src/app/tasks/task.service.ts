@@ -85,7 +85,26 @@ export class TaskService {
     console.log('TS update: incoming task name: ' + task.name);
     this.taskDoc.update(task);
   }
-
+  completeTasks(tasks: TaskModel[]) {
+    console.log('TS: completeTasks');
+   let ii: number;
+   for (ii = 0; ii < tasks.length; ii++) {
+        tasks[ii].updatedAt = new Date();
+        this.taskDoc = this.tasksRef.doc(tasks[ii].tid);
+        tasks[ii].isComplete = true;
+        this.taskDoc.update(tasks[ii]);
+   }
+  }
+  openCompletedTasks(tasks: TaskModel []) {
+    console.log('TS: openTasks');
+    let ii: number;
+    for (ii = 0; ii < tasks.length; ii++) {
+      tasks[ii].updatedAt = new Date();
+      this.taskDoc = this.tasksRef.doc(tasks[ii].tid);
+      tasks[ii].isComplete = false;
+      this.taskDoc.update(tasks[ii]);
+    }
+  }
   completeTask(task: TaskModel) {
     task.updatedAt = new Date();
     this.taskDoc = this.tasksRef.doc(task.tid);

@@ -11,9 +11,9 @@
       <ul class="list-group">
         <!--<li class="list-group-item">Event:            {{ event.eid }}</li>-->
         <li class="list-group-item">Event Name:       {{ event.name }}</li>
-        <li class="list-group-item">Event Start Date: {{ event.sdate }}</li>
+        <li class="list-group-item">Event Start Date: {{ event.sdate | date: 'MM/dd/yyyy'}}</li>
         <li class="list-group-item">Event Start time: {{ event.stime }}</li>
-        <li class="list-group-item">Event End Date:   {{event.edate}}</li>
+        <li class="list-group-item">Event End Date:   {{ event.edate | date: 'MM/dd/yyyy'}}</li>
         <li class="list-group-item">Event End Time:   {{event.etime}}</li>
         <li class="list-group-item">Added On:         {{ event.createdAt}}</li>
 

@@ -23,12 +23,4 @@ export class EventsComponent implements OnInit {
       this.pid = undefined;
     }
   }
-  onCheckDelete() {
-    if ( this.complete === false) {
-      if (confirm('Are you sure?')) {
-        this.es.deleteEvent(this.event);
-        console.log('event deleted');
-      }
-    }
-  }
 }

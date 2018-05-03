@@ -14,7 +14,6 @@ export class ShowEventsComponent implements OnInit {
   @Input() events: EventModel[];
   @Input() pid: string;
   selectedEvent: EventModel;
-  isCompleteIcon: string;
   constructor(    private eventService: EventService,
                   private projectService: ProjectService,
                   private router: Router,
