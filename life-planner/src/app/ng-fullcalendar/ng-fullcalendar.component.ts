@@ -31,7 +31,6 @@ export class NgFullcalendarComponent implements OnInit {
   schedule: TaskModel[]
   calendarSlots: CalendarSlot[]
   calendarOptions: Options
-  defaultView: String
   @ViewChild(CalendarComponent) ucCalendar: CalendarComponent
 
   /* to fix testing issue "can't bind to ..." */

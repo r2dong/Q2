@@ -34,7 +34,6 @@ class TaskServiceStub {
   }
 }
 
-
 describe('NgFullcalendarComponent', () => {
   let component: NgFullcalendarComponent;
   let fixture: ComponentFixture<NgFullcalendarComponent>;
@@ -62,7 +61,7 @@ describe('NgFullcalendarComponent', () => {
         { provide: TaskService, useClass: TaskServiceStub },
         ProjectService,
         RoleService,
-        DefaultViewService
+        DefaultViewService,
        ]
     })
     .compileComponents();
@@ -77,4 +76,14 @@ describe('NgFullcalendarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have schedules rendered when entering component', () => {
+    expect(component.calendarOptions).toBeDefined()
+  })
+
+  it('should initilize to default view provided by defaultViewService', () => {
+    let s: DefaultViewService = TestBed.get(DefaultViewService)
+    spyOn(s, "getDefaultView").and.returnValue('agendaWeek')
+    expect(component.calendarOptions.defaultView).toEqual('agendaWeek')
+  })
 });
