@@ -6,6 +6,7 @@ import { TimeSlot, TaskModel } from '../tasks/task.model'
 import { Router } from '@angular/router'
 import { RoleService } from '../roles/role.service'
 import { DefaultViewService } from './default-view.service'
+import { duration } from 'moment';
 
 interface Item {
   title: String
@@ -55,7 +56,9 @@ export class NgFullcalendarComponent implements OnInit {
         center: 'title',
         right: 'month, agendaWeek, agendaDay, listMonth'
       },
-      events: []
+      events: [],
+      minTime: duration(8, 'hours'),
+      maxTime: duration(18, 'hours')
     }
     this.updateCalendar()
   }
