@@ -48,7 +48,7 @@ const minuteVal: number =
   new Date(2018, 3, 8, 10, 2).valueOf() -
   new Date(2018, 3, 8, 10, 1).valueOf()
   // ten minutes (1 / 6 of an hour)
-const defaulthours: number = 1 / 6
+const defaulthours: number = 1 / 2
 
 
 // map month to days in those month
@@ -115,8 +115,8 @@ export class SchedulingService {
     
     // sort tasks to interleave with duration
     tasks.sort((t1, t2) => {
-      let hours1: number = t1.hours === 0 ? defaulthours : t1.hours
-      let hours2: number = t2.hours === 0 ? defaulthours : t2.hours
+      let hours1: number = t1.hours < 0.5 ? defaulthours : t1.hours
+      let hours2: number = t2.hours < 0.5 ? defaulthours : t2.hours
       return hours1 - hours2
     })
 
@@ -180,7 +180,7 @@ export class SchedulingService {
           break
         if (curTask.value.schedule === undefined)
           curTask.value.schedule = []
-        timeRemain = curTask.value.hours === 0 ? defaulthours : curTask.value.hours
+        timeRemain = curTask.value.hours < 0.5 ? defaulthours : curTask.value.hours
         timeRemain *= hourVal
       }
 
@@ -336,7 +336,7 @@ export class SchedulingService {
           basis = SchedulingService.roundToEndOfDay(basis)
           curDayStart.setDate(basis.getDate())
           curDayEnd.setDate(basis.getDate())
-          timeRemain = task.value.hours === 0 ? defaulthours : task.value.hours
+          timeRemain = task.value.hours < 0.5 ? defaulthours : task.value.hours
           timeRemain *= hourVal
         }
       }
