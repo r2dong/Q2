@@ -75,7 +75,7 @@ export class NgFullcalendarComponent implements OnInit {
                 id: task.tid,
                 start: slot.start.toLocaleString(),
                 end: slot.end.toLocaleString(),
-                color: role.color
+                color: role === undefined || role === null ? 'undefined' : role.color
               })
             })
           }
