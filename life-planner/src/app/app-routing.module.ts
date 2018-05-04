@@ -8,13 +8,16 @@ import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuard } from './core/auth.guard';
 import { NgFullcalendarComponent } from './ng-fullcalendar/ng-fullcalendar.component'
+import { AuthService } from './core/auth.service';
 
 const routes: Routes = [
   {
-    path: 'ngFullCalendar', component: NgFullcalendarComponent
+    path: '', redirectTo: '/welcome', pathMatch: 'full'
   },
   {
-    path: '', redirectTo: '/welcome', pathMatch: 'full'
+    path: 'ngFullCalendar', 
+    component: NgFullcalendarComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'welcome', component: WelcomeComponent

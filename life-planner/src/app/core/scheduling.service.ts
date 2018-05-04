@@ -479,6 +479,7 @@ export class SchedulingService {
 
   static createScheduleHelper(tasks: TaskModel[]): TaskModel[] {
     
+    console.log("total of: " + tasks.length + " tasks obtained")
     // temporary fix (convert null to undefined since shceudling algortihm
     // checks only for undefined
     tasks.forEach((t: TaskModel) => {

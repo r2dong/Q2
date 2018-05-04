@@ -32,6 +32,7 @@ export class RoleService {
   }
 
   getRole(rid: string): Observable<RoleModel> {
+    console.log("getting role with id: " + rid)
     this.roleDoc = this.rolesRef.doc(rid);
 
     console.log('TS: ref lookup ' + this.roleDoc.ref.id);

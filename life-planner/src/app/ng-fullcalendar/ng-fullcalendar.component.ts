@@ -65,7 +65,9 @@ export class NgFullcalendarComponent implements OnInit {
       this.calendarSlots = []
       schedule.forEach((task: TaskModel) => {
         task.schedule.forEach((slot: TimeSlot) => {
-          if (task.rid != undefined) {
+          if (task.rid != undefined && task.rid != "") {
+            console.log("trying to get role for task: " + task.name)
+            console.log("with role id: " + task.rid)
             this.roleService.getRole(task.rid).subscribe((role) => {
               this.calendarSlots.push({
                 title: task.name,
