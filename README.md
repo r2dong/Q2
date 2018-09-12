@@ -1,4 +1,5 @@
 # Group_03 - Q2
+###### Deployment can be found at https://q2-test-7a344.firebaseapp.com/
 ###### This Project is still developing, check back later for updates! 
 Web-based app implementing ideas borrowed from "Eleven Habbits of Highly Effective People". Basically, tasks are divided into four quadrants
   Q1, upper left -> Important and Urgent (creating PPT for tomorrow's presentation)
